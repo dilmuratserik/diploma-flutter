@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/main_menu.dart';
+import 'package:mobile/pages/presentation/presentation_page.dart';
+import 'package:mobile/pages/presentation/presentation_view_pager.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +15,6 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
-        //
         // Try running your application with "flutter run". You'll see the
         // application has a blue toolbar. Then, without quitting the app, try
         // changing the primarySwatch below to Colors.green and then invoke
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: ViewPager()
     );
   }
 }
