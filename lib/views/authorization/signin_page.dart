@@ -24,17 +24,25 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Padding( padding: const EdgeInsets.only(left: 30, top: 100),
+        Padding( padding: const EdgeInsets.only(left: 20, top: 100),
           child: Text('Добро пожаловать', style: TextStyle(color: AppColors.green,fontSize: 24, fontWeight: FontWeight.w600)),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Text('Войдите в систему, чтобы продолжить', style: TextStyle(fontSize: 14)),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Container(
             child: TextFormField(
               keyboardType: TextInputType.phone,
@@ -45,15 +53,20 @@ class _SignInPageState extends State<SignInPage> {
                 _mobileFormatter,
               ],
               decoration: InputDecoration(
+                focusColor: Colors.grey,
+                fillColor: Colors.grey,
                 counterText: "",
-                labelText: "Введите номер",
+                labelText: "Номер телефона",
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.grey, width:2)
+                )
               ),
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Введите номер телефона';
+                  return 'Номер телефона';
                 } else if (!value.contains('+')) {
                   return 'Введите корректный номер телефона';
                 }
@@ -63,6 +76,6 @@ class _SignInPageState extends State<SignInPage> {
           ),
         ),
       ])
-    );
+    ));
   }
 }

@@ -69,9 +69,9 @@
     },
     {
       "name": "flutter_spinkit",
-      "rootUri": "file:///Users/IMac/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_spinkit-4.1.2+1",
+      "rootUri": "file:///Users/IMac/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_spinkit-5.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.5"
+      "languageVersion": "2.12"
     },
     {
       "name": "flutter_svg",
@@ -188,7 +188,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-09-15T07:59:47.943535Z",
+  "generated": "2021-09-15T08:46:20.801455Z",
   "generator": "pub",
   "generatorVersion": "2.14.0"
 }
