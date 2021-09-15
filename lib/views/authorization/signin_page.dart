@@ -15,7 +15,10 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   
   TextEditingController phoneController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   final _mobileFormatter = NumberTextInputFormatter();
+  FocusNode focusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -45,6 +48,7 @@ class _SignInPageState extends State<SignInPage> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Container(
             child: TextFormField(
+              focusNode: focusNode,
               keyboardType: TextInputType.phone,
               controller: phoneController,
               cursorColor: Colors.black,
@@ -54,13 +58,14 @@ class _SignInPageState extends State<SignInPage> {
                 _mobileFormatter,
               ],
               decoration: InputDecoration(
-                hintStyle: TextStyle(color: AppColors.gold),
+                labelStyle: TextStyle(color: focusNode.hasFocus ? AppColors.gold : Colors.grey),
                 focusColor: Colors.grey,
                 fillColor: Colors.grey,
                 counterText: "",
                 labelText: "Номер телефона",
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide(color: Colors.grey, width:2)
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: AppColors.gold, width:2)
@@ -71,6 +76,37 @@ class _SignInPageState extends State<SignInPage> {
                   return 'Номер телефона';
                 } else if (!value.contains('+')) {
                   return 'Введите корректный номер телефона';
+                }
+                return null;
+              },
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+          child: Container(
+            child: TextFormField(
+              focusNode: passwordFocusNode,
+              controller: passwordController,
+              cursorColor: Colors.black,
+              maxLength: 12,
+              decoration: InputDecoration(
+                labelStyle: TextStyle(color: passwordFocusNode.hasFocus ? AppColors.gold : Colors.grey),
+                focusColor: Colors.grey,
+                fillColor: Colors.grey,
+                counterText: "",
+                labelText: "Пароль",
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide(color: Colors.grey, width:2)
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: AppColors.gold, width:2)
+                )
+              ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Пароль';
                 }
                 return null;
               },
