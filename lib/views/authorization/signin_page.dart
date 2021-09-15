@@ -47,12 +47,14 @@ class _SignInPageState extends State<SignInPage> {
             child: TextFormField(
               keyboardType: TextInputType.phone,
               controller: phoneController,
+              cursorColor: Colors.black,
               maxLength: 12,
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(RegExp("[0-9]")),
                 _mobileFormatter,
               ],
               decoration: InputDecoration(
+                hintStyle: TextStyle(color: AppColors.gold),
                 focusColor: Colors.grey,
                 fillColor: Colors.grey,
                 counterText: "",
@@ -61,7 +63,7 @@ class _SignInPageState extends State<SignInPage> {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.grey, width:2)
+                  borderSide: BorderSide(color: AppColors.gold, width:2)
                 )
               ),
               validator: (value) {
