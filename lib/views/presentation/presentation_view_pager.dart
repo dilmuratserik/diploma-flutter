@@ -1,8 +1,8 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mobile/views/utill/const.dart';
-import 'package:mobile/views/utill/hex_color.dart';
+import 'package:mobile/views/utills/const.dart';
+import 'package:mobile/views/utills/hex_color.dart';
 
 class ViewPager extends StatefulWidget {
   const ViewPager({Key? key}) : super(key: key);
@@ -71,7 +71,7 @@ class _ViewPagerState extends State<ViewPager> {
                 child: Center(
                     child: Text(
                       "Если Вы не являетесь владельцем организации или магазина, нажмите “Физическое лицо”",
-                      style: TextStyle(color: HexColor.fromHex(AppColors.presentationGray),
+                      style: TextStyle(color: AppColors.presentationGray,
                         fontSize: 17, fontFamily: "Roboto"
                       ),textAlign: TextAlign.center,
                     ),
@@ -82,7 +82,7 @@ class _ViewPagerState extends State<ViewPager> {
                 position: _currentIndex.toDouble(),
                 decorator: DotsDecorator(
                   color: HexColor.fromHex("#D9D9D9"),
-                  activeColor: HexColor.fromHex(AppColors.gold),
+                  activeColor: AppColors.gold,
                   size: const Size.square(9.0),
                   activeSize: const Size(25.0, 9.0),
                   activeShape: RoundedRectangleBorder(
@@ -105,7 +105,7 @@ class _ViewPagerState extends State<ViewPager> {
       child: Text(
         "Пропустить",
         style: TextStyle(
-            color: HexColor.fromHex(AppColors.green),
+            color: AppColors.green,
             fontSize: 18,
             fontWeight: FontWeight.w500,
         fontFamily: "Roboto"),
@@ -117,7 +117,7 @@ class _ViewPagerState extends State<ViewPager> {
     return ElevatedButton(
       onPressed: () {},
       style: ElevatedButton.styleFrom(
-          primary: HexColor.fromHex(AppColors.green),
+          primary: AppColors.green,
           padding: EdgeInsets.symmetric(horizontal: 140, vertical: 17),
           textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: "Roboto")),
       child: Text("Начать"),

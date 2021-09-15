@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/main_menu.dart';
+import 'package:mobile/views/authorization/signin_page.dart';
 import 'package:mobile/views/presentation/presentation_page.dart';
 import 'package:mobile/views/presentation/presentation_view_pager.dart';
 
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: ViewPager()
+      home: SignInPage()
     );
   }
 }
