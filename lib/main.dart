@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/main_menu.dart';
-import 'package:mobile/pages/presentation/presentation_page.dart';
-import 'package:mobile/pages/presentation/presentation_view_pager.dart';
+import 'package:mobile/views/presentation/presentation_page.dart';
+import 'package:mobile/views/presentation/presentation_view_pager.dart';
 
 void main() {
   runApp(MyApp());
