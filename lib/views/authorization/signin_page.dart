@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:mobile/components/bitTextOnBottom.dart';
+import 'package:mobile/components/buttonGreen.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:mobile/views/utills/utill.dart';
@@ -65,10 +67,10 @@ class _SignInPageState extends State<SignInPage> {
                 labelText: "Номер телефона",
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(color: Colors.grey, width:2)
+                  borderSide: BorderSide(color: Colors.grey, width:1)
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.gold, width:2)
+                  borderSide: BorderSide(color: AppColors.gold, width:1)
                 )
               ),
               validator: (value) {
@@ -83,7 +85,7 @@ class _SignInPageState extends State<SignInPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
           child: Container(
             child: TextFormField(
               focusNode: passwordFocusNode,
@@ -98,10 +100,10 @@ class _SignInPageState extends State<SignInPage> {
                 labelText: "Пароль",
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(color: Colors.grey, width:2)
+                  borderSide: BorderSide(color: Colors.grey, width:1)
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.gold, width:2)
+                  borderSide: BorderSide(color: AppColors.gold, width:1)
                 )
               ),
               validator: (value) {
@@ -112,6 +114,29 @@ class _SignInPageState extends State<SignInPage> {
               },
             ),
           ),
+        ),
+        Center(
+          child: 
+            GestureDetector(
+              onTap: () {
+                print('Click');
+              },
+              child: Text(
+                "Забыли пароль?",
+                style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 14,
+                    fontFamily: "Roboto",
+                    decoration: TextDecoration.underline),
+              ),
+            )
+        ),
+        Center(child: getButton('ВОЙТИ')),
+        Spacer(),
+        Center(
+          child: Padding( padding: const EdgeInsets.symmetric(vertical: 40),
+            child: getBitText('У вас нет учетной записи?', 'Зарегистрируйтесь'),
+          )
         ),
       ])
     ));

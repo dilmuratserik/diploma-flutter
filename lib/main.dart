@@ -26,7 +26,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: VerificationPage()
+      // home: VerificationPage()
+      home: SignInPage()
     );
   }
 }
