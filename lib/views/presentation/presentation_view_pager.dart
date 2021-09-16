@@ -1,6 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobile/views/authorization/signin_page.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 
@@ -24,39 +25,42 @@ class _ViewPagerState extends State<ViewPager> {
     return Scaffold(
       body: Column(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Column(
             children: [
-              Container(
-                height: 300,
-                child: PageView(
-                  scrollDirection: Axis.horizontal,
-                  controller: controller,
-                  onPageChanged: (index) {
-                    setState(() {
-                      _currentIndex = index;
-                    });
-                  },
-                  children: <Widget>[
-                    Center(
-                      child:
-                          SvgPicture.asset("assets/images/presentation1.svg"),
-                    ),
-                    Center(
-                      child:
-                          SvgPicture.asset("assets/images/presentation2.svg"),
-                    ),
-                    Center(
-                      child:
-                          SvgPicture.asset("assets/images/presentation3.svg"),
-                    )
-                  ],
+              Padding(
+                padding: const EdgeInsets.only(top : 60),
+                child: Container(
+                  height: 300,
+                  child: PageView(
+                    scrollDirection: Axis.horizontal,
+                    controller: controller,
+                    onPageChanged: (index) {
+                      setState(() {
+                        _currentIndex = index;
+                      });
+                    },
+                    children: <Widget>[
+                      Center(
+                        child:
+                            SvgPicture.asset("assets/images/presentation1.svg"),
+                      ),
+                      Center(
+                        child:
+                            SvgPicture.asset("assets/images/presentation2.svg"),
+                      ),
+                      Center(
+                        child:
+                            SvgPicture.asset("assets/images/presentation3.svg"),
+                      )
+                    ],
+                  ),
                 ),
               ),
               Text(
                 "Регистрация",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24,
                 fontFamily: "Roboto"),
               ),
               Divider(
@@ -64,15 +68,15 @@ class _ViewPagerState extends State<ViewPager> {
                 thickness: 2,
                 indent: 170,
                 endIndent: 170,
-                height: 25,
+                height: 23,
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(20,8,20,22),
+                padding: const EdgeInsets.fromLTRB(22,30,22,50),
                 child: Center(
                     child: Text(
                       "Если Вы не являетесь владельцем организации или магазина, нажмите “Физическое лицо”",
                       style: TextStyle(color: AppColors.presentationGray,
-                        fontSize: 17, fontFamily: "Roboto"
+                        fontSize: 18, fontFamily: "Roboto"
                       ),textAlign: TextAlign.center,
                     ),
                   ),
@@ -98,39 +102,40 @@ class _ViewPagerState extends State<ViewPager> {
   }
 
   Widget _getText() {
-    return TextButton(
-      onPressed: () {
-        controller.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeIn);
-      },
-      child: Text(
-        "Пропустить",
-        style: TextStyle(
-            color: AppColors.green,
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-        fontFamily: "Roboto"),
+    return Padding(
+      padding: const EdgeInsets.only(top : 40),
+      child: TextButton(
+        onPressed: () {
+          controller.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+        },
+        child: Text(
+          "Пропустить",
+          style: TextStyle(
+              color: AppColors.green,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+          fontFamily: "Roboto"),
+        ),
       ),
     );
   }
 
   Widget _getButton() {
-    return ElevatedButton(
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-          primary: AppColors.green,
-          padding: EdgeInsets.symmetric(horizontal: 140, vertical: 17),
-          textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: "Roboto")),
-      child: Text("Начать"),
+    return Padding(
+      padding: const EdgeInsets.only(top : 40),
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SignInPage()),
+          );
+        },
+        style: ElevatedButton.styleFrom(
+            primary: AppColors.green,
+            padding: EdgeInsets.symmetric(horizontal: 145, vertical: 17),
+            textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: "Roboto")),
+        child: Text("Начать"),
+      ),
     );
   }
-//
-// Widget _getContainer(BuildContext context, itemIndex) {
-//   return Container(
-//       width: MediaQuery.of(context).size.width,
-//       decoration: BoxDecoration(color: Colors.amber),
-//       child: Text(
-//         'text $itemIndex',
-//         style: TextStyle(fontSize: 16.0),
-//       ));
-// }
 }

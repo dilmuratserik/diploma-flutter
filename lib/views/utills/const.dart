@@ -5,6 +5,7 @@ class AppColors {
   static final Color green = HexColor.fromHex("#196643");
   static final Color gold = HexColor.fromHex("#DDAB40");
   static final Color presentationGray = HexColor.fromHex("#767785");
+  static final Color editTextBorderColor = HexColor.fromHex("#DADADA");
 }
 
 

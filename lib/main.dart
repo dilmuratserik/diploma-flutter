@@ -3,6 +3,7 @@ import 'package:mobile/main_menu.dart';
 import 'package:mobile/views/authorization/signin_page.dart';
 import 'package:mobile/views/presentation/presentation_page.dart';
 import 'package:mobile/views/presentation/presentation_view_pager.dart';
+import 'package:mobile/views/verification/verification_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: SignInPage()
+      home: VerificationPage()
     );
   }
 }
