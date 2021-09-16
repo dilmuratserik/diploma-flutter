@@ -24,6 +24,12 @@ class _MainMenuPageState extends State<MainMenuPage> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),CategoriesPage(), BasketPage(), ProfilePage()
   ];
+  static const List<String> _pageNames = <String>[
+    "Главная",
+    'Категории',
+    'Корзина',
+    'Профиль',
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -36,7 +42,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.green,
-        title: const Text('Главная'),
+        title:  Text(_pageNames[_selectedIndex]),
         leading: GestureDetector(
             onTap: () {
               print("asd");
@@ -95,19 +101,19 @@ class _MainMenuPageState extends State<MainMenuPage> {
         items:  <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Главная',
+            label: _pageNames[0],
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu),
-            label: 'Категории',
+            label: _pageNames[1],
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart_rounded),
-            label: 'Корзина',
+            label: _pageNames[2],
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Профиль',
+            label: _pageNames[3],
           ),
         ],
         currentIndex: _selectedIndex,
