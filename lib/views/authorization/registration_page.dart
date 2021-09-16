@@ -7,14 +7,14 @@ import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:mobile/views/utills/utill.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({Key? key}) : super(key: key);
+class RegistrationPage extends StatefulWidget {
+  const RegistrationPage({Key? key}) : super(key: key);
 
   @override
-  _SignInPageState createState() => _SignInPageState();
+  _RegistrationPageState createState() => _RegistrationPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _RegistrationPageState extends State<RegistrationPage> {
   
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -40,21 +40,16 @@ class _SignInPageState extends State<SignInPage> {
       child: Scaffold(
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding( padding: const EdgeInsets.only(left: 20, top: 100),
-          child: Text('Добро пожаловать', style: TextStyle(color: AppColors.green,fontSize: 24, fontWeight: FontWeight.w600)),
+          child: Text('Регистрация', style: TextStyle(color: AppColors.green,fontSize: 24, fontWeight: FontWeight.w600)),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Text('Войдите в систему, чтобы продолжить', style: TextStyle(fontSize: 14)),
+          child: Text('Введите номер телефона, чтобы отправить код верификации', style: TextStyle(fontSize: 14)),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Container(
             child: TextFormField(
-              onTap: (){
-                focusNode.requestFocus();
-                passwordFocusNode.unfocus();
-                setState((){});
-              },
               focusNode: focusNode,
               keyboardType: TextInputType.phone,
               controller: phoneController,
@@ -89,63 +84,11 @@ class _SignInPageState extends State<SignInPage> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-          child: Container(
-            child: TextFormField(
-              onTap: (){
-                focusNode.unfocus();
-                passwordFocusNode.requestFocus();
-                setState((){});
-              },
-              focusNode: passwordFocusNode,
-              controller: passwordController,
-              cursorColor: Colors.black,
-              maxLength: 12,
-              decoration: InputDecoration(
-                labelStyle: TextStyle(color: passwordFocusNode.hasFocus ? AppColors.gold : Colors.grey),
-                focusColor: Colors.grey,
-                fillColor: Colors.grey,
-                counterText: "",
-                labelText: "Пароль",
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(color: Colors.grey, width:1)
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.gold, width:1)
-                )
-              ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Пароль';
-                }
-                return null;
-              },
-            ),
-          ),
-        ),
-        Center(
-          child: 
-            GestureDetector(
-              onTap: () {
-                print('Click');
-              },
-              child: Text(
-                "Забыли пароль?",
-                style: TextStyle(
-                    color: Colors.black54,
-                    fontSize: 14,
-                    fontFamily: "Roboto",
-                    decoration: TextDecoration.underline),
-              ),
-            )
-        ),
-        Center(child: getButton('ВОЙТИ')),
+        Center(child: getButton('ОТПРАВИТЬ КОД')),
         Spacer(),
         Center(
           child: Padding( padding: const EdgeInsets.symmetric(vertical: 40),
-            child: getBitText('У вас нет учетной записи?', 'Зарегистрируйтесь'),
+            child: getBitText('У вас есть учетная запись?', 'Войти'),
           )
         ),
       ])
