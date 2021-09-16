@@ -32,9 +32,21 @@ final List<Entry> data = <Entry>[
     Entry('Сырный бочонок'),
     Entry('Домашний'),
   ]),
-  Entry('Рыбная продукция'),
-  Entry('Мясная продукция'),
-  Entry('Снековая продукция'),
-  Entry('Инвентарь'),
+  Entry('Рыбная продукция',
+  <Entry>[
+    Entry('Test'),
+  ]),
+  Entry('Мясная продукция',
+  <Entry>[
+    Entry('Test'),
+  ]),
+  Entry('Снековая продукция',
+  <Entry>[
+    Entry('Test'),
+  ]),
+  Entry('Инвентарь',
+  <Entry>[
+    Entry('Test'),
+  ]),
 ];
 
