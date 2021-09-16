@@ -121,6 +121,7 @@ class _ViewPagerState extends State<ViewPager> {
   }
 
   Widget _getButton() {
+
     return Padding(
       padding: const EdgeInsets.only(top : 40),
       child: ElevatedButton(
