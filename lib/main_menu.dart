@@ -41,13 +41,14 @@ class _MainMenuPageState extends State<MainMenuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.green,
-        title:  Text(_pageNames[_selectedIndex]),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title:  Text(_pageNames[_selectedIndex],style: TextStyle(color: AppColors.green),),
         leading: GestureDetector(
             onTap: () {
               print("asd");
             },
-            child: Icon(Icons.menu)),
+            child: Icon(Icons.menu,color: AppColors.green,)),
         // actions: [
         //   GestureDetector(
         //     onTap: () {},
