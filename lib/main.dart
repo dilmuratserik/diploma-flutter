@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile/main_menu.dart';
 import 'package:mobile/views/authorization/registrationSecond_page.dart';
 import 'package:mobile/views/authorization/setPassword_page.dart';
-import 'package:mobile/views/presentation/presentation_page.dart';
 import 'package:mobile/views/presentation/presentation_view_pager.dart';
 import 'package:mobile/views/verification/verification_page.dart';
 
