@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 5),
                         child: Text(
-                          "Снековая продукция",
+                          "Сырная продукция",
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontSize: 17, fontWeight: FontWeight.w400),
@@ -161,34 +161,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           for (int i = 0; i < 3; i++) HomePageReccomendItem(titles[i])
-          //   Padding(
-          //     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-          //     child: Text(titles[i].mainTitle,
-          //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
-          //   ),
-          // for (int i = 0; i < 2; i++) ProductItem(titles[i]),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-          //   child: TextButton(
-          //       onPressed: () {},
-          //       child: Text("Смотреть все товары",
-          //           style: TextStyle(fontSize: 19, color: AppColors.gold))),
-          // ),
-          // for(int i =0; i <100;i++)
-          //   Text("asdas"),
-
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20),
-          //   child: ClipRRect(
-          //     borderRadius: BorderRadius.circular(8.0),
-          //     child: Image.asset(
-          //           "assets/images/category_image.png",
-          //       fit: BoxFit.contain,
-          //       height: 250.0,
-          //       width: 200.0,
-          //     ),
-          //   ),
-          // )
         ],
       ),
     );
@@ -216,7 +188,7 @@ class HomePageReccomendItem extends StatelessWidget {
           child: TextButton(
               onPressed: () {},
               child: Text("Смотреть все товары",
-                  style: TextStyle(fontSize: 18, color: AppColors.gold))),
+                  style: TextStyle(fontSize: 16, color: AppColors.gold))),
         ),
       ],
     );

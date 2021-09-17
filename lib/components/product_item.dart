@@ -35,10 +35,10 @@ class ProductItem extends StatelessWidget {
                               image:
                               new AssetImage("assets/images/cheese.jpg")))),
                   Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 15),
                       child: Container(
                         // color: Colors.green,
-                        width: MediaQuery.of(context).size.width / 1.80,
+                        width: MediaQuery.of(context).size.width / 1.9,
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
