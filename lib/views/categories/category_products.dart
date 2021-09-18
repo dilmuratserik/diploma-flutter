@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mobile/components/appBar.dart';
 import 'package:mobile/components/listTileEntry.dart';
 import 'package:mobile/components/product_item.dart';
 import 'package:mobile/models/entry_model.dart';
 import 'package:mobile/models/product_model.dart';
 
 
-class CategoryProductsPage extends StatefulWidget {
-  const CategoryProductsPage({Key? key}) : super(key: key);
+class CategoryProductsPage extends StatelessWidget {
+  final String title;
 
-  @override
-  _CategoryProductsPageState createState() => _CategoryProductsPageState();
-}
-
-class _CategoryProductsPageState extends State<CategoryProductsPage> {
+  CategoryProductsPage({required this.title});
 
   List<Product> products = [
     Product(
@@ -40,8 +37,21 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
   
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(children: [
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar:
+        AppBar(
+          elevation: 0,
+          centerTitle: true,
+          title: Text(title, style: TextStyle(color: Colors.black, fontSize: 18)),
+          brightness: Brightness.light,
+          automaticallyImplyLeading: true,
+          backgroundColor: Colors.white,
+          shadowColor: Colors.white,
+          bottomOpacity: 1,
+          iconTheme: IconThemeData(color: Colors.black)
+        ),
+      body: Column(children: [
         for (int i = 0; i < 2; i++) ProductItem(products[i])
       ],)
     );

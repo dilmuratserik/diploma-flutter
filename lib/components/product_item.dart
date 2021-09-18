@@ -38,7 +38,7 @@ class ProductItem extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 15),
                       child: Container(
                         // color: Colors.green,
-                        width: MediaQuery.of(context).size.width / 1.9,
+                        width: MediaQuery.of(context).size.width / 2,
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
