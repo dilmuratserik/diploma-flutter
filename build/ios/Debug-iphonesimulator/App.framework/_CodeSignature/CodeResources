@@ -10,7 +10,7 @@
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		mEPdJW4F1z8iPsCOqC5TiOJoyk0=
+		q2Bljc4VpCaWfEKwwIvdXRlNyBY=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>flutter_assets/NOTICES.Z</key>
 		<data>
-		uurPucOicbES749WKn9eP7x4/wg=
+		2jXtgdTU68tTu+JrrEothWVkhv8=
 		</data>
 		<key>flutter_assets/assets/fonts/Roboto-Regular.ttf</key>
 		<data>
@@ -28,9 +28,21 @@
 		<data>
 		5axwQ6QHe1RtKZZqeF7vJyaMAnU=
 		</data>
+		<key>flutter_assets/assets/images/cheese.jpg</key>
+		<data>
+		v7aUi3FAVjeQ291sW4+kLuQ2UQU=
+		</data>
 		<key>flutter_assets/assets/images/empty_basket.svg</key>
 		<data>
 		4Vr93Ip1IMZhLV9HC9bHmNLOChE=
+		</data>
+		<key>flutter_assets/assets/images/fish.jpg</key>
+		<data>
+		yIkYQpJGcMjEcC8fl15o4TL6eXs=
+		</data>
+		<key>flutter_assets/assets/images/meat.jpg</key>
+		<data>
+		vLxdOUNvNmEUEOIsjiTIkhHIRkA=
 		</data>
 		<key>flutter_assets/assets/images/presentation1.svg</key>
 		<data>
@@ -44,6 +56,10 @@
 		<data>
 		gQVWUuWoVOHaRu+V6vOJRjV8Wcc=
 		</data>
+		<key>flutter_assets/assets/images/snack.jpg</key>
+		<data>
+		ONct90P7Hmde2GjRydu2pS9Whr0=
+		</data>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
 		33xe6rFwPlxRnZOgZWsODADpUI4=
@@ -54,7 +70,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		DzCubnL4eM42Fp01Im/Ov5dWFkM=
+		ZUTLdMuwhOEDvsgLjQjAV9d7sw8=
 		</data>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -71,11 +87,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			mEPdJW4F1z8iPsCOqC5TiOJoyk0=
+			q2Bljc4VpCaWfEKwwIvdXRlNyBY=
 			</data>
 			<key>hash2</key>
 			<data>
-			O7iTBmz8A73pS1c2h8OUqTTafMx2GzmtCxnblZlh25Y=
+			fOw6ey+R2JhhJqKK46cVEa4ApFnk7ilgLQirlNGuHfc=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -93,11 +109,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			uurPucOicbES749WKn9eP7x4/wg=
+			2jXtgdTU68tTu+JrrEothWVkhv8=
 			</data>
 			<key>hash2</key>
 			<data>
-			c7VK7++aPFJcXQ3paW90Sn2I5TLZvWqtFoa8L6JQ6h8=
+			jK9RX77gQihfGHvkUGmu8YwDYHERK0UNNsYns6dWRiI=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/fonts/Roboto-Regular.ttf</key>
@@ -122,6 +138,17 @@
 			RGp7w6ooW+XaqAoqMqbDr+lq7wwGJR8Aq6/gZ3GV5Xo=
 			</data>
 		</dict>
+		<key>flutter_assets/assets/images/cheese.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			v7aUi3FAVjeQ291sW4+kLuQ2UQU=
+			</data>
+			<key>hash2</key>
+			<data>
+			LSWThXqiw4LF64yxeKx5ZGNRXmHFVzFSdItRFbYaxsY=
+			</data>
+		</dict>
 		<key>flutter_assets/assets/images/empty_basket.svg</key>
 		<dict>
 			<key>hash</key>
@@ -131,6 +158,28 @@
 			<key>hash2</key>
 			<data>
 			T61z2xTyhRkG3H5jjYoTSaYyrBbdB7DwtWnkooQHgp4=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/fish.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			yIkYQpJGcMjEcC8fl15o4TL6eXs=
+			</data>
+			<key>hash2</key>
+			<data>
+			66mCKxwcQROi+F89nkS3CxOPQptUjC9LPll1vpGzl64=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/meat.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			vLxdOUNvNmEUEOIsjiTIkhHIRkA=
+			</data>
+			<key>hash2</key>
+			<data>
+			DCUWJ0rJbTgY6n8vfpE3sRmvRNPt45qBmeA+6aTljiA=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/images/presentation1.svg</key>
@@ -166,6 +215,17 @@
 			3blVCPYUu42J07mTByY231j2qjir3399T2gZLAoEgec=
 			</data>
 		</dict>
+		<key>flutter_assets/assets/images/snack.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ONct90P7Hmde2GjRydu2pS9Whr0=
+			</data>
+			<key>hash2</key>
+			<data>
+			H8pu6X5kIaxFcTUmcSNcsfWUCQ9Cr+VpB2ydjRd34vo=
+			</data>
+		</dict>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<dict>
 			<key>hash</key>
@@ -192,11 +252,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			DzCubnL4eM42Fp01Im/Ov5dWFkM=
+			ZUTLdMuwhOEDvsgLjQjAV9d7sw8=
 			</data>
 			<key>hash2</key>
 			<data>
-			95RX44rSIem7Q9pLatchSZXZc7mqz7xLc3fRj7okeuQ=
+			Ob1x2K6rcayPtxW9Y6rXQBmuuPqqtOGjaxfr07p9Rd8=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
