@@ -5,6 +5,8 @@ import 'package:mobile/views/categories/categories_page.dart';
 import 'package:mobile/views/home/home_page.dart';
 import 'package:mobile/views/profile/profile_page.dart';
 import 'package:mobile/views/utills/const.dart';
+import 'package:flutter_search_bar/flutter_search_bar.dart';
+
 
 class MainMenuPage extends StatefulWidget {
   const MainMenuPage({Key? key}) : super(key: key);
@@ -37,28 +39,49 @@ class _MainMenuPageState extends State<MainMenuPage> {
     });
   }
 
+  late SearchBar searchBar;
+
+
+  AppBar buildAppBar(BuildContext context) {
+    return new AppBar(
+      backgroundColor: Colors.white,
+      elevation: 0,
+      title:  Text(_pageNames[_selectedIndex],style: TextStyle(color: AppColors.green),),
+      leading: GestureDetector(
+          onTap: () {
+            print("asd");
+          },
+          child: Icon(Icons.menu,color: Colors.black45,)),
+      actions: [
+        GestureDetector(
+          onTap: () {},
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            // child: Icon(Icons.search, color: Colors.black,),
+            child:  _selectedIndex == 0 ? searchBar.getSearchAction(context) : null,
+          ),
+        ),
+      ],
+        // title: new Text('My Home Page'),
+        // actions:
+    );
+  }
+
+  _MainMenuPageState() {
+    searchBar = new SearchBar(
+        inBar: false,
+        setState: setState,
+        onSubmitted: print,
+        buildDefaultAppBar: buildAppBar
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title:  Text(_pageNames[_selectedIndex],style: TextStyle(color: AppColors.green),),
-        leading: GestureDetector(
-            onTap: () {
-              print("asd");
-            },
-            child: Icon(Icons.menu,color: AppColors.green,)),
-        // actions: [
-        //   GestureDetector(
-        //     onTap: () {},
-        //     child: Padding(
-        //       padding: EdgeInsets.symmetric(horizontal: 16),
-        //       child: Icon(Icons.search),
-        //     ),
-        //   ),
-        // ],
-      ),
+      appBar:
+          searchBar.build(context),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
@@ -120,6 +143,19 @@ class _MainMenuPageState extends State<MainMenuPage> {
         currentIndex: _selectedIndex,
         selectedItemColor: AppColors.green,
         onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+class TextBox extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      color: Colors.black,
+      child: TextField(
+        decoration:
+        InputDecoration(border: InputBorder.none, hintText: 'Search'),
       ),
     );
   }

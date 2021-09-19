@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mobile/components/product_item.dart';
 import 'package:mobile/models/product_model.dart';
+import 'package:mobile/views/categories/category_products.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 
@@ -182,11 +183,13 @@ class HomePageReccomendItem extends StatelessWidget {
           child: Text(product.mainTitle,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
         ),
-        for (int i = 0; i < 2; i++) ProductItem(product),
+        for (int i = 0; i < 2; i++) ProductItem(product)  ,
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
           child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryProductsPage(title: product.mainTitle)));
+              },
               child: Text("Смотреть все товары",
                   style: TextStyle(fontSize: 16, color: AppColors.gold))),
         ),
@@ -194,11 +197,4 @@ class HomePageReccomendItem extends StatelessWidget {
     );
   }
 }
-
-// ClipRRect(
-//   borderRadius: BorderRadius.circular(8.0),
-//   child: Image.asset(
-//     "assets/images/snack.jpg",
-//     fit: BoxFit.cover,
-//   ),
-// ),
+  
