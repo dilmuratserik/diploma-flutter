@@ -52,6 +52,19 @@ class CategoryProductsPage extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.black)
         ),
       body: Column(children: [
+        Container(
+          // height: 20,
+          child: Column(children: [
+            Row(children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: Icon(Icons.sort),
+              ),
+              Text('Без сортировки', style: TextStyle(fontWeight: FontWeight.w500),),
+            ]),
+            Divider(color: Colors.grey)
+          ])
+        ),
         for (int i = 0; i < 2; i++) ProductItem(products[i])
       ],)
     );
