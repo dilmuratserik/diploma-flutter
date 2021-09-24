@@ -65,7 +65,7 @@ class _RegistrationSecondPageState extends State<RegistrationSecondPage> {
               focusNode: roleFocusNode,
               controller: roleController,
               cursorColor: Colors.black,
-              maxLength: 12,
+              maxLength: 30,
               decoration: InputDecoration(
                 labelStyle: TextStyle(color: roleFocusNode.hasFocus ? AppColors.gold : Colors.grey),
                 focusColor: Colors.grey,
@@ -103,7 +103,7 @@ class _RegistrationSecondPageState extends State<RegistrationSecondPage> {
               focusNode: fullNameFocusNode,
               controller: fullNameController,
               cursorColor: Colors.black,
-              maxLength: 12,
+              maxLength: 30,
               decoration: InputDecoration(
                 labelStyle: TextStyle(color: fullNameFocusNode.hasFocus ? AppColors.gold : Colors.grey),
                 focusColor: Colors.grey,
@@ -141,7 +141,7 @@ class _RegistrationSecondPageState extends State<RegistrationSecondPage> {
               focusNode: countryFocusNode,
               controller: countryController,
               cursorColor: Colors.black,
-              maxLength: 12,
+              maxLength: 30,
               decoration: InputDecoration(
                 labelStyle: TextStyle(color: countryFocusNode.hasFocus ? AppColors.gold : Colors.grey),
                 focusColor: Colors.grey,
@@ -179,7 +179,7 @@ class _RegistrationSecondPageState extends State<RegistrationSecondPage> {
               focusNode: cityFocusNode,
               controller: cityController,
               cursorColor: Colors.black,
-              maxLength: 12,
+              maxLength: 30,
               decoration: InputDecoration(
                 labelStyle: TextStyle(color: cityFocusNode.hasFocus ? AppColors.gold : Colors.grey),
                 focusColor: Colors.grey,

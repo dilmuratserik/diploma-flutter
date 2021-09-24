@@ -68,7 +68,7 @@ class _RegistrationThirdPageState extends State<RegistrationThirdPage> {
               focusNode: roleFocusNode,
               controller: roleController,
               cursorColor: Colors.black,
-              maxLength: 12,
+              maxLength: 30,
               decoration: InputDecoration(
                 labelStyle: TextStyle(color: roleFocusNode.hasFocus ? AppColors.gold : Colors.grey),
                 focusColor: Colors.grey,
@@ -107,7 +107,7 @@ class _RegistrationThirdPageState extends State<RegistrationThirdPage> {
               focusNode: fullNameFocusNode,
               controller: fullNameController,
               cursorColor: Colors.black,
-              maxLength: 12,
+              maxLength: 40,
               decoration: InputDecoration(
                 labelStyle: TextStyle(color: fullNameFocusNode.hasFocus ? AppColors.gold : Colors.grey),
                 focusColor: Colors.grey,
@@ -146,7 +146,7 @@ class _RegistrationThirdPageState extends State<RegistrationThirdPage> {
               focusNode: iinFocusNode,
               controller: iinController,
               cursorColor: Colors.black,
-              maxLength: 12,
+              maxLength: 30,
               decoration: InputDecoration(
                 labelStyle: TextStyle(color: iinFocusNode.hasFocus ? AppColors.gold : Colors.grey),
                 focusColor: Colors.grey,
@@ -185,7 +185,7 @@ class _RegistrationThirdPageState extends State<RegistrationThirdPage> {
               focusNode: countryFocusNode,
               controller: countryController,
               cursorColor: Colors.black,
-              maxLength: 12,
+              maxLength: 30,
               decoration: InputDecoration(
                 labelStyle: TextStyle(color: countryFocusNode.hasFocus ? AppColors.gold : Colors.grey),
                 focusColor: Colors.grey,
@@ -224,7 +224,7 @@ class _RegistrationThirdPageState extends State<RegistrationThirdPage> {
               focusNode: cityFocusNode,
               controller: cityController,
               cursorColor: Colors.black,
-              maxLength: 12,
+              maxLength: 30,
               decoration: InputDecoration(
                 labelStyle: TextStyle(color: cityFocusNode.hasFocus ? AppColors.gold : Colors.grey),
                 focusColor: Colors.grey,

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/views/profile/personal_data.dart';
 import 'package:mobile/views/utills/const.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -64,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             InkWell(
                 onTap: () {
-                  print("asd");
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalDataPage()));
                 },
                 child: getMenuText("Личные данные")),
             InkWell(onTap: () {}, child: getMenuText("Адреса")),
