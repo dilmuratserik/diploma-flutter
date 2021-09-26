@@ -57,7 +57,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
           child: Column(
             children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
               child: Container(
                 child: TextFormField(
                   onTap: (){
@@ -143,8 +143,8 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
               child: Container(
                 child: TextFormField(
                   onTap: (){
-                    numberFocusNode.unfocus();
                     fullNameFocusNode.unfocus();
+                    numberFocusNode.unfocus();
                     countryFocusNode.requestFocus();
                     cityFocusNode.unfocus();
                     setState((){});

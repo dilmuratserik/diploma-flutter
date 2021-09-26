@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:mobile/views/profile/personal_data.dart';
 import 'package:mobile/views/utills/const.dart';
 
+import 'addresses_page.dart';
+import 'cards_page.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
@@ -64,12 +67,22 @@ class _ProfilePageState extends State<ProfilePage> {
               child: getTitleText("Настройки аккаунта"),
             ),
             InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalDataPage()));
+              },
+              child: getMenuText("Личные данные")
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AddressesPage()));
+              }, 
+              child: getMenuText("Адреса")
+            ),
+            InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalDataPage()));
-                },
-                child: getMenuText("Личные данные")),
-            InkWell(onTap: () {}, child: getMenuText("Адреса")),
-            InkWell(onTap: () {}, child: getMenuText("Привязанные карты")),
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => CardsPage()));
+              }, child: getMenuText("Привязанные карты")
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 0),
               child: Row(

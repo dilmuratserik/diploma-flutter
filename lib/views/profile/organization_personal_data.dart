@@ -59,11 +59,12 @@ class _OrganizationPersonalDataPageState extends State<OrganizationPersonalDataP
           child: Column(
             children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
               child: Container(
                 child: TextFormField(
                   onTap: (){
                     fullNameFocusNode.requestFocus();
+                    iinFocusNode.unfocus();
                     numberFocusNode.unfocus();
                     countryFocusNode.unfocus();
                     cityFocusNode.unfocus();
@@ -141,6 +142,7 @@ class _OrganizationPersonalDataPageState extends State<OrganizationPersonalDataP
                 child: TextFormField(
                   onTap: (){
                     fullNameFocusNode.unfocus();
+                    iinFocusNode.unfocus();
                     numberFocusNode.requestFocus();
                     countryFocusNode.unfocus();
                     cityFocusNode.unfocus();
@@ -184,8 +186,9 @@ class _OrganizationPersonalDataPageState extends State<OrganizationPersonalDataP
               child: Container(
                 child: TextFormField(
                   onTap: (){
-                    numberFocusNode.unfocus();
+                    iinFocusNode.unfocus();
                     fullNameFocusNode.unfocus();
+                    numberFocusNode.unfocus();
                     countryFocusNode.requestFocus();
                     cityFocusNode.unfocus();
                     setState((){});
@@ -223,6 +226,7 @@ class _OrganizationPersonalDataPageState extends State<OrganizationPersonalDataP
                 child: TextFormField(
                   onTap: (){
                     numberFocusNode.unfocus();
+                    iinFocusNode.unfocus();
                     fullNameFocusNode.unfocus();
                     countryFocusNode.unfocus();
                     cityFocusNode.requestFocus();
