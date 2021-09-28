@@ -30,7 +30,7 @@ class _ViewPagerState extends State<ViewPager> {
           Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top : 60),
+                padding: const EdgeInsets.only(top : 00),
                 child: Container(
                   height: 300,
                   child: PageView(
@@ -68,7 +68,7 @@ class _ViewPagerState extends State<ViewPager> {
                 thickness: 2,
                 indent: 170,
                 endIndent: 170,
-                height: 23,
+                height: 13,
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(22,30,22,50),
@@ -103,7 +103,7 @@ class _ViewPagerState extends State<ViewPager> {
 
   Widget _getText() {
     return Padding(
-      padding: const EdgeInsets.only(top : 40),
+      padding: const EdgeInsets.only(top : 20),
       child: TextButton(
         onPressed: () {
           controller.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeIn);
@@ -123,7 +123,7 @@ class _ViewPagerState extends State<ViewPager> {
   Widget _getButton() {
 
     return Padding(
-      padding: const EdgeInsets.only(top : 40),
+      padding: const EdgeInsets.only(top : 20),
       child: ElevatedButton(
         onPressed: () {
           Navigator.push(

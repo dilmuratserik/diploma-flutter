@@ -6,6 +6,7 @@ import 'package:mobile/components/buttonGreen.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:mobile/views/utills/utill.dart';
+import 'package:mobile/views/verification/verification_page.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -98,6 +99,7 @@ class _SignInPageState extends State<SignInPage> {
                 passwordFocusNode.requestFocus();
                 setState((){});
               },
+
               focusNode: passwordFocusNode,
               controller: passwordController,
               cursorColor: Colors.black,
@@ -141,7 +143,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
             )
         ),
-        Center(child: getButton('ВОЙТИ')),
+        Center(child: getButton('ВОЙТИ', )),
         Spacer(),
         Center(
           child: Padding( padding: const EdgeInsets.symmetric(vertical: 40),

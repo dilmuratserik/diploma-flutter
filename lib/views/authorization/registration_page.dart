@@ -6,6 +6,7 @@ import 'package:mobile/components/buttonGreen.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:mobile/views/utills/utill.dart';
+import 'package:mobile/views/verification/verification_page.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -84,7 +85,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
           ),
         ),
-        Center(child: getButton('ОТПРАВИТЬ КОД')),
+        Center(child: getButton('ОТПРАВИТЬ КОД')  ),
         Spacer(),
         Center(
           child: Padding( padding: const EdgeInsets.symmetric(vertical: 40),

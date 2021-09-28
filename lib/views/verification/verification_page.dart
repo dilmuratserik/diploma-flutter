@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/main_menu.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -118,10 +119,10 @@ class _VerificationPageState extends State<VerificationPage> {
       padding: const EdgeInsets.only(top: 30, left: 20,right: 20),
       child: ElevatedButton(
         onPressed: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => SignInPage()),
-          // );
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MainMenuPage()),
+          );
         },
         style: ElevatedButton.styleFrom(
             minimumSize: Size(double.infinity, 30), // double.infinity is the width and 30 is the height

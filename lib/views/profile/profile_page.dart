@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/views/authorization/signin_page.dart';
+import 'package:mobile/views/profile/change_password_page.dart';
 import 'package:mobile/views/profile/personal_data.dart';
 import 'package:mobile/views/utills/const.dart';
 
@@ -124,7 +126,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   ]),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordPage()));
+
+              },
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Row(

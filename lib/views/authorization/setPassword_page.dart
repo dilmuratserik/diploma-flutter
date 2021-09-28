@@ -6,6 +6,7 @@ import 'package:mobile/components/buttonGreen.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:mobile/views/utills/utill.dart';
+import 'package:mobile/views/verification/verification_page.dart';
 
 class SetPasswordPage extends StatefulWidget {
   const SetPasswordPage({Key? key}) : super(key: key);
@@ -118,7 +119,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
             ),
           ),
         ),
-        Center(child: getButton('УСТАНОВИТЬ ПАРОЛЬ')),
+        Center(child: getButton('УСТАНОВИТЬ ПАРОЛЬ' )),
       ])
     ));
   }

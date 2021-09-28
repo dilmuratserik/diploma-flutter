@@ -6,6 +6,7 @@ import 'package:mobile/components/buttonGreen.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:mobile/views/utills/utill.dart';
+import 'package:mobile/views/verification/verification_page.dart';
 
 class RegistrationThirdPage extends StatefulWidget {
   const RegistrationThirdPage({Key? key}) : super(key: key);
@@ -249,7 +250,7 @@ class _RegistrationThirdPageState extends State<RegistrationThirdPage> {
           ),
         ),
         Spacer(),
-        Center(child: getButton('ПРОДОЛЖИТЬ РЕГИСТРАЦИЮ')),
+        Center(child: getButton('ПРОДОЛЖИТЬ РЕГИСТРАЦИЮ' )),
         Center(
           child: Padding( padding: const EdgeInsets.only(bottom: 40, top: 20),
             child: getBitText('У вас есть учетная запись?', 'Войти'),
