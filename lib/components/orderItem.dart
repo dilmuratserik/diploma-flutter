@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/models/order_model.dart';
+import 'package:mobile/views/profile/order_info_page.dart';
 
 class OrderItem extends StatefulWidget {
   OrderItem(this.order);
@@ -17,7 +18,7 @@ class _OrderItemState extends State<OrderItem> {
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 3),
       child: GestureDetector(
         onTap: (){
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => AboutProductPage(widget.order)));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => OrderInfoPage(widget.order)));
         },
         child: Card(
           elevation: 2,

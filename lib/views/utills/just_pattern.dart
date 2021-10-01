@@ -31,7 +31,6 @@ class _JustPageState extends State<JustPage> {
           elevation: 0,
           centerTitle: true,
           title: Text('Title', style: TextStyle(color: Colors.black, fontSize: 18)),
-          brightness: Brightness.light,
           automaticallyImplyLeading: true,
           backgroundColor: Colors.white,
           shadowColor: Colors.white,
