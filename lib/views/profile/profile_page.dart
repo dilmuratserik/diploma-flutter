@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/views/authorization/signin_page.dart';
 import 'package:mobile/views/profile/change_password_page.dart';
+import 'package:mobile/views/profile/orders_page.dart';
 import 'package:mobile/views/profile/personal_data.dart';
 import 'package:mobile/views/utills/const.dart';
 
@@ -147,7 +148,9 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             getDivider(30),
-            InkWell(onTap: () {}, child: getMenuText("Заказы")),
+            InkWell(onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => OrdersPage()));
+            }, child: getMenuText("Заказы")),
             getDivider(10),
             Padding(
               padding: const EdgeInsets.only(top: 5.0),

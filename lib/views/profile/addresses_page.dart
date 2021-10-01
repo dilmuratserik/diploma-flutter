@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile/components/address_item.dart';
+import 'package:mobile/components/buttonGreen.dart';
 import 'package:mobile/views/utills/const.dart';
 
 class AddressesPage extends StatefulWidget {
@@ -40,20 +41,29 @@ class _AddressesPageState extends State<AddressesPage> {
           bottomOpacity: 1,
           iconTheme: IconThemeData(color: Colors.black)
         ),
-        body: Container(
-          child: ListView.separated(
-              itemCount: 2,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                  child: AddressItem()
-                );
-              },
-              separatorBuilder: (context, index){
-                return Divider();
-              }
-            )
-          ),
+        body: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height*0.6,
+              child: ListView.separated(
+                itemCount: 2,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    child: AddressItem()
+                  );
+                },
+                separatorBuilder: (context, index){
+                  return Divider();
+                }
+              )
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical:60),
+              child: Center(child: getButton('ДОБАВИТЬ АДРЕС')),
+            ),
+          ],
+        ),
         )
     );
   }
