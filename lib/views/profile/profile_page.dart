@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/views/authorization/signin_page.dart';
+import 'package:mobile/views/profile/about_application_page.dart';
+import 'package:mobile/views/profile/about_us_page.dart';
 import 'package:mobile/views/profile/change_password_page.dart';
 import 'package:mobile/views/profile/orders_page.dart';
 import 'package:mobile/views/profile/personal_data.dart';
@@ -70,22 +72,25 @@ class _ProfilePageState extends State<ProfilePage> {
               child: getTitleText("Настройки аккаунта"),
             ),
             InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalDataPage()));
-              },
-              child: getMenuText("Личные данные")
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => AddressesPage()));
-              }, 
-              child: getMenuText("Адреса")
-            ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PersonalDataPage()));
+                },
+                child: getMenuText("Личные данные")),
             InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => CardsPage()));
-              }, child: getMenuText("Привязанные карты")
-            ),
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AddressesPage()));
+                },
+                child: getMenuText("Адреса")),
+            InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CardsPage()));
+                },
+                child: getMenuText("Привязанные карты")),
             Padding(
               padding: const EdgeInsets.only(top: 0),
               child: Row(
@@ -128,8 +133,10 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             InkWell(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordPage()));
-
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChangePasswordPage()));
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
@@ -148,33 +155,99 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             getDivider(30),
-            InkWell(onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => OrdersPage()));
-            }, child: getMenuText("Заказы")),
+            InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => OrdersPage()));
+                },
+                child: getMenuText("Заказы")),
             getDivider(10),
             Padding(
               padding: const EdgeInsets.only(top: 5.0),
               child: getTitleText("Основная информация"),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AboutUsPage()));
+              },
               child: Padding(
-                padding: const EdgeInsets.only(top:10),
+                padding: const EdgeInsets.only(top: 10),
                 child: getMenuText("О нас"),
               ),
             ),
+            InkWell(onTap: () {
+              showModalBottomSheet(
+                  context: context,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: const Radius.circular(15.0),
+                          topRight: const Radius.circular(15.0))),
+                  builder: (context) {
+                    return Container(
+                      height: MediaQuery.of(context).size.height / 3.2,
+                      color: Colors.transparent,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "Напишите нам",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22),
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
+                                children: [
+                                  Image.asset(
+                                    "assets/images/whatsapp.jpg",
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text("Whatsapp", style: TextStyle(fontSize: 16, ),),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Image.asset(
+                                    "assets/images/telegram.jpg",
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text("Telegram", style: TextStyle(fontSize: 16),),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  });
+            }, child: getMenuText("Контакты")),
             InkWell(
-                onTap: () {},
-                child: getMenuText("Контакты")),
-            InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AboutApplicationPage()));
+                },
                 child: getMenuText("О приложении")),
             InkWell(
               onTap: () {},
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Text("Выйти", style: TextStyle(color: Colors.red, fontSize: 18, fontWeight: FontWeight.w500),),
+                child: Text(
+                  "Выйти",
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500),
+                ),
               ),
             )
           ],
