@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mobile/components/buttonGreen.dart';
 import 'package:mobile/models/order_model.dart';
+import 'package:mobile/views/utills/const.dart';
 
 class OrderInfoPage extends StatefulWidget {
   OrderInfoPage(this.order);
@@ -38,10 +40,110 @@ class _OrderInfoPageState extends State<OrderInfoPage> {
           bottomOpacity: 1,
           iconTheme: IconThemeData(color: Colors.black)
         ),
-        body: Column(
-          children: [
-
-          ]),
+        body: SingleChildScrollView(
+          child: 
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding( padding: const EdgeInsets.only(left: 20, top: 20),
+                  child: Text('Заказ №' + widget.order.id, style: TextStyle(color: AppColors.green,fontSize: 22, fontWeight: FontWeight.w600)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Text(widget.order.date + ' - ' + widget.order.status, style: TextStyle(fontSize: 14, color: Colors.grey)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 20),
+                  child: Text('Получатель', style: TextStyle(fontSize: 14, color: Colors.grey)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                  child: Text('Марат, +7(700) 000-00-00', style: TextStyle(fontSize: 18)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Divider(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 20),
+                  child: Text('Адрес', style: TextStyle(fontSize: 14, color: Colors.grey)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                  child: Text('Микрорайон Аксай-1, 1к2', style: TextStyle(fontSize: 18)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Divider(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 20),
+                  child: Text('Оплата', style: TextStyle(fontSize: 14, color: Colors.grey)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                  child: Text('Онлайн, Kaspi.kz', style: TextStyle(fontSize: 18)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Divider(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 20),
+                  child: Text('Доставка', style: TextStyle(fontSize: 14, color: Colors.grey)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                  child: Text('Через Yandex', style: TextStyle(fontSize: 18)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Divider(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 20),
+                  child: Text('Содержание заказа', style: TextStyle(fontSize: 14, color: Colors.grey)),
+                ),
+                for (int i = 0; i < 2; i++) Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: Text('1x Коса копченная, Золото колчака', style: TextStyle(fontSize: 18))
+                      ),
+                    ),
+                    Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                      child: Text('500 ₸', style: TextStyle(fontSize: 18)),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: Text('Итог:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600))
+                      ),
+                    ),
+                    Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                      child: Text('3000 ₸', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  child: Center(child: getButton('ПОВТОРИТЬ')),
+                ),
+              ]),
+        ),
         )
     );
   }

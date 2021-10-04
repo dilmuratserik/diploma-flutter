@@ -30,7 +30,7 @@ class _JustPageState extends State<JustPage> {
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-          title: Text('Title', style: TextStyle(color: Colors.black, fontSize: 18)),
+          title: Text('₸', style: TextStyle(color: Colors.black, fontSize: 18)),
           automaticallyImplyLeading: true,
           backgroundColor: Colors.white,
           shadowColor: Colors.white,
