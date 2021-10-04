@@ -104,22 +104,26 @@ class _OrderInfoPageState extends State<OrderInfoPage> {
                   padding: const EdgeInsets.only(top: 10, left: 20),
                   child: Text('Содержание заказа', style: TextStyle(fontSize: 14, color: Colors.grey)),
                 ),
-                for (int i = 0; i < 2; i++) Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        child: Text('1x Коса копченная, Золото колчака', style: TextStyle(fontSize: 18))
+                ConstrainedBox(
+                  constraints: BoxConstraints(maxHeight: 120, minHeight: 60),
+                  child: ListView.builder(itemCount: 2,
+                    itemBuilder: (BuildContext context, int index) => Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          child: Text('1x Коса копченная, Золото колчака', style: TextStyle(fontSize: 18))
+                        ),
                       ),
-                    ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                      child: Text('500 ₸', style: TextStyle(fontSize: 18)),
-                    ),
-                  ],
+                      Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                        child: Text('500 ₸', style: TextStyle(fontSize: 18)),
+                      ),
+                    ],
+                  )),
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
