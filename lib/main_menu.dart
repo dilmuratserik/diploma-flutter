@@ -4,9 +4,10 @@ import 'package:mobile/views/basket/basket_page.dart';
 import 'package:mobile/views/categories/categories_page.dart';
 import 'package:mobile/views/home/home_page.dart';
 import 'package:mobile/views/profile/profile_page.dart';
+import 'package:mobile/views/sales_rep/sales_main_menu.dart';
+import 'package:mobile/views/sales_rep/sales_order_page.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
-
 
 class MainMenuPage extends StatefulWidget {
   const MainMenuPage({Key? key}) : super(key: key);
@@ -17,14 +18,17 @@ class MainMenuPage extends StatefulWidget {
 
 /// This is the private State class that goes with MyStatefulWidget.
 class _MainMenuPageState extends State<MainMenuPage> {
-
   int _selectedIndex = 0;
+  final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   static const List<Widget> _widgetOptions = <Widget>[
-    HomePage(),CategoriesPage(), BasketPage(), ProfilePage()
+    SalesMainPage(),
+    SalesOrderPage(),
+    BasketPage(),
+    ProfilePage()
   ];
   static const List<String> _pageNames = <String>[
     "Главная",
@@ -41,29 +45,36 @@ class _MainMenuPageState extends State<MainMenuPage> {
 
   late SearchBar searchBar;
 
-
   AppBar buildAppBar(BuildContext context) {
     return new AppBar(
       backgroundColor: Colors.white,
       elevation: 0,
-      title:  Text(_pageNames[_selectedIndex],style: TextStyle(color: AppColors.green),),
+      title: Text(
+        _pageNames[_selectedIndex],
+        style: TextStyle(color: AppColors.green),
+      ),
       leading: GestureDetector(
           onTap: () {
             print("asd");
+            _key.currentState!.openDrawer();
           },
-          child: Icon(Icons.menu,color: Colors.black45,)),
+          child: Icon(
+            Icons.menu,
+            color: Colors.black45,
+          )),
       actions: [
         GestureDetector(
           onTap: () {},
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             // child: Icon(Icons.search, color: Colors.black,),
-            child:  _selectedIndex == 0 ? searchBar.getSearchAction(context) : null,
+            child:
+                _selectedIndex == 0 ? searchBar.getSearchAction(context) : null,
           ),
         ),
       ],
-        // title: new Text('My Home Page'),
-        // actions:
+      // title: new Text('My Home Page'),
+      // actions:
     );
   }
 
@@ -72,57 +83,88 @@ class _MainMenuPageState extends State<MainMenuPage> {
         inBar: false,
         setState: setState,
         onSubmitted: print,
-        buildDefaultAppBar: buildAppBar
-    );
+        buildDefaultAppBar: buildAppBar);
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          searchBar.build(context),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      key: _key,
+      appBar: searchBar.build(context),
+      body: _widgetOptions.elementAt(_selectedIndex),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            Container(
+              height: 125,
+              padding: EdgeInsets.only(top: 60, left: 20, bottom: 20),
+                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 4),
+                      child: Text(
+                        "Маратов Марат",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Text("+77081622547",
+                        style: TextStyle(
+                            color: AppColors.presentationGray, fontSize: 15))
+                  ],
+                ),
+
+            ),
+            ListTile(
+              leading: Icon(Icons.payments),
+              title: const Text("Список оплат", style: TextStyle(fontSize: 16),),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.my_location),
+              title: const Text("Карта объектов", style: TextStyle(fontSize: 16)),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: const Text("Настройки", style: TextStyle(fontSize: 16)),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: const Text("Выйти", style: TextStyle(fontSize: 16)),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
       ),
-      // drawer: Drawer(
-      //   // Add a Lis  View to the drawer. This ensures the user can scroll
-      //   // through the options in the drawer if there isn't enough vertical
-      //   // space to fit everything.
-      //   child: ListView(
-      //     // Important: Remove any padding from the ListView.
-      //     padding: EdgeInsets.zero,
-      //     children: [
-      //       const DrawerHeader(
-      //         decoration: BoxDecoration(
-      //           color: Colors.blue,
-      //         ),
-      //         child: Text('Drawer Header'),
-      //       ),
-      //       ListTile(
-      //         title: const Text('Item 1'),
-      //         onTap: () {
-      //           // Update the state of the app
-      //           // ...
-      //           // Then close the drawer
-      //           Navigator.pop(context);
-      //         },
-      //       ),
-      //       ListTile(
-      //         title: const Text('Item 2'),
-      //         onTap: () {
-      //           // Update the state of the app
-      //           // ...
-      //           // Then close the drawer
-      //           Navigator.pop(context);
-      //         },
-      //       ),
-      //     ],
-      //   ),
-      // ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        items:  <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: _pageNames[0],
@@ -147,6 +189,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
     );
   }
 }
+
 class TextBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -155,7 +198,7 @@ class TextBox extends StatelessWidget {
       color: Colors.black,
       child: TextField(
         decoration:
-        InputDecoration(border: InputBorder.none, hintText: 'Search'),
+            InputDecoration(border: InputBorder.none, hintText: 'Search'),
       ),
     );
   }

@@ -11,5 +11,5 @@ class _AboutApplicationPageState extends State<AboutApplicationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold();
-  }
+  } 
 }
