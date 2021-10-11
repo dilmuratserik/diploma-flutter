@@ -6,6 +6,7 @@ import 'package:mobile/views/home/home_page.dart';
 import 'package:mobile/views/profile/profile_page.dart';
 import 'package:mobile/views/sales_rep/sales_main_menu.dart';
 import 'package:mobile/views/sales_rep/sales_order_page.dart';
+import 'package:mobile/views/sales_rep/visits_tab/visits_main_page.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
 
@@ -26,7 +27,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     SalesMainPage(),
-    SalesOrderPage(),
+    VisitsMainPage(),
     BasketPage(),
     ProfilePage()
   ];
