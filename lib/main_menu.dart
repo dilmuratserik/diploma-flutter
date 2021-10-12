@@ -4,8 +4,9 @@ import 'package:mobile/views/basket/basket_page.dart';
 import 'package:mobile/views/categories/categories_page.dart';
 import 'package:mobile/views/home/home_page.dart';
 import 'package:mobile/views/profile/profile_page.dart';
-import 'package:mobile/views/sales_rep/sales_main_menu.dart';
-import 'package:mobile/views/sales_rep/sales_order_page.dart';
+import 'package:mobile/views/sales_rep/order_page/sales_order_page.dart';
+import 'package:mobile/views/sales_rep/points_tab/points_main_page.dart';
+import 'package:mobile/views/sales_rep/home_page/sales_home_page.dart';
 import 'package:mobile/views/sales_rep/visits_tab/visits_main_page.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
@@ -25,12 +26,14 @@ class _MainMenuPageState extends State<MainMenuPage> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
+
   static const List<Widget> _widgetOptions = <Widget>[
-    SalesMainPage(),
-    VisitsMainPage(),
+    HomePage(),
+    CategoriesPage(),
     BasketPage(),
     ProfilePage()
   ];
+
   static const List<String> _pageNames = <String>[
     "Главная",
     'Категории',

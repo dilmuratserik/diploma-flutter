@@ -4,6 +4,8 @@ import 'package:mobile/views/authorization/registrationSecond_page.dart';
 import 'package:mobile/views/authorization/setPassword_page.dart';
 import 'package:mobile/views/home/home_page.dart';
 import 'package:mobile/views/presentation/presentation_view_pager.dart';
+import 'package:mobile/views/sales_rep/sales_main_menu.dart';
+import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/verification/verification_page.dart';
 
 void main() {
@@ -12,8 +14,23 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
+  var _roleIndex = 1;
+
+  List<Widget> routes = [
+    MainMenuPage(),
+    SalesMainMenuPage(),
+  ];
+
+  Map<int, Color> color =
+  {
+
+  };
+
   @override
   Widget build(BuildContext context) {
+
+    MaterialColor colorCustom = MaterialColor(AppColors.green.hashCode, color);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -25,14 +42,14 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is  not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: colorCustom,
         shadowColor: Colors.black,
         iconTheme: IconThemeData(
           color: Colors.black
       ),
       ),
       // home: VerificationPage()
-      home: MainMenuPage()
+      home: routes[_roleIndex]
     );
   }
 }

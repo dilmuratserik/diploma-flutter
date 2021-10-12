@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/orderItem.dart';
-import 'package:mobile/views/sales_rep/sales_create_order_page.dart';
-import 'package:mobile/views/sales_rep/sales_order_item.dart';
+import 'package:mobile/views/sales_rep/order_page/sales_create_order_page.dart';
 import 'package:mobile/views/sales_rep/visits_tab/plane_item.dart';
 import 'package:mobile/views/utills/const.dart';
 

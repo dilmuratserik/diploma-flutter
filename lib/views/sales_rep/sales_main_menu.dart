@@ -1,189 +1,221 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_search_bar/flutter_search_bar.dart';
+import 'package:mobile/views/sales_rep/points_tab/points_main_page.dart';
+import 'package:mobile/views/sales_rep/visits_tab/visits_main_page.dart';
 import 'package:mobile/views/utills/const.dart';
 
-class SalesMainPage extends StatefulWidget {
-  const SalesMainPage({Key? key}) : super(key: key);
+import 'home_page/sales_home_page.dart';
+import 'order_page/sales_order_page.dart';
+
+class SalesMainMenuPage extends StatefulWidget {
+  const SalesMainMenuPage({Key? key}) : super(key: key);
 
   @override
-  _SalesMainPageState createState() => _SalesMainPageState();
+  _SalesMainMenuPageState createState() => _SalesMainMenuPageState();
 }
 
-class _SalesMainPageState extends State<SalesMainPage> {
-  bool _switchValue1 = false;
-  bool _switchValue2 = false;
+class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
+  int _selectedIndex = 0;
+  final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
+
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+  static const List<Widget> _widgetSales = [
+    SalesHomePage(),
+    SalesOrderPage( ),
+    VisitsMainPage(),
+    PointsMainPage()
+  ];
+
+   void refresh() {
+     print("asda");
+  }
+
+  static const List<String> _pageNames = <String>[
+    "Главная",
+    'Заказы',
+    'Визиты',
+    'Точки',
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  late SearchBar searchBar;
+
+  AppBar buildAppBar(BuildContext context) {
+    return new AppBar(
+      backgroundColor: Colors.white,
+      elevation: 0,
+      title: Text(
+        _pageNames[_selectedIndex],
+        style: TextStyle(color: AppColors.green),
+      ),
+      leading: GestureDetector(
+          onTap: () {
+            _key.currentState!.openDrawer();
+          },
+          child: Icon(
+            Icons.menu,
+            color: Colors.black45,
+          )),
+      actions: [
+        _selectedIndex == 0
+            ? GestureDetector(
+                onTap: () {},
+                child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    // child: Icon(Icons.search, color: Colors.black,),
+                    child: searchBar.getSearchAction(context)),
+              )
+            : _selectedIndex == 1
+                ? GestureDetector(
+                    onTap: () {},
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(  horizontal: 10),
+                        child: Text(
+                          "Создать",
+                          style: TextStyle(color: AppColors.green, fontSize: 18),
+                        ),
+                      ),
+                    ))
+                : Container()
+      ],
+      // title: new Text('My Home Page'),
+      // actions:
+    );
+  }
+
+  _SalesMainMenuPageState() {
+    searchBar = new SearchBar(
+        inBar: false,
+        setState: setState,
+        onSubmitted: print,
+        buildDefaultAppBar: buildAppBar);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      key: _key,
+      appBar: searchBar.build(context),
+      body: _widgetSales.elementAt(_selectedIndex),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
           children: [
             Container(
-              child: Image.asset(
-                "assets/images/person.jpg",
-                fit: BoxFit.fitWidth,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 3.2,
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.only(bottom: 4, right: 4, top: 16, left: 16),
-              child: Text(
-                "Маратов Марат",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16, top: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              height: 125,
+              padding: EdgeInsets.only(top: 60, left: 20, bottom: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.call,
-                    color: AppColors.presentationGray,
-                    size: 16,
-                  ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 4),
-                    child: Text("+77081622547",
-                        style: TextStyle(
-                            color: AppColors.presentationGray, fontSize: 15)),
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: Text(
+                      "Маратов Марат",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
+                  Text("+77081622547",
+                      style: TextStyle(
+                          color: AppColors.presentationGray, fontSize: 15))
                 ],
               ),
             ),
-            DefaultTabController(
-                length: 2, // length of tabs
-                initialIndex: 0,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Container(
-                        child: TabBar(
-                          labelColor: AppColors.green,
-                          unselectedLabelColor: Colors.black,
-                          indicatorColor: AppColors.green,
-                          tabs: [
-                            Tab(text: "ОБо мне".toUpperCase()),
-                            Tab(text: "Рейтинг".toUpperCase()),
-                          ],
-                        ),
-                      ),
-                      Container(
-                          height: 450,
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  top: BorderSide(
-                                      color: Colors.grey, width: 0.5))),
-                          child: TabBarView(children: <Widget>[
-                            Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  getTitle("Регион"),
-                                  getSubtitle("Алматы, склад Алматы"),
-                                  getDivider(),
-                                  getTitle("Тип цены"),
-                                  getSubtitle("Розница"),
-                                  getDivider(),
-                                  getTitle("Сектор заказа"),
-                                  getSubtitle("Супермаркет"),
-                                  getDivider(),
-                                  getTitle("Время работы"),
-                                  getSubtitle("С 9:00 до 12:00"),
-                                  getDivider(),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(top: 0, left: 16),
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Включить GPS навигатор?",
-                                            style: TextStyle(fontSize: 18),
-                                          ),
-                                          Switch(
-                                              value: _switchValue1,
-                                              activeColor: AppColors.gold,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  _switchValue1 = value;
-                                                });
-                                                print("value ${value}");
-                                              })
-                                        ]),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(top: 0, left: 16),
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Привязан телефон?",
-                                            style: TextStyle(fontSize: 18),
-                                          ),
-                                          Switch(
-                                              value: _switchValue2,
-                                              activeColor: AppColors.gold,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  _switchValue2 = value;
-                                                });
-                                                print("value ${value}");
-                                              })
-                                        ]),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              child: Center(
-                                child: Text('Display Tab 23',
-                                    style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold)),
-                              ),
-                            ),
-                          ]))
-                    ])),
+            ListTile(
+              leading: Icon(Icons.payments),
+              title: const Text(
+                "Список оплат",
+                style: TextStyle(fontSize: 16),
+              ),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.my_location),
+              title:
+                  const Text("Карта объектов", style: TextStyle(fontSize: 16)),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: const Text("Настройки", style: TextStyle(fontSize: 16)),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: const Text("Выйти", style: TextStyle(fontSize: 16)),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget getDivider() {
-    return Divider(
-      color: AppColors.presentationGray,
-      indent: 8,
-      endIndent: 8,
-    );
-  }
-
-  Widget getTitle(String text) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, top: 16),
-      child: Text(
-        text,
-        style: TextStyle(color: AppColors.presentationGray, fontSize: 16),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: _pageNames[0],
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: _pageNames[1],
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_work),
+            label: _pageNames[2],
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.location_on),
+            label: _pageNames[3],
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: AppColors.green,
+        onTap: _onItemTapped,
       ),
     );
   }
+}
 
-  Widget getSubtitle(String text) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, top: 8),
-      child: Text(text, style: TextStyle(color: Colors.black, fontSize: 16)),
+class TextBox extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      color: Colors.black,
+      child: TextField(
+        decoration:
+            InputDecoration(border: InputBorder.none, hintText: 'Search'),
+      ),
     );
   }
 }
