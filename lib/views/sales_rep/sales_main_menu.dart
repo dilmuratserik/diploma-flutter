@@ -16,6 +16,7 @@ class SalesMainMenuPage extends StatefulWidget {
 
 class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
   int _selectedIndex = 0;
+  bool _isShowButton = false;
   final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
 
   static const TextStyle optionStyle =
@@ -73,17 +74,27 @@ class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
                     child: searchBar.getSearchAction(context)),
               )
             : _selectedIndex == 1
-                ? GestureDetector(
-                    onTap: () {},
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(  horizontal: 10),
-                        child: Text(
-                          "Создать",
-                          style: TextStyle(color: AppColors.green, fontSize: 18),
+                ? NotificationListener(
+                  onNotification: (message){
+                    print(message);
+                    print(1);
+                    setState(() {
+                      _isShowButton = true;
+                    });
+                    return true;
+                  },
+                  child: _isShowButton == true ? GestureDetector(
+                      onTap: () {},
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(  horizontal: 10),
+                          child: Text(
+                            "Создать",
+                            style: TextStyle(color: AppColors.green, fontSize: 18),
+                          ),
                         ),
-                      ),
-                    ))
+                      )) : Container(),
+                )
                 : Container()
       ],
       // title: new Text('My Home Page'),

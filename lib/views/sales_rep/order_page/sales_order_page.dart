@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobile/views/sales_rep/order_page/sales_create_order_page.dart';
 import 'package:mobile/views/sales_rep/order_page/sales_order_item.dart';
@@ -14,7 +15,24 @@ class SalesOrderPage extends StatefulWidget {
   _SalesOrderPageState createState() => _SalesOrderPageState();
 }
 
-class _SalesOrderPageState extends State<SalesOrderPage> {
+class _SalesOrderPageState extends State<SalesOrderPage> with TickerProviderStateMixin {
+
+  late TabController tabBarController;
+  late Timer timer;
+
+  @override
+  void initState() {
+    super.initState();
+    tabBarController = new TabController(length: 2, vsync: this);
+    timer = Timer.periodic(Duration(seconds: 1), (timer) => checkTabBarIndex());
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -25,8 +43,9 @@ class _SalesOrderPageState extends State<SalesOrderPage> {
             children: <Widget>[
               Container(
                 child: TabBar(
+                  controller: tabBarController,
                   onTap: (index) {
-                    print("index ${index}");
+                    // print("index ${index}");
                   },
                   labelColor: AppColors.green,
                   unselectedLabelColor: Colors.black,
@@ -52,5 +71,16 @@ class _SalesOrderPageState extends State<SalesOrderPage> {
             ]));
   }
 
+  void checkTabBarIndex(){
+    if (tabBarController.index == 1){
+      MyNotification().dispatch(context);
+      print('sended');
+    } 
+  }
 
+}
+
+
+class MyNotification extends Notification{
+  MyNotification();
 }
