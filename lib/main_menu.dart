@@ -4,6 +4,7 @@ import 'package:mobile/views/basket/basket_page.dart';
 import 'package:mobile/views/categories/categories_page.dart';
 import 'package:mobile/views/home/home_page.dart';
 import 'package:mobile/views/profile/profile_page.dart';
+import 'package:mobile/views/sales_rep/list_of_payments_page.dart/list_of_payments_page.dart';
 import 'package:mobile/views/sales_rep/order_page/sales_order_page.dart';
 import 'package:mobile/views/sales_rep/points_tab/points_main_page.dart';
 import 'package:mobile/views/sales_rep/home_page/sales_home_page.dart';

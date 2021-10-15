@@ -5,6 +5,7 @@ import 'package:mobile/views/sales_rep/visits_tab/visits_main_page.dart';
 import 'package:mobile/views/utills/const.dart';
 
 import 'home_page/sales_home_page.dart';
+import 'list_of_payments_page.dart/list_of_payments_page.dart';
 import 'order_page/sales_order_page.dart';
 
 class SalesMainMenuPage extends StatefulWidget {
@@ -25,7 +26,8 @@ class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
     SalesHomePage(),
     SalesOrderPage(),
     VisitsMainPage(),
-    PointsMainPage()
+    // PointsMainPage()
+    ListOfPaymentsPage()
   ];
 
    void refresh() {
