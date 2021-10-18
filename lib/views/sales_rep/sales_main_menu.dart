@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
+import 'package:mobile/views/delivery/order_tab/delivery_sales_order_page.dart';
+import 'package:mobile/views/delivery/points_tab/delivery_points_page.dart';
 import 'package:mobile/views/sales_rep/points_tab/points_main_page.dart';
 import 'package:mobile/views/sales_rep/visits_tab/visits_main_page.dart';
 import 'package:mobile/views/utills/const.dart';
@@ -24,8 +26,10 @@ class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
 
   static const List<Widget> _widgetSales = [
     SalesHomePage(),
-    SalesOrderPage(),
-    VisitsMainPage(),
+    // SalesOrderPage(),
+    DeliverySalesOrderPage(),
+    // VisitsMainPage(),
+    DeliveryPointsMainPage(),
     // PointsMainPage()
     ListOfPaymentsPage()
   ];
