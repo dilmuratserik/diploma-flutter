@@ -28,7 +28,7 @@ class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
   var _role = 1;
 
   static const List<Widget> _widgetCourier = [
-    TestSiverApp(),
+     SalesHomePage(),
      DeliverySalesOrderPage(),
      DeliveryPointsMainPage(),
      ListOfPaymentsPage()
