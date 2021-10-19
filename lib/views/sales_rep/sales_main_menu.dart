@@ -9,6 +9,7 @@ import 'package:mobile/views/utills/const.dart';
 import 'home_page/sales_home_page.dart';
 import 'list_of_payments_page.dart/list_of_payments_page.dart';
 import 'order_page/sales_order_page.dart';
+import 'order_page/test_sliverapp.dart';
 
 class SalesMainMenuPage extends StatefulWidget {
   const SalesMainMenuPage({Key? key}) : super(key: key);
@@ -24,15 +25,21 @@ class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-  static const List<Widget> _widgetSales = [
-    SalesHomePage(),
-    // SalesOrderPage(),
-    DeliverySalesOrderPage(),
-    // VisitsMainPage(),
-    DeliveryPointsMainPage(),
-    // PointsMainPage()
-    ListOfPaymentsPage()
+  var _role = 1;
+
+  static const List<Widget> _widgetCourier = [
+    TestSiverApp(),
+     DeliverySalesOrderPage(),
+     DeliveryPointsMainPage(),
+     ListOfPaymentsPage()
   ];
+
+  static const List<Widget> _widgetSales = [
+      SalesHomePage(),
+     SalesOrderPage(),
+     VisitsMainPage(),
+     PointsMainPage()
+   ];
 
    void refresh() {
      print("asda");
@@ -109,80 +116,8 @@ class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
     return Scaffold(
       key: _key,
       appBar: searchBar.build(context),
-      body: _widgetSales.elementAt(_selectedIndex),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            Container(
-              height: 125,
-              padding: EdgeInsets.only(top: 60, left: 20, bottom: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 4),
-                    child: Text(
-                      "Маратов Марат",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Text("+77081622547",
-                      style: TextStyle(
-                          color: AppColors.presentationGray, fontSize: 15))
-                ],
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.payments),
-              title: const Text(
-                "Список оплат",
-                style: TextStyle(fontSize: 16),
-              ),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.my_location),
-              title:
-                  const Text("Карта объектов", style: TextStyle(fontSize: 16)),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: const Text("Настройки", style: TextStyle(fontSize: 16)),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: const Text("Выйти", style: TextStyle(fontSize: 16)),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ),
+      body: _role == 1 ?_widgetSales.elementAt(_selectedIndex) : _widgetCourier.elementAt(_selectedIndex),
+      drawer:  _role == 1 ? getSalesDrawer() : getCourierDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
@@ -206,6 +141,130 @@ class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
         currentIndex: _selectedIndex,
         selectedItemColor: AppColors.green,
         onTap: _onItemTapped,
+      ),
+    );
+  }
+
+  Widget getCourierDrawer() {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          Container(
+            height: 125,
+            padding: EdgeInsets.only(top: 60, left: 20, bottom: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: Text(
+                    "Маратов Марат",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Text("+77081622547",
+                    style: TextStyle(
+                        color: AppColors.presentationGray, fontSize: 15))
+              ],
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.payments),
+            title: const Text("Список оплат", style: TextStyle(fontSize: 16),),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: const Text("Настройки", style: TextStyle(fontSize: 16)),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.logout),
+            title: const Text("Выйти", style: TextStyle(fontSize: 16)),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget getSalesDrawer() {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          Container(
+            height: 125,
+            padding: EdgeInsets.only(top: 60, left: 20, bottom: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: Text(
+                    "Маратов Марат",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Text("+77081622547",
+                    style: TextStyle(
+                        color: AppColors.presentationGray, fontSize: 15))
+              ],
+            ),
+
+          ),
+          ListTile(
+            leading: Icon(Icons.payments),
+            title: const Text("Список оплат", style: TextStyle(fontSize: 16),),
+            onTap: () {
+              // Update the state of the app
+              // ...
+              // Then close the drawer
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.my_location),
+            title: const Text("Карта объектов", style: TextStyle(fontSize: 16)),
+            onTap: () {
+              // Update the state of the app
+              // ...
+              // Then close the drawer
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: const Text("Настройки", style: TextStyle(fontSize: 16)),
+            onTap: () {
+              // Update the state of the app
+              // ...
+              // Then close the drawer
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.logout),
+            title: const Text("Выйти", style: TextStyle(fontSize: 16)),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
       ),
     );
   }
