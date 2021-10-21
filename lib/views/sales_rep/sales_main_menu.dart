@@ -5,11 +5,9 @@ import 'package:mobile/views/delivery/points_tab/delivery_points_page.dart';
 import 'package:mobile/views/sales_rep/points_tab/points_main_page.dart';
 import 'package:mobile/views/sales_rep/visits_tab/visits_main_page.dart';
 import 'package:mobile/views/utills/const.dart';
-
 import 'home_page/sales_home_page.dart';
 import 'list_of_payments_page.dart/list_of_payments_page.dart';
 import 'order_page/sales_order_page.dart';
-import 'order_page/test_sliverapp.dart';
 
 class SalesMainMenuPage extends StatefulWidget {
   const SalesMainMenuPage({Key? key}) : super(key: key);
@@ -28,17 +26,17 @@ class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
   var _role = 1;
 
   static const List<Widget> _widgetCourier = [
-     SalesHomePage(),
-     DeliverySalesOrderPage(),
-     DeliveryPointsMainPage(),
-     ListOfPaymentsPage()
+    SalesHomePage(),
+    DeliverySalesOrderPage(),
+    DeliveryPointsMainPage(),
+    ListOfPaymentsPage()
   ];
 
   static const List<Widget> _widgetSales = [
-      SalesHomePage(),
-     SalesOrderPage(),
-     VisitsMainPage(),
-     PointsMainPage()
+    SalesHomePage(),
+    SalesOrderPage(),
+    VisitsMainPage(),
+    PointsMainPage()
    ];
 
    void refresh() {
