@@ -3,10 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile/components/bitTextOnBottom.dart';
 import 'package:mobile/components/buttonGreen.dart';
+import 'package:mobile/services/auth_api_provider.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:mobile/views/utills/utill.dart';
 import 'package:mobile/views/verification/verification_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -143,7 +145,25 @@ class _SignInPageState extends State<SignInPage> {
               ),
             )
         ),
-        Center(child: getButton('ВОЙТИ', )),
+        Center(child: 
+          Padding(
+            padding: const EdgeInsets.only(top: 30, left: 20,right: 20),
+            child: ElevatedButton(
+              onPressed: () {
+                login();
+              },
+              style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 30), // double.infinity is the width and 30 is the height
+                  primary: AppColors.green,
+                  padding: EdgeInsets.symmetric( vertical: 17),
+                  textStyle: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Roboto")),
+              child: Text('ВОЙТИ'),
+            ),
+          )
+        ),
         Spacer(),
         Center(
           child: Padding( padding: const EdgeInsets.symmetric(vertical: 40),
@@ -152,5 +172,23 @@ class _SignInPageState extends State<SignInPage> {
         ),
       ])
     ));
+  }
+
+  void login() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var response = await AuthProvider().login(phoneController.text, passwordController.text);
+    print(response);
+    if (response != 'Error'){
+      prefs.setString("token", response['key']);
+      prefs.setInt("user_id", response['uid']);
+      print(response['key']);
+
+      // Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+    }
+    else{
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Something went wrong.", style: TextStyle(fontSize: 20)),
+      ));
+    }
   }
 }

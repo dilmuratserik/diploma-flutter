@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/views/utills/const.dart';
 
-Widget getButton(String text  ) {
+Widget getButton(String text) {
   return Padding(
     padding: const EdgeInsets.only(top: 30, left: 20,right: 20),
     child: ElevatedButton(

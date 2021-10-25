@@ -16,7 +16,7 @@ class AppColors {
 
 
 class AppConstants {
-  static final String baseUrl = "https://test.kz/";
+  static final String baseUrl = "http://137.184.52.236/";
 
   static final String phone = "phone";
   static final String uid = "uid";

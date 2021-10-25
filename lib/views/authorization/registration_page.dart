@@ -3,10 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile/components/bitTextOnBottom.dart';
 import 'package:mobile/components/buttonGreen.dart';
+import 'package:mobile/services/auth_api_provider.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:mobile/views/utills/utill.dart';
 import 'package:mobile/views/verification/verification_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -85,7 +87,25 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
           ),
         ),
-        Center(child: getButton('ОТПРАВИТЬ КОД')  ),
+        Center(child: 
+          Padding(
+            padding: const EdgeInsets.only(top: 30, left: 20,right: 20),
+            child: ElevatedButton(
+              onPressed: () {
+                registration();
+              },
+              style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 30), // double.infinity is the width and 30 is the height
+                  primary: AppColors.green,
+                  padding: EdgeInsets.symmetric( vertical: 17),
+                  textStyle: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Roboto")),
+              child: Text('ОТПРАВИТЬ КОД'),
+            ),
+          )
+        ),
         Spacer(),
         Center(
           child: Padding( padding: const EdgeInsets.symmetric(vertical: 40),
@@ -94,5 +114,20 @@ class _RegistrationPageState extends State<RegistrationPage> {
         ),
       ])
     ));
+  }
+
+  void registration() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var response = await AuthProvider().registration(phoneController.text);
+    print(response);
+    if (response != 'Error'){
+      print('OK!');
+      // Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+    }
+    else{
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Something went wrong.", style: TextStyle(fontSize: 20)),
+      ));
+    }
   }
 }
