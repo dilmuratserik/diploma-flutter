@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/main_menu.dart';
+import 'package:mobile/services/auth_api_provider.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -116,7 +117,7 @@ class _VerificationPageState extends State<VerificationPage> {
 
   Widget _getButton() {
     return Padding(
-      padding: const EdgeInsets.only(top: 30, left: 20,right: 20),
+      padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
       child: ElevatedButton(
         onPressed: () {
           Navigator.push(
@@ -125,9 +126,10 @@ class _VerificationPageState extends State<VerificationPage> {
           );
         },
         style: ElevatedButton.styleFrom(
-            minimumSize: Size(double.infinity, 30), // double.infinity is the width and 30 is the height
+            minimumSize: Size(double.infinity,
+                30), // double.infinity is the width and 30 is the height
             primary: AppColors.green,
-            padding: EdgeInsets.symmetric( vertical: 17),
+            padding: EdgeInsets.symmetric(vertical: 17),
             textStyle: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -162,6 +164,7 @@ class _VerificationPageState extends State<VerificationPage> {
       controller: textEditingController,
       onCompleted: (v) {
         print("Completed");
+        sendVerificationCode();
       },
       onChanged: (value) {
         print(value);
@@ -196,5 +199,20 @@ class _VerificationPageState extends State<VerificationPage> {
         ],
       ),
     );
+  }
+
+  void sendVerificationCode() async {
+    var response =
+        await AuthProvider().sendDeviceToken(textEditingController.text);
+    print(response);
+    if (response != 'Error') {
+      print('OK!');
+      // Navigator.push(
+      // context, MaterialPageRoute(builder: (context) => VerificationPage()));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Something went wrong.", style: TextStyle(fontSize: 20)),
+      ));
+    }
   }
 }
