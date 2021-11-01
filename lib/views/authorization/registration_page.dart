@@ -123,17 +123,24 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   void registration() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var response = await AuthProvider().registration(phoneController.text);
-    print(response);
-    if (response != 'Error') {
-      print('OK!');
-      prefs.setString('phone', phoneController.text);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => VerificationPage()));
+    if (phoneController.text != '') {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var response = await AuthProvider().registration(phoneController.text);
+      print(response);
+      if (response != 'Error') {
+        print('OK!');
+        prefs.setString('phone', phoneController.text);
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => VerificationPage()));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content:
+              Text("Something went wrong.", style: TextStyle(fontSize: 20)),
+        ));
+      }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Something went wrong.", style: TextStyle(fontSize: 20)),
+        content: Text("Заполните поле.", style: TextStyle(fontSize: 20)),
       ));
     }
   }

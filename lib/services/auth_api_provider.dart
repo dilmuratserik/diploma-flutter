@@ -8,7 +8,7 @@ class AuthProvider {
 
   Future<dynamic> login(String email, String password) async {
     final response = await http.post(
-      Uri.parse(API_URL + '/users/login/'),
+      Uri.parse(API_URL + 'users/login/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -17,6 +17,8 @@ class AuthProvider {
         "password": password,
       }),
     );
+
+    print(response.body);
 
     if (response.statusCode == 200) {
       Map<String, dynamic> result = jsonDecode(response.body);

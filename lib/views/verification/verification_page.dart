@@ -120,10 +120,7 @@ class _VerificationPageState extends State<VerificationPage> {
       padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => MainMenuPage()),
-          );
+          sendVerificationCode();
         },
         style: ElevatedButton.styleFrom(
             minimumSize: Size(double.infinity,
@@ -202,16 +199,24 @@ class _VerificationPageState extends State<VerificationPage> {
   }
 
   void sendVerificationCode() async {
-    var response =
-        await AuthProvider().sendDeviceToken(textEditingController.text);
-    print(response);
-    if (response != 'Error') {
-      print('OK!');
-      // Navigator.push(
-      // context, MaterialPageRoute(builder: (context) => VerificationPage()));
+    if (textEditingController.text != '') {
+      print(textEditingController.text);
+      var response =
+          await AuthProvider().sendDeviceToken(textEditingController.text);
+      print(response);
+      if (response != 'Error') {
+        print('OK!');
+        // Navigator.push(
+        // context, MaterialPageRoute(builder: (context) => VerificationPage()));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content:
+              Text("Something went wrong.", style: TextStyle(fontSize: 20)),
+        ));
+      }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Something went wrong.", style: TextStyle(fontSize: 20)),
+        content: Text("Заполните поле.", style: TextStyle(fontSize: 20)),
       ));
     }
   }
