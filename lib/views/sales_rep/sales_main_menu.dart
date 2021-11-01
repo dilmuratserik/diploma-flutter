@@ -9,6 +9,7 @@ import 'home_page/sales_home_page.dart';
 import 'list_of_payments_page.dart/list_of_payments_page.dart';
 import 'order_page/sales_order_page.dart';
 
+
 class SalesMainMenuPage extends StatefulWidget {
   const SalesMainMenuPage({Key? key}) : super(key: key);
 
@@ -17,11 +18,14 @@ class SalesMainMenuPage extends StatefulWidget {
 }
 
 class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
+
   int _selectedIndex = 0;
-  final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+
 
   var _role = 1;
 

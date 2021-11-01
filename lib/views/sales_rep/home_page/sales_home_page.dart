@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/views/utills/const.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class SalesHomePage extends StatefulWidget {
   const SalesHomePage({Key? key}) : super(key: key);
@@ -11,6 +13,18 @@ class SalesHomePage extends StatefulWidget {
 class _SalesHomePageState extends State<SalesHomePage> {
   bool _switchValue1 = false;
   bool _switchValue2 = false;
+
+  late List<SalesData> _chartData;
+  late List<SalesData> _chartData2;
+  late TooltipBehavior _tooltipBehavior;
+
+  @override
+  void initState() {
+    _chartData = getChartData();
+    _chartData2 = getChartData2();
+    _tooltipBehavior = TooltipBehavior(enable: true);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -146,12 +160,39 @@ class _SalesHomePageState extends State<SalesHomePage> {
                                 ],
                               ),
                             ),
-                            Container(
-                              child: Center(
-                                child: Text('Display Tab 23',
-                                    style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold)),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Container(
+                                width: 800,
+                                  child: SfCartesianChart(
+                                // title: ChartTitle(text: 'Yearly sales analysis'),
+                                legend: Legend(isVisible: false),
+                                tooltipBehavior: _tooltipBehavior,
+                                series: <ChartSeries<SalesData, String>>[
+                                  LineSeries<SalesData, String>(
+                                       dataSource: _chartData,
+                                      xValueMapper: (SalesData sales, _) =>
+                                          sales.month,
+                                      yValueMapper: (SalesData sales, _) =>
+                                          sales.sales,
+                                      dataLabelSettings:
+                                          DataLabelSettings(isVisible: true),
+                                      enableTooltip: false),
+                                  LineSeries<SalesData, String>(
+                                      dataSource: _chartData2,
+                                      xValueMapper: (SalesData sales, _) =>
+                                      sales.month,
+                                      yValueMapper: (SalesData sales, _) =>
+                                      sales.sales,
+                                      dataLabelSettings:
+                                      DataLabelSettings(isVisible: true),
+                                      enableTooltip: false)
+                                ],
+                                    primaryXAxis: CategoryAxis(),
+                                // primaryXAxis: NumericAxis(
+                                //   edgeLabelPlacement: EdgeLabelPlacement.shift,
+                                // ),
+                              )
                               ),
                             ),
                           ]))
@@ -186,4 +227,46 @@ class _SalesHomePageState extends State<SalesHomePage> {
       child: Text(text, style: TextStyle(color: Colors.black, fontSize: 16)),
     );
   }
+
+  List<SalesData> getChartData() {
+    final List<SalesData> chartData = [
+      SalesData("Январь", 25),
+      SalesData("Февраль", 12),
+      SalesData("Март", 24),
+      SalesData("Апрель", 18),
+      SalesData("Май", 30),
+      SalesData("Июнь", 15),
+      SalesData("Июль", 30),
+      SalesData("Август", 52),
+      SalesData("Сентябрь", 35),
+      SalesData("Октябрь", 22),
+      SalesData("Ноябрь", 22),
+      SalesData("Декабрь", 22)
+    ];
+    return chartData;
+  }
+  List<SalesData> getChartData2() {
+    final List<SalesData> chartData = [
+      SalesData("Январь", 12),
+      SalesData("Февраль", 56),
+      SalesData("Март", 48),
+      SalesData("Апрель", 21),
+      SalesData("Май", 5),
+      SalesData("Июнь", 64),
+      SalesData("Июль", 13),
+      SalesData("Август", 20),
+      SalesData("Сентябрь", 15),
+      SalesData("Октябрь", 35),
+      SalesData("Ноябрь", 40),
+      SalesData("Декабрь", 32)
+    ];
+    return chartData;
+  }
+}
+
+class SalesData {
+  SalesData(this.month, this.sales);
+
+  final String month;
+  final double sales;
 }
