@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
@@ -18,6 +21,9 @@ class _SalesHomePageState extends State<SalesHomePage> {
   late List<SalesData> _chartData2;
   late TooltipBehavior _tooltipBehavior;
 
+  final ImagePicker _picker = ImagePicker();
+  String avatarPath = "";
+
   @override
   void initState() {
     _chartData = getChartData();
@@ -35,44 +41,110 @@ class _SalesHomePageState extends State<SalesHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              child: Image.asset(
-                "assets/images/person.jpg",
-                fit: BoxFit.fitWidth,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 3.2,
-              ),
-            ),
             Padding(
-              padding:
-                  const EdgeInsets.only(bottom: 4, right: 4, top: 16, left: 16),
-              child: Text(
-                "Маратов Марат",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16, top: 8),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  Icon(
-                    Icons.call,
-                    color: AppColors.presentationGray,
-                    size: 16,
+                  Stack(
+                    children: [CircleAvatar(
+                      minRadius: MediaQuery.of(context).size.width / 8,
+                      backgroundImage:
+                        FileImage(File(avatarPath), )
+                      // AssetImage(
+                      //     "assets/images/person.jpg"),
+                    ),
+                      Positioned(
+                          top: 80,
+                          left: 75,
+                          child: CircleButton(onTap: () async {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) {
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      ListTile(
+                                        leading: new Icon(Icons.photo),
+                                        title: new Text('Gallery'),
+                                        onTap: () async {
+                                          Navigator.pop(context);
+
+                                          XFile? avatar = await _picker.pickImage(source: ImageSource.gallery);
+                                          setState(() {
+                                            if (avatar != null) avatarPath = avatar.path;
+                                          });
+                                        },
+                                      ),
+                                      ListTile(
+                                        leading: new Icon(Icons.camera_alt),
+                                        title: new Text('Camera'),
+                                        onTap: () async{
+                                          Navigator.pop(context);
+
+                                          XFile? avatar = await _picker.pickImage(source: ImageSource.camera);
+                                          setState(() {
+                                            if (avatar != null) avatarPath = avatar.path;
+                                          });
+
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                });
+
+                          }, iconData: Icon(Icons.edit, color: AppColors.green)),)
+                    ]
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 4),
-                    child: Text("+77081622547",
-                        style: TextStyle(
-                            color: AppColors.presentationGray, fontSize: 15)),
+
+                  Column(
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(bottom: 4, right: 4, top: 16, left: 16),
+                        child: Text(
+                          "Маратов Марат",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, top: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.call,
+                              color: AppColors.presentationGray,
+                              size: 16,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text("+77081622547",
+                                  style: TextStyle(
+                                      color: AppColors.presentationGray, fontSize: 15)),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
+
                 ],
               ),
             ),
+            // Container(
+            //   child: Image.asset(
+            //     "assets/images/person.jpg",
+            //     fit: BoxFit.fitWidth,
+            //     width: MediaQuery.of(context).size.width,
+            //     height: MediaQuery.of(context).size.height / 3.2,
+            //   ),
+            // ),
+
             DefaultTabController(
                 length: 2, // length of tabs
                 initialIndex: 0,
@@ -134,7 +206,7 @@ class _SalesHomePageState extends State<SalesHomePage> {
                                                 print("value ${value}");
                                               })
                                         ]),
-                                  ),
+                                   ),
                                   Padding(
                                     padding:
                                         const EdgeInsets.only(top: 0, left: 16),
@@ -203,6 +275,8 @@ class _SalesHomePageState extends State<SalesHomePage> {
     );
   }
 
+
+
   Widget getDivider() {
     return Divider(
       color: AppColors.presentationGray,
@@ -269,4 +343,27 @@ class SalesData {
 
   final String month;
   final double sales;
+}
+class CircleButton extends StatelessWidget {
+  final GestureTapCallback onTap;
+  final Icon iconData;
+
+  const CircleButton({Key? key, required this.onTap, required this.iconData}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    return new InkResponse(
+      onTap: onTap,
+      child: new Container(
+         // width: size,
+        // height: size,
+        decoration: new BoxDecoration(
+          color: AppColors.lightGray,
+          shape: BoxShape.circle,
+        ),
+        child: iconData
+      )
+    );
+  }
 }

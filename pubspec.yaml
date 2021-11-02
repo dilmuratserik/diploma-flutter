@@ -32,6 +32,7 @@ dependencies:
   shared_preferences: ^2.0.8
   http: ^0.13.4
   syncfusion_flutter_charts: ^19.3.47
+  image_picker: ^0.8.4+4 # https://pub.dev/packages/image_picker
 
 
   # The following adds the Cupertino Icons font to your application.

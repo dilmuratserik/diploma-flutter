@@ -11,6 +11,7 @@ class AppColors {
   static final Color lightRed = HexColor.fromHex("#FDD4D4");
   static final Color lightOrange = HexColor.fromHex("#FEC400");
 
+  static final Color lightGray = HexColor.fromHex("#EEF3F1");
 }
 
 
