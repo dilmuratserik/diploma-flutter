@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/views/lock/lock_page.dart';
 import 'package:mobile/views/utills/const.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -50,7 +51,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   ]),
             ),
             getMenuText("Написать техподдержку"),
-            getMenuText("Изменить код быстрого доступа"),
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LockPage()));
+                },
+                child: getMenuText("Изменить код быстрого доступа")),
             Padding(
               padding: const EdgeInsets.only(top: 0),
               child: Row(

@@ -7,7 +7,7 @@ import 'package:mobile/services/auth_api_provider.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:mobile/views/utills/utill.dart';
-import 'package:mobile/views/verification/verification_page.dart';
+import 'package:mobile/views/authorization/verification_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegistrationPage extends StatefulWidget {

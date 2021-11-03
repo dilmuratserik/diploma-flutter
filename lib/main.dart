@@ -4,10 +4,10 @@ import 'package:mobile/views/authorization/registrationSecond_page.dart';
 import 'package:mobile/views/authorization/setPassword_page.dart';
 import 'package:mobile/views/authorization/signin_page.dart';
 import 'package:mobile/views/home/home_page.dart';
-import 'package:mobile/views/presentation/presentation_view_pager.dart';
+import 'package:mobile/views/authorization/presentation_view_pager.dart';
 import 'package:mobile/views/sales_rep/sales_main_menu.dart';
 import 'package:mobile/views/utills/const.dart';
-import 'package:mobile/views/verification/verification_page.dart';
+import 'package:mobile/views/authorization/verification_page.dart';
 
 void main() {
   runApp(MyApp());
