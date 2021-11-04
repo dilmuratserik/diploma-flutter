@@ -3,12 +3,15 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/services/auth_api_provider.dart';
+import 'package:mobile/views/sales_rep/home_page/sales_home_page.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class VerificationPage extends StatefulWidget {
-  const VerificationPage({Key? key}) : super(key: key);
+  const VerificationPage({Key? key, required this.phone}) : super(key: key);
+  final String phone;
 
   @override
   _VerificationPageState createState() => _VerificationPageState();
@@ -49,7 +52,7 @@ class _VerificationPageState extends State<VerificationPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 10),
-                    child: Text('Код выслан на +77000000000',
+                    child: Text('Код выслан на ' + widget.phone,
                         style: TextStyle(fontSize: 14)),
                   ),
                   Padding(
@@ -159,15 +162,9 @@ class _VerificationPageState extends State<VerificationPage> {
       // errorAnimationController: errorController,
       controller: textEditingController,
       onCompleted: (v) {
-        print("Completed");
         sendVerificationCode();
       },
-      onChanged: (value) {
-        print(value);
-        setState(() {
-          print(value);
-        });
-      },
+      onChanged: (value) {},
       beforeTextPaste: (text) {
         print("Allowing to paste $text");
         return true;
@@ -199,18 +196,18 @@ class _VerificationPageState extends State<VerificationPage> {
 
   void sendVerificationCode() async {
     if (textEditingController.text != '') {
-      print(textEditingController.text);
       var response =
-          await AuthProvider().sendDeviceToken(textEditingController.text);
-      print(response);
-      if (response != 'Error') {
-        print('OK!');
-        // Navigator.push(
-        // context, MaterialPageRoute(builder: (context) => VerificationPage()));
+          await AuthProvider().sendVerificationCode(textEditingController.text);
+      if (response['status'] == 'ok') {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString("token", response['key']);
+        prefs.setInt("user_id", response['uid']);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SalesHomePage()));
+        AppConstants.isSignIn = true;
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content:
-              Text("Something went wrong.", style: TextStyle(fontSize: 20)),
+          content: Text("Неправильный код.", style: TextStyle(fontSize: 20)),
         ));
       }
     } else {

@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthProvider {
   String API_URL = AppConstants.baseUrl;
 
-  Future<dynamic> login(String email, String password) async {
+  Future<Map<String, dynamic>> login(String email, String password) async {
     final response = await http.post(
       Uri.parse(API_URL + 'users/login/'),
       headers: <String, String>{
@@ -24,7 +24,7 @@ class AuthProvider {
       Map<String, dynamic> result = jsonDecode(response.body);
       return result;
     } else {
-      return 'Error';
+      return {'status': 'Error'};
     }
   }
 
@@ -91,7 +91,7 @@ class AuthProvider {
     }
   }
 
-  Future<String> sendVerificationCode(String code) async {
+  Future<Map<String, dynamic>> sendVerificationCode(String code) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
     var phone = prefs.getString('phone');
@@ -108,9 +108,10 @@ class AuthProvider {
     print(response.body);
 
     if (response.statusCode == 200) {
-      return 'Success';
+      Map<String, dynamic> result = jsonDecode(response.body);
+      return result;
     } else {
-      return 'Error';
+      return {'status': 'Error'};
     }
   }
 

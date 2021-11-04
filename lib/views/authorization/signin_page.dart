@@ -6,6 +6,7 @@ import 'package:mobile/components/bitTextOnBottom.dart';
 import 'package:mobile/components/buttonGreen.dart';
 import 'package:mobile/services/auth_api_provider.dart';
 import 'package:mobile/views/authorization/registration_page.dart';
+import 'package:mobile/views/sales_rep/home_page/sales_home_page.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:mobile/views/utills/utill.dart';
@@ -206,13 +207,14 @@ class _SignInPageState extends State<SignInPage> {
       if (response != 'Error') {
         prefs.setString("token", response['key']);
         prefs.setInt("user_id", response['uid']);
-        print(response['key']);
 
-        // Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SalesHomePage()));
+        AppConstants.isSignIn = true;
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content:
-              Text("Something went wrong.", style: TextStyle(fontSize: 16)),
+          content: Text("Неправильный логин или пароль.",
+              style: TextStyle(fontSize: 16)),
         ));
       }
     } else {

@@ -130,8 +130,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
       if (response != 'Error') {
         print('OK!');
         prefs.setString('phone', phoneController.text);
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => VerificationPage()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => VerificationPage(
+                      phone: phoneController.text,
+                    )));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content:

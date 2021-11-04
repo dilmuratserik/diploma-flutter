@@ -14,12 +14,10 @@ class AppColors {
   static final Color lightGray = HexColor.fromHex("#EEF3F1");
 }
 
-
-
 class AppConstants {
   static final String baseUrl = "http://137.184.52.236/";
 
   static final String phone = "phone";
-  static final String uid = "uid";
-  static final String name = "name";
+
+  static bool isSignIn = false;
 }

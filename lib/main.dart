@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           shadowColor: Colors.black,
           iconTheme: IconThemeData(color: Colors.black),
         ),
-        home: SalesMainMenuPage());
+        home: AppConstants.isSignIn ? SalesMainMenuPage() : SignInPage());
     // home: routes[_roleIndex]);
   }
 }
