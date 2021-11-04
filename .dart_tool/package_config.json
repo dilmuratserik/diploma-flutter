@@ -2,6 +2,18 @@
   "configVersion": 2,
   "packages": [
     {
+      "name": "args",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/args-2.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "asn1lib",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/asn1lib-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "async",
       "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.8.1",
       "packageUri": "lib/",
@@ -38,8 +50,20 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "convert",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/convert-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "cross_file",
       "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/cross_file-0.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "crypto",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -52,6 +76,12 @@
     {
       "name": "dots_indicator",
       "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/dots_indicator-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "encrypt",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/encrypt-5.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -230,6 +260,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "pointycastle",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/pointycastle-3.3.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "process",
       "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/process-4.2.4",
       "packageUri": "lib/",
@@ -303,13 +339,13 @@
     },
     {
       "name": "syncfusion_flutter_charts",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_charts-19.3.47",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_charts-19.3.48",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "syncfusion_flutter_core",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-19.3.47",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-19.3.48",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -362,7 +398,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-11-03T12:42:03.502757Z",
+  "generated": "2021-11-04T06:55:11.055496Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }

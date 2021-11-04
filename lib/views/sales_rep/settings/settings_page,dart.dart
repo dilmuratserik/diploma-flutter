@@ -18,11 +18,16 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        leading: Icon(Icons.arrow_back_outlined,color: AppColors.presentationGray),
-        title: Text("Настройки", style: TextStyle(color: AppColors.green),),
-        backgroundColor: Colors.white,
-      ),
+          elevation: 0,
+          centerTitle: true,
+          title: Text( "Настройки",
+              style: TextStyle(color: Colors.black, fontSize: 18)),
+          brightness: Brightness.light,
+          automaticallyImplyLeading: true,
+          backgroundColor: Colors.white,
+          shadowColor: Colors.white,
+          bottomOpacity: 1,
+          iconTheme: IconThemeData(color: Colors.black)),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
         child: Column(
@@ -85,7 +90,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Widget getMenuText(String title) {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         child:
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
