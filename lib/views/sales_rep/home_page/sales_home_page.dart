@@ -50,11 +50,10 @@ class _SalesHomePageState extends State<SalesHomePage> {
                   Stack(
                     children: [CircleAvatar(
                       minRadius: MediaQuery.of(context).size.width / 8,
-                      backgroundImage:
-                        FileImage(File(avatarPath), )
+                       backgroundImage:
+                        getImage(),),
                       // AssetImage(
-                      //     "assets/images/person.jpg"),
-                    ),
+                      //     "assets/images/person.jpg")
                       Positioned(
                           top: 80,
                           left: 75,
@@ -275,7 +274,12 @@ class _SalesHomePageState extends State<SalesHomePage> {
     );
   }
 
-
+   getImage() {
+     if (avatarPath.isNotEmpty)
+     return  FileImage(File(avatarPath));
+      else
+      return AssetImage("assets/images/person.jpg");
+  }   
 
   Widget getDivider() {
     return Divider(
