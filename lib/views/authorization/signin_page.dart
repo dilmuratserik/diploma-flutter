@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +8,7 @@ import 'package:mobile/components/buttonGreen.dart';
 import 'package:mobile/services/auth_api_provider.dart';
 import 'package:mobile/views/authorization/registration_page.dart';
 import 'package:mobile/views/sales_rep/home_page/sales_home_page.dart';
+import 'package:mobile/views/sales_rep/sales_main_menu.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:mobile/views/utills/utill.dart';
@@ -157,8 +159,17 @@ class _SignInPageState extends State<SignInPage> {
               child: Padding(
             padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
             child: ElevatedButton(
-              onPressed: () {
-                login();
+              onPressed: () async {
+                var connectivityResult =
+                    await (Connectivity().checkConnectivity());
+                if (connectivityResult == ConnectivityResult.none) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Соединение с интернетом отсутствует.",
+                        style: TextStyle(fontSize: 16)),
+                  ));
+                } else {
+                  login();
+                }
               },
               style: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity,
@@ -208,8 +219,10 @@ class _SignInPageState extends State<SignInPage> {
         prefs.setString("token", response['key']);
         prefs.setInt("user_id", response['uid']);
 
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SalesHomePage()));
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => SalesMainMenuPage()),
+            (Route<dynamic> route) => false);
         AppConstants.isSignIn = true;
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

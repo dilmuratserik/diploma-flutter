@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/services/auth_api_provider.dart';
+import 'package:mobile/views/authorization/registrationSecond_page.dart';
 import 'package:mobile/views/sales_rep/home_page/sales_home_page.dart';
+import 'package:mobile/views/sales_rep/sales_main_menu.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -32,6 +34,18 @@ class _VerificationPageState extends State<VerificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+          elevation: 0,
+          centerTitle: true,
+          title: Text('СМС код',
+              style: TextStyle(color: Colors.black, fontSize: 18)),
+          brightness: Brightness.light,
+          automaticallyImplyLeading: true,
+          backgroundColor: Colors.white,
+          shadowColor: Colors.white,
+          bottomOpacity: 1,
+          iconTheme: IconThemeData(color: Colors.black)),
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,7 +56,7 @@ class _VerificationPageState extends State<VerificationPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 100),
+                    padding: const EdgeInsets.only(left: 20, top: 20),
                     child: Text('Верификация',
                         style: TextStyle(
                             color: AppColors.green,
@@ -92,7 +106,7 @@ class _VerificationPageState extends State<VerificationPage> {
 
   @override
   void dispose() {
-    textEditingController.dispose();
+    // textEditingController.dispose();
     _timer.cancel();
     super.dispose();
   }
@@ -202,8 +216,8 @@ class _VerificationPageState extends State<VerificationPage> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString("token", response['key']);
         prefs.setInt("user_id", response['uid']);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SalesHomePage()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => RegistrationSecondPage()));
         AppConstants.isSignIn = true;
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

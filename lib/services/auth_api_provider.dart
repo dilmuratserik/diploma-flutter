@@ -11,6 +11,7 @@ class AuthProvider {
       Uri.parse(API_URL + 'users/login/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
       },
       body: jsonEncode(<String, dynamic>{
         "phone": email,
@@ -33,6 +34,7 @@ class AuthProvider {
       Uri.parse(API_URL + 'users/phone/otp/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
       },
       body: jsonEncode(<String, dynamic>{
         "phone": phone,
@@ -55,6 +57,7 @@ class AuthProvider {
       Uri.parse(API_URL + 'api/device-token'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
         'Authorization': "Bearer $token"
       },
       body: jsonEncode(<String, dynamic>{
@@ -79,6 +82,7 @@ class AuthProvider {
       Uri.parse(API_URL + 'users/detail/' + id),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
         'Authorization': "Bearer $token"
       },
     );
@@ -100,6 +104,7 @@ class AuthProvider {
       Uri.parse(API_URL + 'users/register/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
         'Authorization': "Bearer $token"
       },
       body: jsonEncode(<String, dynamic>{"phone": phone, "code": code}),
@@ -115,7 +120,8 @@ class AuthProvider {
     }
   }
 
-  Future<String> setProfileData(String str) async {
+  Future<String> setProfileData(String role, String iin, String name,
+      String country, String city, String password) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
@@ -123,22 +129,23 @@ class AuthProvider {
       Uri.parse(API_URL + 'users/register/continue/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
         'Authorization': "Bearer $token"
       },
       body: jsonEncode(<String, dynamic>{
-        "password": '1',
-        "role": '2',
-        "name": '3',
-        "country": '4',
-        "city": '5',
-        "bin_iin": '6'
+        "password": password,
+        "role": role,
+        "name": name,
+        "bin_iin": iin,
+        "country": country,
+        "city": city,
       }),
     );
 
     print(response.body);
 
     if (response.statusCode == 200) {
-      return 'Success';
+      return 'Error';
     } else {
       return 'Error';
     }
@@ -152,6 +159,7 @@ class AuthProvider {
       Uri.parse(API_URL + 'users/password/change/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
         'Authorization': "Bearer $token"
       },
       body: jsonEncode(<String, dynamic>{

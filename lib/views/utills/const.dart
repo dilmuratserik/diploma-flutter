@@ -16,7 +16,6 @@ class AppColors {
 
 class AppConstants {
   static final String baseUrl = "http://137.184.52.236/";
-
   static final String phone = "phone";
 
   static bool isSignIn = false;
