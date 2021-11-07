@@ -6,6 +6,7 @@ class AppColors {
   static final Color gold = HexColor.fromHex("#DDAB40");
   static final Color presentationGray = HexColor.fromHex("#767785");
   static final Color editTextBorderColor = HexColor.fromHex("#DADADA");
+  static final Color yellow = HexColor.fromHex("#FF9F1C");
 
   static final Color lightGreen = HexColor.fromHex("#DCFDD4");
   static final Color lightRed = HexColor.fromHex("#FDD4D4");
@@ -19,4 +20,6 @@ class AppConstants {
   static final String phone = "phone";
 
   static bool isSignIn = false;
+  static bool isHaveLockScreen = false;
+  static String lockCode = "lockCode";
 }

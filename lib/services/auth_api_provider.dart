@@ -125,6 +125,13 @@ class AuthProvider {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
+    print("token" + token.toString());
+    print("role" + role);
+    print("iin" + iin);
+    print("name" + name);
+    print("country" + country);
+    print("city" + city);
+
     final response = await http.post(
       Uri.parse(API_URL + 'users/register/continue/'),
       headers: <String, String>{
@@ -154,6 +161,7 @@ class AuthProvider {
   Future<String> changePassword(String str) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
+    print("tokens" + token.toString());
 
     final response = await http.post(
       Uri.parse(API_URL + 'users/password/change/'),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:encrypt/encrypt.dart' as encryption;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LockPage extends StatefulWidget {
+
+  // final bool isChangeCode;
   const LockPage({Key? key}) : super(key: key);
 
   @override
@@ -12,8 +15,15 @@ class LockPage extends StatefulWidget {
 class _LockPageState extends State<LockPage> {
 
   List<int> code = [-1,-1,-1,-1];
-  List<Color> colors = [Colors.black54, Colors.black54, Colors.black54, Colors.black54];
+  List<int> sCode = [-1,-1,-1,-1];
+
   var currentIndex = -1;
+  var isSecond = false;
+
+  List<Color> borderColors = [AppColors.presentationGray,AppColors.presentationGray,AppColors.presentationGray,AppColors.presentationGray];
+  List<Color> fillColors = [Colors.white,Colors.white,Colors.white,Colors.white,];
+  List<Color> sBorderColors = [AppColors.presentationGray,AppColors.presentationGray,AppColors.presentationGray,AppColors.presentationGray];
+  List<Color> sFillColors = [Colors.white,Colors.white,Colors.white,Colors.white,];
 
 
   @override
@@ -39,54 +49,120 @@ class _LockPageState extends State<LockPage> {
             child: Text("Неправильно введен 4-значный пароль",
                 textAlign: TextAlign.center, style: TextStyle(fontSize: 17)),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top:50.0),
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: 12,
-                  height: 12,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: colors[0],
+                padding: const EdgeInsets.only(top:50.0),
+                child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Container(
+                      width: 12,
+                      height: 12,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                          color: fillColors[0],
+                          border: Border.all(color: borderColors[0])
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Container(
+                      width: 12,
+                      height: 12,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                      color: fillColors[1],
+                          border: Border.all(color: borderColors[1])
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Container(
+                      width: 12,
+                      height: 12,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                          color: fillColors[2],
+                          border: Border.all(color: borderColors[2])
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Container(
+                      width: 12,
+                      height: 12,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                          color: fillColors[3],
+                          border: Border.all(color: borderColors[3])
+                      ),
+                    ),
+                  ),
+                ]),
+              ),
+            ],
+          ),
+          Visibility(
+            visible: true,
+            child: Padding(
+              padding: const EdgeInsets.only(top:0.0),
+              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: sFillColors[0],
+                        border: Border.all(color: sBorderColors[0])
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: 12,
-                  height: 12,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color:colors[1],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: sFillColors[1],
+                        border: Border.all(color: sBorderColors[1])
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: 12,
-                  height: 12,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: colors[2],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: sFillColors[2],
+                        border: Border.all(color: sBorderColors[2])
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: 12,
-                  height: 12,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: colors[3],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: sFillColors[3],
+                        border: Border.all(color: sBorderColors[3])
+                    ),
                   ),
                 ),
-              ),
-            ]),
+              ]),
+            ),
           ),
           Container(
             child: Column(
@@ -125,15 +201,15 @@ class _LockPageState extends State<LockPage> {
                           vertical: 8.0, horizontal: 8),
                       child: RawMaterialButton(
                         onPressed: () {
-                          if (currentIndex>=0) {
+                            if (currentIndex>=0) {
                             code[currentIndex] = -1;
                             print(code);
                             print(currentIndex);
                             setState(() {
-                              colors[currentIndex] = Colors.black54;
+                              borderColors[currentIndex] = AppColors.presentationGray;
+                              fillColors[currentIndex]= Colors.white;
                             });
                             currentIndex--;
-
                           }
                         },
                         elevation: 0,
@@ -157,6 +233,34 @@ class _LockPageState extends State<LockPage> {
     );
   }
 
+  void changeCode() {}
+
+  void checkCodes() {}
+
+  void decrypt() {}
+
+  void encrypt() {
+    final plainText = (code[0]-code[1]+code[2]+code[3]).toString();
+    final key = encryption.Key.fromUtf8('my 32 length key................');
+    final iv = encryption.IV.fromLength(16);
+
+    final encrypter = encryption.Encrypter(encryption.AES(key));
+
+
+    final encrypted = encrypter.encrypt(plainText, iv: iv);
+    final decrypted = encrypter.decrypt(encrypted, iv: iv);
+
+    print(decrypted);
+    print(encrypted.base64);
+    saveCode(encrypted.base64);
+  }
+
+  void saveCode(String code) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString(AppConstants.lockCode, code);
+  }
+
+
   Widget getCircleButton(
     int value,
   ) {
@@ -164,17 +268,25 @@ class _LockPageState extends State<LockPage> {
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
       child: RawMaterialButton(
         onPressed: () {
-          if (currentIndex < 3) {
-            currentIndex++;
-            code[currentIndex] = value;
-            print(code);
-            setState(() {
-              colors[currentIndex] = Colors.red;
-            });
-          }
+            if (currentIndex < 3) {
+              currentIndex++;
+              code[currentIndex] = value;
+              print(code);
+              setState(() {
+                fillColors[currentIndex] = AppColors.yellow;
+                borderColors[currentIndex] = AppColors.yellow;
+              });
+            }
+
           if (currentIndex == 3) {
-            encrypt();
-            print("asd");
+            if (!isSecond){
+              currentIndex = -1;
+              resetColors();
+            }
+            // if (!isChangeCode) {
+            //   encrypt();
+            // }
+            // print("asd");
           }
         },
         elevation: 0,
@@ -185,21 +297,13 @@ class _LockPageState extends State<LockPage> {
         ),
         padding: EdgeInsets.all(22.0),
         shape: CircleBorder(),
+
       ),
     );
   }
+  void resetColors() {
+    fillColors.replaceRange(0,code.length, [Colors.white]);
+    borderColors.replaceRange(0,code.length, [AppColors.presentationGray]);
 
-  void encrypt() {
-    final plainText = (code[0]-code[1]+code[2]+code[3]).toString();
-    final key = encryption.Key.fromUtf8('my 32 length key................');
-    final iv = encryption.IV.fromLength(16);
-
-    final encrypter = encryption.Encrypter(encryption.AES(key));
-
-    final encrypted = encrypter.encrypt(plainText, iv: iv);
-    final decrypted = encrypter.decrypt(encrypted, iv: iv);
-
-    print(decrypted);
-    print(encrypted.base64);
   }
 }
