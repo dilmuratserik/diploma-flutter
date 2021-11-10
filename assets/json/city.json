@@ -1,0 +1,98 @@
+[
+    {
+        "model": "locations.country",
+        "pk": 1,
+        "fields": {
+            "code": "KZ",
+            "name": "Казахстан"
+        }
+    },
+    {
+        "model": "locations.city",
+        "pk": 1,
+        "fields": {
+            "country": 1,
+            "name": "Алматы"
+        }
+    },
+    {
+        "model": "locations.city",
+        "pk": 2,
+        "fields": {
+            "country": 1,
+            "name": "Нур-Султан"
+        }
+    },
+    {
+        "model": "locations.city",
+        "pk": 3,
+        "fields": {
+            "country": 1,
+            "name": "Караганда"
+        }
+    },
+    {
+        "model": "locations.city",
+        "pk": 4,
+        "fields": {
+            "country": 1,
+            "name": "Актобе"
+        }
+    },
+    {
+        "model": "locations.city",
+        "pk": 5,
+        "fields": {
+            "country": 1,
+            "name": "Тараз"
+        }
+    },
+    {
+        "model": "locations.city",
+        "pk": 6,
+        "fields": {
+            "country": 1,
+            "name": "Павлодар"
+        }
+    },
+    {
+        "model": "locations.city",
+        "pk": 7,
+        "fields": {
+            "country": 1,
+            "name": "Усть-Каменогорск"
+        }
+    },
+    {
+        "model": "locations.city",
+        "pk": 8,
+        "fields": {
+            "country": 1,
+            "name": "Семей"
+        }
+    },
+    {
+        "model": "locations.city",
+        "pk": 9,
+        "fields": {
+            "country": 1,
+            "name": "Костанай"
+        }
+    },
+    {
+        "model": "locations.city",
+        "pk": 10,
+        "fields": {
+            "country": 1,
+            "name": "Атырау"
+        }
+    },
+    {
+        "model": "locations.city",
+        "pk": 11,
+        "fields": {
+            "country": 1,
+            "name": "Шымкент"
+        }
+    }
+]

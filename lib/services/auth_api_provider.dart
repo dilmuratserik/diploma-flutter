@@ -58,7 +58,7 @@ class AuthProvider {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
-        'Authorization': "Bearer $token"
+        'Authorization': "Token $token"
       },
       body: jsonEncode(<String, dynamic>{
         "device_token": deviceToken,
@@ -83,7 +83,7 @@ class AuthProvider {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
-        'Authorization': "Bearer $token"
+        'Authorization': "Token $token"
       },
     );
 
@@ -105,7 +105,7 @@ class AuthProvider {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
-        'Authorization': "Bearer $token"
+        'Authorization': "Token $token"
       },
       body: jsonEncode(<String, dynamic>{"phone": phone, "code": code}),
     );
@@ -120,41 +120,39 @@ class AuthProvider {
     }
   }
 
-  Future<String> setProfileData(String role, String iin, String name,
-      String country, String city, String password) async {
+  Future<Map<String, dynamic>> setProfileData(String role, String name,
+      String iin, String country, String city, String password) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
+    Map<String, dynamic> bodyDic = {
+      "password": password,
+      "role": role,
+      "name": name,
+      "country": country,
+      "city": city,
+    };
 
-    print("token" + token.toString());
-    print("role" + role);
-    print("iin" + iin);
-    print("name" + name);
-    print("country" + country);
-    print("city" + city);
+    if (role == '2') {
+      bodyDic["bin_iin"] = iin;
+    }
 
     final response = await http.post(
       Uri.parse(API_URL + 'users/register/continue/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
-        'Authorization': "Bearer $token"
+        'Authorization': "Token $token"
       },
-      body: jsonEncode(<String, dynamic>{
-        "password": password,
-        "role": role,
-        "name": name,
-        "bin_iin": iin,
-        "country": country,
-        "city": city,
-      }),
+      body: jsonEncode(bodyDic),
     );
 
     print(response.body);
 
     if (response.statusCode == 200) {
-      return 'Error';
+      Map<String, dynamic> result = jsonDecode(response.body);
+      return result;
     } else {
-      return 'Error';
+      return {'status': 'Error'};
     }
   }
 
@@ -168,7 +166,7 @@ class AuthProvider {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
-        'Authorization': "Bearer $token"
+        'Authorization': "Token $token"
       },
       body: jsonEncode(<String, dynamic>{
         "old_password": '1',

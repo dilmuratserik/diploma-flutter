@@ -201,7 +201,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
           widget.country,
           widget.city,
           passwordController.text);
-      if (response != 'Error') {
+      if (response['status'] == 'ok') {
         prefs.setString('role', widget.role);
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => SalesMainMenuPage()));
