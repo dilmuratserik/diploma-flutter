@@ -38,14 +38,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     MaterialColor colorCustom = MaterialColor(AppColors.green.hashCode, color);
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: colorCustom,
           shadowColor: Colors.black,
           iconTheme: IconThemeData(color: Colors.black),
         ),
-        home: AppConstants.isSignIn ? SignInPage() : SignInPage());
+        home: AppConstants.isSignIn ? MainMenuPage() : SignInPage());
     //  home :  SalesMainMenuPage());
-    // home: routes[_roleIndex]);
   }
 }

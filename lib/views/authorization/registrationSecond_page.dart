@@ -68,285 +68,309 @@ class _RegistrationSecondPageState extends State<RegistrationSecondPage> {
                 shadowColor: Colors.white,
                 bottomOpacity: 1,
                 iconTheme: IconThemeData(color: Colors.black)),
-            body:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20, top: 20),
-                child: Text('Регистрация',
-                    style: TextStyle(
-                        color: AppColors.green,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600)),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Text('Заполните свои данные',
-                    style: TextStyle(fontSize: 14)),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.only(
-                    top: 10.0, left: 20, right: 20, bottom: 10),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                    border: Border.all(color: Colors.grey)),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                      dropdownColor: Colors.white,
-                      hint: new Text("Роль"),
-                      value: _value,
-                      items: const [
-                        DropdownMenuItem(
-                          child: Text("Физическое лицо"),
-                          value: 1,
-                        ),
-                        DropdownMenuItem(
-                          child: Text("Организация"),
-                          value: 2,
-                        ),
-                      ],
-                      onChanged: (value) {
-                        setState(() {
-                          _value = value;
-                        });
-                      }),
-                ),
-              ),
-              _value == 1
-                  ? Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                      child: Container(
-                        child: TextFormField(
-                          onTap: () {
-                            fullNameFocusNode.requestFocus();
-                            nameOfOrganizationFocusNode.unfocus();
-                            iinFocusNode.unfocus();
-                            countryFocusNode.unfocus();
-                            cityFocusNode.unfocus();
-                            setState(() {});
-                          },
-                          focusNode: fullNameFocusNode,
-                          controller: fullNameController,
-                          cursorColor: Colors.black,
-                          maxLength: 30,
-                          decoration: InputDecoration(
-                              labelStyle: TextStyle(
-                                  color: fullNameFocusNode.hasFocus
-                                      ? AppColors.gold
-                                      : Colors.grey),
-                              focusColor: Colors.grey,
-                              fillColor: Colors.grey,
-                              counterText: "",
-                              labelText: "ФИО",
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  borderSide:
-                                      BorderSide(color: Colors.grey, width: 1)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: AppColors.gold, width: 1))),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Заполните это поле';
-                            }
-                            return null;
-                          },
+            body: SingleChildScrollView(
+              child: Container(
+                height: MediaQuery.of(context).size.height - 60,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20, top: 20),
+                        child: Text('Регистрация',
+                            style: TextStyle(
+                                color: AppColors.green,
+                                fontSize: 24,
+                                fontWeight: FontWeight.w600)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        child: Text('Заполните свои данные',
+                            style: TextStyle(fontSize: 14)),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.only(
+                            top: 10.0, left: 20, right: 20, bottom: 10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 5),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            border: Border.all(color: Colors.grey)),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                              dropdownColor: Colors.white,
+                              hint: new Text("Роль"),
+                              value: _value,
+                              items: const [
+                                DropdownMenuItem(
+                                  child: Text("Физическое лицо"),
+                                  value: 1,
+                                ),
+                                DropdownMenuItem(
+                                  child: Text("Организация"),
+                                  value: 2,
+                                ),
+                              ],
+                              onChanged: (value) {
+                                setState(() {
+                                  _value = value;
+                                });
+                              }),
                         ),
                       ),
-                    )
-                  : Container(),
-              _value == 2
-                  ? Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                      child: Container(
-                        child: TextFormField(
-                          onTap: () {
-                            fullNameFocusNode.unfocus();
-                            nameOfOrganizationFocusNode.requestFocus();
-                            iinFocusNode.unfocus();
-                            countryFocusNode.unfocus();
-                            cityFocusNode.unfocus();
-                            setState(() {});
-                          },
-                          focusNode: nameOfOrganizationFocusNode,
-                          controller: nameOfOrganizationController,
-                          cursorColor: Colors.black,
-                          maxLength: 40,
-                          decoration: InputDecoration(
-                              labelStyle: TextStyle(
-                                  color: nameOfOrganizationFocusNode.hasFocus
-                                      ? AppColors.gold
-                                      : Colors.grey),
-                              focusColor: Colors.grey,
-                              fillColor: Colors.grey,
-                              counterText: "",
-                              labelText: "Название",
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  borderSide:
-                                      BorderSide(color: Colors.grey, width: 1)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: AppColors.gold, width: 1))),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Заполните это поле';
-                            }
-                            return null;
-                          },
+                      _value == 1
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                              child: Container(
+                                child: TextFormField(
+                                  onTap: () {
+                                    fullNameFocusNode.requestFocus();
+                                    nameOfOrganizationFocusNode.unfocus();
+                                    iinFocusNode.unfocus();
+                                    countryFocusNode.unfocus();
+                                    cityFocusNode.unfocus();
+                                    setState(() {});
+                                  },
+                                  focusNode: fullNameFocusNode,
+                                  controller: fullNameController,
+                                  cursorColor: Colors.black,
+                                  maxLength: 30,
+                                  decoration: InputDecoration(
+                                      labelStyle: TextStyle(
+                                          color: fullNameFocusNode.hasFocus
+                                              ? AppColors.gold
+                                              : Colors.grey),
+                                      focusColor: Colors.grey,
+                                      fillColor: Colors.grey,
+                                      counterText: "",
+                                      labelText: "ФИО",
+                                      enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          borderSide: BorderSide(
+                                              color: Colors.grey, width: 1)),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: AppColors.gold,
+                                              width: 1))),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Заполните это поле';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            )
+                          : Container(),
+                      _value == 2
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                              child: Container(
+                                child: TextFormField(
+                                  onTap: () {
+                                    fullNameFocusNode.unfocus();
+                                    nameOfOrganizationFocusNode.requestFocus();
+                                    iinFocusNode.unfocus();
+                                    countryFocusNode.unfocus();
+                                    cityFocusNode.unfocus();
+                                    setState(() {});
+                                  },
+                                  focusNode: nameOfOrganizationFocusNode,
+                                  controller: nameOfOrganizationController,
+                                  cursorColor: Colors.black,
+                                  maxLength: 40,
+                                  decoration: InputDecoration(
+                                      labelStyle: TextStyle(
+                                          color: nameOfOrganizationFocusNode
+                                                  .hasFocus
+                                              ? AppColors.gold
+                                              : Colors.grey),
+                                      focusColor: Colors.grey,
+                                      fillColor: Colors.grey,
+                                      counterText: "",
+                                      labelText: "Название",
+                                      enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          borderSide: BorderSide(
+                                              color: Colors.grey, width: 1)),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: AppColors.gold,
+                                              width: 1))),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Заполните это поле';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            )
+                          : Container(),
+                      _value == 2
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                              child: Container(
+                                child: TextFormField(
+                                  onTap: () {
+                                    fullNameFocusNode.unfocus();
+                                    nameOfOrganizationFocusNode.unfocus();
+                                    iinFocusNode.requestFocus();
+                                    countryFocusNode.unfocus();
+                                    cityFocusNode.unfocus();
+                                    setState(() {});
+                                  },
+                                  focusNode: iinFocusNode,
+                                  controller: iinController,
+                                  cursorColor: Colors.black,
+                                  maxLength: 30,
+                                  decoration: InputDecoration(
+                                      labelStyle: TextStyle(
+                                          color: iinFocusNode.hasFocus
+                                              ? AppColors.gold
+                                              : Colors.grey),
+                                      focusColor: Colors.grey,
+                                      fillColor: Colors.grey,
+                                      counterText: "",
+                                      labelText: "ИНН/БИН организации",
+                                      enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          borderSide: BorderSide(
+                                              color: Colors.grey, width: 1)),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: AppColors.gold,
+                                              width: 1))),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Заполните это поле';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            )
+                          : Container(),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.only(
+                            top: 10.0, left: 20, right: 20),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 5),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            border: Border.all(color: Colors.grey)),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                              dropdownColor: Colors.white,
+                              hint: new Text("Страна"),
+                              value: _value2,
+                              items: [
+                                for (int i = 0; i < listOfCountries.length; i++)
+                                  DropdownMenuItem(
+                                    child: Text(listOfCountries[i]['name']),
+                                    value: i,
+                                  ),
+                              ],
+                              onChanged: (value) {
+                                setState(() {
+                                  _value2 = value;
+                                  countryID = listOfCountries[
+                                      int.parse(value.toString())]['id'];
+                                });
+                              }),
                         ),
                       ),
-                    )
-                  : Container(),
-              _value == 2
-                  ? Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                      child: Container(
-                        child: TextFormField(
-                          onTap: () {
-                            fullNameFocusNode.unfocus();
-                            nameOfOrganizationFocusNode.unfocus();
-                            iinFocusNode.requestFocus();
-                            countryFocusNode.unfocus();
-                            cityFocusNode.unfocus();
-                            setState(() {});
-                          },
-                          focusNode: iinFocusNode,
-                          controller: iinController,
-                          cursorColor: Colors.black,
-                          maxLength: 30,
-                          decoration: InputDecoration(
-                              labelStyle: TextStyle(
-                                  color: iinFocusNode.hasFocus
-                                      ? AppColors.gold
-                                      : Colors.grey),
-                              focusColor: Colors.grey,
-                              fillColor: Colors.grey,
-                              counterText: "",
-                              labelText: "ИНН/БИН организации",
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  borderSide:
-                                      BorderSide(color: Colors.grey, width: 1)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: AppColors.gold, width: 1))),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Заполните это поле';
-                            }
-                            return null;
-                          },
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.only(
+                            top: 20.0, left: 20, right: 20),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 5),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            border: Border.all(color: Colors.grey)),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                              dropdownColor: Colors.white,
+                              hint: new Text("Город"),
+                              value: _value3,
+                              items: [
+                                for (int i = 0; i < listOfCities.length; i++)
+                                  DropdownMenuItem(
+                                    child: Text(listOfCities[i]['name']),
+                                    value: i,
+                                  ),
+                              ],
+                              onChanged: (value) {
+                                setState(() {
+                                  _value3 = value;
+                                  cityID =
+                                      listOfCities[int.parse(value.toString())]
+                                          ['id'];
+                                });
+                              }),
                         ),
                       ),
-                    )
-                  : Container(),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.only(top: 10.0, left: 20, right: 20),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                    border: Border.all(color: Colors.grey)),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                      dropdownColor: Colors.white,
-                      hint: new Text("Страна"),
-                      value: _value2,
-                      items: [
-                        for (int i = 0; i < listOfCountries.length; i++)
-                          DropdownMenuItem(
-                            child: Text(listOfCountries[i]['name']),
-                            value: i,
-                          ),
-                      ],
-                      onChanged: (value) {
-                        setState(() {
-                          _value2 = value;
-                          countryID =
-                              listOfCountries[int.parse(value.toString())]
-                                  ['id'];
-                        });
-                      }),
-                ),
+                      Spacer(),
+                      Center(
+                          child: Padding(
+                        padding:
+                            const EdgeInsets.only(top: 30, left: 20, right: 20),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_value == 1 &&
+                                fullNameController.text != '' &&
+                                countryID != 0 &&
+                                cityID != 0) {
+                              nextPage();
+                            } else if (_value == 2 &&
+                                nameOfOrganizationController.text != '' &&
+                                iinController.text != '' &&
+                                countryID != 0 &&
+                                cityID != 0) {
+                              nextPage();
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text("Заполните поля.",
+                                    style: TextStyle(fontSize: 16)),
+                              ));
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                              minimumSize: Size(double.infinity, 30),
+                              primary: AppColors.green,
+                              padding: EdgeInsets.symmetric(vertical: 17),
+                              textStyle: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Roboto")),
+                          child: Text('ПРОДОЛЖИТЬ РЕГИСТРАЦИЮ'),
+                        ),
+                      )),
+                      SizedBox(
+                        height: 40,
+                      )
+                      // Center(
+                      //     child: Padding(
+                      //   padding: const EdgeInsets.only(bottom: 40, top: 20),
+                      //   child:
+                      //       getBitText('У вас есть учетная запись?', 'Войти'),
+                      // )),
+                    ]),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.only(top: 20.0, left: 20, right: 20),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                    border: Border.all(color: Colors.grey)),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                      dropdownColor: Colors.white,
-                      hint: new Text("Город"),
-                      value: _value3,
-                      items: [
-                        for (int i = 0; i < listOfCities.length; i++)
-                          DropdownMenuItem(
-                            child: Text(listOfCities[i]['name']),
-                            value: i,
-                          ),
-                      ],
-                      onChanged: (value) {
-                        setState(() {
-                          _value3 = value;
-                          cityID =
-                              listOfCities[int.parse(value.toString())]['id'];
-                        });
-                      }),
-                ),
-              ),
-              Spacer(),
-              Center(
-                  child: Padding(
-                padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_value == 1 &&
-                        fullNameController.text != '' &&
-                        countryID != 0 &&
-                        cityID != 0) {
-                      nextPage();
-                    } else if (_value == 2 &&
-                        nameOfOrganizationController.text != '' &&
-                        iinController.text != '' &&
-                        countryID != 0 &&
-                        cityID != 0) {
-                      nextPage();
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Заполните поля.",
-                            style: TextStyle(fontSize: 16)),
-                      ));
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: Size(double.infinity, 30),
-                      primary: AppColors.green,
-                      padding: EdgeInsets.symmetric(vertical: 17),
-                      textStyle: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Roboto")),
-                  child: Text('ПРОДОЛЖИТЬ РЕГИСТРАЦИЮ'),
-                ),
-              )),
-              Center(
-                  child: Padding(
-                padding: const EdgeInsets.only(bottom: 40, top: 20),
-                child: getBitText('У вас есть учетная запись?', 'Войти'),
-              )),
-            ])));
+            )));
   }
 
   Future<String> _loadJsonAsset() async {

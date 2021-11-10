@@ -12,6 +12,8 @@ import 'package:mobile/views/utills/utill.dart';
 import 'package:mobile/views/authorization/verification_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../main_menu.dart';
+
 class SetPasswordPage extends StatefulWidget {
   const SetPasswordPage({
     Key? key,
@@ -203,8 +205,11 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
           passwordController.text);
       if (response['status'] == 'ok') {
         prefs.setString('role', widget.role);
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => SalesMainMenuPage()));
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => MainMenuPage()),
+            (Route<dynamic> route) => false);
+        AppConstants.isSignIn = true;
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Что-то пошло не так, попробуйте еще раз.",

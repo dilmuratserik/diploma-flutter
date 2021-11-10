@@ -23,7 +23,7 @@ class _VerificationPageState extends State<VerificationPage> {
   // StreamController<ErrorAnimationType> errorController = StreamController<ErrorAnimationType>();
   TextEditingController textEditingController = new TextEditingController();
   late Timer _timer;
-  String _time = "";
+  String _time = "00";
 
   @override
   void initState() {
@@ -33,72 +33,82 @@ class _VerificationPageState extends State<VerificationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-          elevation: 0,
-          centerTitle: true,
-          title: Text('СМС код',
-              style: TextStyle(color: Colors.black, fontSize: 18)),
-          brightness: Brightness.light,
-          automaticallyImplyLeading: true,
-          backgroundColor: Colors.white,
-          shadowColor: Colors.white,
-          bottomOpacity: 1,
-          iconTheme: IconThemeData(color: Colors.black)),
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 20),
-                    child: Text('Верификация',
-                        style: TextStyle(
-                            color: AppColors.green,
-                            fontSize: 24,
-                            fontWeight: FontWeight.w600)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
-                    child: Text('Код выслан на ' + widget.phone,
-                        style: TextStyle(fontSize: 14)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 60, vertical: 20),
-                    child: getInputFiled(context),
-                  ),
-                  Center(
-                      child: _time != "00"
-                          ? Text("Получить новый код можно через 00:${_time}")
-                          : GestureDetector(
-                              onTap: () {
-                                startTimer();
-                              },
-                              child: Text(
-                                "Получить новый код",
-                                style: TextStyle(
-                                    color: AppColors.gold,
-                                    fontSize: 18,
-                                    fontFamily: "Roboto"),
-                              ),
-                            )),
-                  Center(child: _getButton()),
-                ],
-              ),
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+            elevation: 0,
+            centerTitle: true,
+            title: Text('СМС код',
+                style: TextStyle(color: Colors.black, fontSize: 18)),
+            brightness: Brightness.light,
+            automaticallyImplyLeading: true,
+            backgroundColor: Colors.white,
+            shadowColor: Colors.white,
+            bottomOpacity: 1,
+            iconTheme: IconThemeData(color: Colors.black)),
+        body: SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height - 80,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, top: 20),
+                      child: Text('Верификация',
+                          style: TextStyle(
+                              color: AppColors.green,
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: Text('Код выслан на ' + widget.phone,
+                          style: TextStyle(fontSize: 14)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 60, vertical: 20),
+                      child: getInputFiled(context),
+                    ),
+                    Center(
+                        child: _time != "00"
+                            ? Text("Получить новый код можно через 00:${_time}")
+                            : GestureDetector(
+                                onTap: () {
+                                  startTimer();
+                                },
+                                child: Text(
+                                  "Получить новый код",
+                                  style: TextStyle(
+                                      color: AppColors.gold,
+                                      fontSize: 18,
+                                      fontFamily: "Roboto"),
+                                ),
+                              )),
+                    Center(child: _getButton()),
+                  ],
+                ),
+                Spacer(),
+                Center(
+                    child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  child: getRichText(),
+                )),
+              ],
             ),
-            Center(
-                child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 30),
-              child: geRichText(),
-            )),
-          ],
+          ),
         ),
       ),
     );
@@ -190,7 +200,7 @@ class _VerificationPageState extends State<VerificationPage> {
       TextStyle(color: HexColor.fromHex("#505050"), fontSize: 14.0);
   TextStyle linkStyle = TextStyle(color: AppColors.gold);
 
-  Widget geRichText() {
+  Widget getRichText() {
     return RichText(
       text: TextSpan(
         style: defaultStyle,
@@ -201,7 +211,7 @@ class _VerificationPageState extends State<VerificationPage> {
               style: linkStyle,
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
-                  print('Terms of Service"');
+                  Navigator.pop(context);
                 }),
         ],
       ),
@@ -209,7 +219,7 @@ class _VerificationPageState extends State<VerificationPage> {
   }
 
   void sendVerificationCode() async {
-    if (textEditingController.text != '') {
+    if (textEditingController.text.length == 4) {
       var response =
           await AuthProvider().sendVerificationCode(textEditingController.text);
       if (response['status'] == 'ok') {

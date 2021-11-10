@@ -1,4 +1,5 @@
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -147,14 +148,27 @@ class _RegistrationPageState extends State<RegistrationPage> {
               Spacer(),
               Center(
                   child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40),
-                child: getBitText('У вас есть учетная запись?', 'Войти'),
-              )),
+                      padding: const EdgeInsets.symmetric(vertical: 40),
+                      child: RichText(
+                        text: TextSpan(
+                          style: defaultStyle,
+                          children: <TextSpan>[
+                            TextSpan(text: 'У вас есть учетная запись?'),
+                            TextSpan(
+                                text: ' ' + 'Войти',
+                                style: linkStyle,
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.pop(context);
+                                  }),
+                          ],
+                        ),
+                      ))),
             ])));
   }
 
   void registration() async {
-    if (phoneController.text != '') {
+    if (phoneController.text.length == 12) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var response =
           await AuthProvider().registration(phoneController.text.substring(1));

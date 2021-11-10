@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthProvider {
   String API_URL = AppConstants.baseUrl;
 
-  Future<Map<String, dynamic>> login(String email, String password) async {
+  Future<Map<String, dynamic>> login(String phone, String password) async {
     final response = await http.post(
       Uri.parse(API_URL + 'users/login/'),
       headers: <String, String>{
@@ -14,7 +14,7 @@ class AuthProvider {
         'Accept': 'application/json',
       },
       body: jsonEncode(<String, dynamic>{
-        "phone": email,
+        "phone": phone,
         "password": password,
       }),
     );
