@@ -47,6 +47,12 @@ class _HomePageState extends State<HomePage> {
             "100 гр / Снековая продукция", "500 тг")),
   ];
 
+  List<String> categories = [
+    "Снековая продукция",
+    "Рыбная продукция",
+    "Сырная продукция",
+    "Мясная продукция"
+  ];
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -149,10 +155,10 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 5),
                         child: Text(
-                          "Сырная продукция",
+                          categories[index],
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.w400),
+                              fontSize: 16, fontWeight: FontWeight.w400),
                         ),
                       )
                     ],
@@ -183,12 +189,16 @@ class HomePageReccomendItem extends StatelessWidget {
           child: Text(product.mainTitle,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
         ),
-        for (int i = 0; i < 2; i++) ProductItem(product)  ,
+        for (int i = 0; i < 2; i++) ProductItem(product),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
           child: TextButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryProductsPage(title: product.mainTitle)));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            CategoryProductsPage(title: product.mainTitle)));
               },
               child: Text("Смотреть все товары",
                   style: TextStyle(fontSize: 16, color: AppColors.gold))),
@@ -197,4 +207,3 @@ class HomePageReccomendItem extends StatelessWidget {
     );
   }
 }
-  

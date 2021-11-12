@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mobile/services/profile_api_provider.dart';
 import 'package:mobile/views/basket/basket_page.dart';
 import 'package:mobile/views/categories/categories_page.dart';
 import 'package:mobile/views/home/home_page.dart';
@@ -11,6 +12,7 @@ import 'package:mobile/views/sales_rep/home_page/sales_home_page.dart';
 import 'package:mobile/views/sales_rep/visits_tab/visits_main_page.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainMenuPage extends StatefulWidget {
   const MainMenuPage({Key? key}) : super(key: key);
@@ -27,7 +29,6 @@ class _MainMenuPageState extends State<MainMenuPage> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     CategoriesPage(),
@@ -41,6 +42,32 @@ class _MainMenuPageState extends State<MainMenuPage> {
     'Корзина',
     'Профиль',
   ];
+
+  String name = 'Name';
+  String phone = '77____________';
+
+  @override
+  void initState() {
+    getProfileInfo();
+    super.initState();
+  }
+
+  void getProfileInfo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var id = prefs.get('user_id');
+    Map<String, dynamic> response =
+        await ProfileProvider().getProfileInfo(id.toString());
+
+    if (response['status'] != 'Error') {
+      print('ok!');
+      prefs.setString('name', response['name'].toString());
+      prefs.setString('ava', response['avatar']);
+      setState(() {
+        name = response['name'];
+        phone = response['phone'];
+      });
+    }
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -104,29 +131,31 @@ class _MainMenuPageState extends State<MainMenuPage> {
             Container(
               height: 125,
               padding: EdgeInsets.only(top: 60, left: 20, bottom: 20),
-                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 4),
-                      child: Text(
-                        "Маратов Марат",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold),
-                      ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: Text(
+                      name,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold),
                     ),
-                    Text("+77081622547",
-                        style: TextStyle(
-                            color: AppColors.presentationGray, fontSize: 15))
-                  ],
-                ),
-
+                  ),
+                  Text("+" + phone,
+                      style: TextStyle(
+                          color: AppColors.presentationGray, fontSize: 15))
+                ],
+              ),
             ),
             ListTile(
               leading: Icon(Icons.payments),
-              title: const Text("Список оплат", style: TextStyle(fontSize: 16),),
+              title: const Text(
+                "Список оплат",
+                style: TextStyle(fontSize: 16),
+              ),
               onTap: () {
                 // Update the state of the app
                 // ...
@@ -136,7 +165,8 @@ class _MainMenuPageState extends State<MainMenuPage> {
             ),
             ListTile(
               leading: Icon(Icons.my_location),
-              title: const Text("Карта объектов", style: TextStyle(fontSize: 16)),
+              title:
+                  const Text("Карта объектов", style: TextStyle(fontSize: 16)),
               onTap: () {
                 // Update the state of the app
                 // ...

@@ -1,2 +1,6 @@
 'role' -> User Role (String)
 'phone' -> Phone (String)
+'user_id' -> User ID (int)
+'token' -> Token (String)
+'Name' -> Full Name (String)
+'ava' -> Avatar URL (String)

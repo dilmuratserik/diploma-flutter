@@ -7,6 +7,7 @@ import 'package:mobile/views/profile/change_password_page.dart';
 import 'package:mobile/views/profile/orders_page.dart';
 import 'package:mobile/views/profile/personal_data.dart';
 import 'package:mobile/views/utills/const.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'addresses_page.dart';
 import 'cards_page.dart';
@@ -21,6 +22,24 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   bool _switchValue1 = false;
   bool _switchValue2 = false;
+
+  String name = 'Name';
+  String ava =
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw9H5v50zD7IWdXEkTt7uwNHPEqgM_U0yWjA&usqp=CAU';
+
+  @override
+  void initState() {
+    getInfo();
+    super.initState();
+  }
+
+  void getInfo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = prefs.getString('name')!;
+      ava = prefs.getString('ava')!;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,18 +56,17 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 CircleAvatar(
                   minRadius: MediaQuery.of(context).size.width / 11,
-                  backgroundImage: NetworkImage(
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw9H5v50zD7IWdXEkTt7uwNHPEqgM_U0yWjA&usqp=CAU"),
+                  backgroundImage: NetworkImage(ava),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 8),
+                  padding: const EdgeInsets.only(left: 10),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.symmetric(vertical: 8),
                         child: Text(
-                          "ИП Галлеон",
+                          name,
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600),
                         ),
@@ -176,64 +194,75 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: getMenuText("О нас"),
               ),
             ),
-            InkWell(onTap: () {
-              showModalBottomSheet(
-                  context: context,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                          topLeft: const Radius.circular(15.0),
-                          topRight: const Radius.circular(15.0))),
-                  builder: (context) {
-                    return Container(
-                      height: MediaQuery.of(context).size.height / 3.2,
-                      color: Colors.transparent,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            "Напишите нам",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 22),
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceEvenly,
+            InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                      context: context,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: const Radius.circular(15.0),
+                              topRight: const Radius.circular(15.0))),
+                      builder: (context) {
+                        return Container(
+                          height: MediaQuery.of(context).size.height / 3.2,
+                          color: Colors.transparent,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Column(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/whatsapp.jpg",
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text("Whatsapp", style: TextStyle(fontSize: 16, ),),
-                                  )
-                                ],
+                              Text(
+                                "Напишите нам",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 22),
                               ),
-                              Column(
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Image.asset(
-                                    "assets/images/telegram.jpg",
+                                  Column(
+                                    children: [
+                                      Image.asset(
+                                        "assets/images/whatsapp.jpg",
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          "Whatsapp",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text("Telegram", style: TextStyle(fontSize: 16),),
-                                  )
+                                  Column(
+                                    children: [
+                                      Image.asset(
+                                        "assets/images/telegram.jpg",
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          "Telegram",
+                                          style: TextStyle(fontSize: 16),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    );
-                  });
-            }, child: getMenuText("Контакты")),
+                        );
+                      });
+                },
+                child: getMenuText("Контакты")),
             InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AboutApplicationPage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AboutApplicationPage()));
                 },
                 child: getMenuText("О приложении")),
             InkWell(

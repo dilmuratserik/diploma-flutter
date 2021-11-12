@@ -3,7 +3,6 @@ import 'package:mobile/models/product_model.dart';
 import 'package:mobile/views/categories/about_product.dart';
 import 'package:mobile/views/utills/const.dart';
 
-
 class ProductItem extends StatelessWidget {
   final Product product;
 
@@ -14,8 +13,11 @@ class ProductItem extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 3),
       child: GestureDetector(
-        onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => AboutProductPage(product)));
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AboutProductPage(product)));
         },
         child: Card(
           elevation: 2,
@@ -37,13 +39,14 @@ class ProductItem extends StatelessWidget {
                             shape: BoxShape.circle,
                             image: new DecorationImage(
                                 fit: BoxFit.fill,
-                                image:
-                                new AssetImage("assets/images/cheese.jpg")))),
+                                image: new AssetImage(
+                                    "assets/images/cheese.jpg")))),
                     Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 15),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 15),
                         child: Container(
                           // color: Colors.green,
-                          width: MediaQuery.of(context).size.width / 2,
+                          width: MediaQuery.of(context).size.width / 2.1,
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -52,7 +55,7 @@ class ProductItem extends StatelessWidget {
                                     overflow: TextOverflow.fade),
                                 Padding(
                                   padding:
-                                  const EdgeInsets.only(top: 8, bottom: 8),
+                                      const EdgeInsets.only(top: 8, bottom: 8),
                                   child: Text(product.description.description,
                                       style: TextStyle(
                                           fontSize: 16, color: Colors.grey),
@@ -61,7 +64,8 @@ class ProductItem extends StatelessWidget {
                                 Text(
                                   product.description.price,
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 16),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
                                 )
                               ]),
                         )),
@@ -70,8 +74,7 @@ class ProductItem extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: ElevatedButton.icon(
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                         primary: AppColors.green,
                         padding: EdgeInsets.only(left: 18, right: 18),

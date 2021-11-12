@@ -74,27 +74,6 @@ class AuthProvider {
     }
   }
 
-  Future<dynamic> getProfileInfo(String id) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var token = prefs.getString('token');
-
-    final response = await http.get(
-      Uri.parse(API_URL + 'users/detail/' + id),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json',
-        'Authorization': "Token $token"
-      },
-    );
-
-    if (response.statusCode == 200) {
-      Map<String, dynamic> result = jsonDecode(response.body);
-      return result;
-    } else {
-      return 'Error';
-    }
-  }
-
   Future<Map<String, dynamic>> sendVerificationCode(String code) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
@@ -153,33 +132,6 @@ class AuthProvider {
       return result;
     } else {
       return {'status': 'Error'};
-    }
-  }
-
-  Future<String> changePassword(String str) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var token = prefs.getString('token');
-    print("tokens" + token.toString());
-
-    final response = await http.post(
-      Uri.parse(API_URL + 'users/password/change/'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json',
-        'Authorization': "Token $token"
-      },
-      body: jsonEncode(<String, dynamic>{
-        "old_password": '1',
-        "new_password": '2',
-      }),
-    );
-
-    print(response.body);
-
-    if (response.statusCode == 200) {
-      return 'Success';
-    } else {
-      return 'Error';
     }
   }
 }
