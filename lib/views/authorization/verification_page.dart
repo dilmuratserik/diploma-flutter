@@ -222,6 +222,9 @@ class _VerificationPageState extends State<VerificationPage> {
     if (textEditingController.text.length == 4) {
       var response =
           await AuthProvider().sendVerificationCode(textEditingController.text);
+      print("sendver");
+      print(response);
+      print("sendver");
       if (response['status'] == 'ok') {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString("token", response['key']);

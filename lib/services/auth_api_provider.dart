@@ -76,7 +76,6 @@ class AuthProvider {
 
   Future<Map<String, dynamic>> sendVerificationCode(String code) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var token = prefs.getString('token');
     var phone = prefs.getString('phone');
 
     final response = await http.post(
@@ -84,17 +83,18 @@ class AuthProvider {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
-        'Authorization': "Token $token"
       },
       body: jsonEncode(<String, dynamic>{"phone": phone, "code": code}),
     );
 
-    print(response.body);
+    // print(response.body);
 
     if (response.statusCode == 200) {
       Map<String, dynamic> result = jsonDecode(response.body);
       return result;
     } else {
+      print("body"+ response.body);
+      print("status" + response.statusCode.toString());
       return {'status': 'Error'};
     }
   }
