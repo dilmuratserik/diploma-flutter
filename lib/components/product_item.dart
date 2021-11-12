@@ -50,19 +50,19 @@ class ProductItem extends StatelessWidget {
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(product.description.title,
+                                Text(product.name,
                                     style: TextStyle(fontSize: 18),
                                     overflow: TextOverflow.fade),
                                 Padding(
                                   padding:
                                       const EdgeInsets.only(top: 8, bottom: 8),
-                                  child: Text(product.description.description,
+                                  child: Text(product.description,
                                       style: TextStyle(
                                           fontSize: 16, color: Colors.grey),
                                       overflow: TextOverflow.fade),
                                 ),
                                 Text(
-                                  product.description.price,
+                                  product.price.toString(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16),

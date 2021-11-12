@@ -57,20 +57,19 @@ class _BasketProductItemState extends State<BasketProductItem> {
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(widget.product.description.title,
+                                Text(widget.product.name,
                                     style: TextStyle(fontSize: 18),
                                     overflow: TextOverflow.fade),
                                 Padding(
                                   padding:
                                       const EdgeInsets.only(top: 8, bottom: 8),
-                                  child: Text(
-                                      widget.product.description.description,
+                                  child: Text(widget.product.description,
                                       style: TextStyle(
                                           fontSize: 16, color: Colors.grey),
                                       overflow: TextOverflow.fade),
                                 ),
                                 Text(
-                                  widget.product.description.price,
+                                  widget.product.price.toString(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16),

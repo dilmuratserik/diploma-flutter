@@ -10,7 +10,7 @@ class OrdersProvider {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
-    final response = await http.post(
+    final response = await http.get(
         Uri.parse(API_URL + 'product/?category=' + categoryId),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -21,7 +21,8 @@ class OrdersProvider {
     print(response.body);
 
     if (response.statusCode == 200) {
-      Map<String, dynamic> result = jsonDecode(response.body);
+      Map<String, dynamic> result =
+          jsonDecode(utf8.decode(response.body.codeUnits));
       return result;
     } else {
       return {'status': 'Error'};
@@ -32,7 +33,7 @@ class OrdersProvider {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 
-    final response = await http.post(
+    final response = await http.get(
         Uri.parse(API_URL + 'product/?search=' + text),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -43,30 +44,8 @@ class OrdersProvider {
     print(response.body);
 
     if (response.statusCode == 200) {
-      Map<String, dynamic> result = jsonDecode(response.body);
-      return result;
-    } else {
-      return {'status': 'Error'};
-    }
-  }
-
-  Future<Map<String, dynamic>> login(String phone, String password) async {
-    final response = await http.post(
-      Uri.parse(API_URL + 'users/login/'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json',
-      },
-      body: jsonEncode(<String, dynamic>{
-        "phone": phone,
-        "password": password,
-      }),
-    );
-
-    print(response.body);
-
-    if (response.statusCode == 200) {
-      Map<String, dynamic> result = jsonDecode(response.body);
+      Map<String, dynamic> result =
+          jsonDecode(utf8.decode(response.body.codeUnits));
       return result;
     } else {
       return {'status': 'Error'};

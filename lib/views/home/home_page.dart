@@ -19,40 +19,24 @@ class _HomePageState extends State<HomePage> {
   final PageController controller = PageController(initialPage: 0);
   List<String> assetImages = [
     "snack.jpg",
-    "fish.jpg",
     "cheese.jpg",
+    "fish.jpg",
     "meat.jpg"
   ];
 
-  List<Product> titles = [
-    Product(
-        "Хиты продаж",
-        ProductDescription("assets/images/cheese.jpg", "Фисташки Элит",
-            "100 гр / Снековая продукция", "500 тг")),
-    Product(
-        "Сырная продукция",
-        ProductDescription("assets/images/cheese.jpg", "Фисташки Элит",
-            "100 гр / Снековая продукция", "500 тг")),
-    Product(
-        "Рыбная продукция",
-        ProductDescription("assets/images/cheese.jpg", "Фисташки Элит",
-            "100 гр / Снековая продукция", "500 тг")),
-    Product(
-        "Мясная продукция",
-        ProductDescription("assets/images/cheese.jpg", "Фисташки Элит",
-            "100 гр / Снековая продукция", "500 тг")),
-    Product(
-        "Снековая продукция",
-        ProductDescription("assets/images/cheese.jpg", "Фисташки Элит",
-            "100 гр / Снековая продукция", "500 тг")),
-  ];
-
-  List<String> categories = [
+  List<String> categoryTitles = [
     "Снековая продукция",
-    "Рыбная продукция",
     "Сырная продукция",
+    "Рыбная продукция",
     "Мясная продукция"
   ];
+
+  List<Product> productsHits = [];
+  List<Product> productsCategory1 = [];
+  List<Product> productsCategory2 = [];
+  List<Product> productsCategory3 = [];
+  List<Product> productsCategory4 = [];
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -136,7 +120,11 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    print("clickerd");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CategoryProductsPage(
+                                categoryTitles[index], index.toString(), '1')));
                   },
                   child: Column(
                     children: [
@@ -144,7 +132,6 @@ class _HomePageState extends State<HomePage> {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             fit: BoxFit.fill,
-                            // colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.8), BlendMode.dstATop),
                             image: AssetImage(
                                 "assets/images/${assetImages[index]}"),
                           ),
@@ -155,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 5),
                         child: Text(
-                          categories[index],
+                          categoryTitles[index],
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w400),
@@ -167,43 +154,114 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
-          for (int i = 0; i < 3; i++) HomePageReccomendItem(titles[i])
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Text('Хиты продаж',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
+              ),
+              for (int i = 0; i < productsHits.length; i++)
+                ProductItem(productsHits[i]),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Text('Снековая продукция',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
+              ),
+              for (int i = 0; i < productsCategory1.length; i++)
+                ProductItem(productsCategory1[i]),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CategoryProductsPage(
+                                  'Снековая продукция', '3', '1')));
+                    },
+                    child: Text("Смотреть все товары",
+                        style: TextStyle(fontSize: 16, color: AppColors.gold))),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Text('Рыбная продукция',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
+              ),
+              for (int i = 0; i < productsCategory2.length; i++)
+                ProductItem(productsCategory2[i]),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CategoryProductsPage(
+                                  'Рыбная продукция', '2', '1')));
+                    },
+                    child: Text("Смотреть все товары",
+                        style: TextStyle(fontSize: 16, color: AppColors.gold))),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Text('Сырная продукция',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
+              ),
+              for (int i = 0; i < productsCategory3.length; i++)
+                ProductItem(productsCategory3[i]),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CategoryProductsPage(
+                                  'Сырная продукция', '1', '1')));
+                    },
+                    child: Text("Смотреть все товары",
+                        style: TextStyle(fontSize: 16, color: AppColors.gold))),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Text('Мясная продукция',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
+              ),
+              for (int i = 0; i < productsCategory4.length; i++)
+                ProductItem(productsCategory4[i]),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CategoryProductsPage(
+                                  'Мясная продукция', '4', '1')));
+                    },
+                    child: Text("Смотреть все товары",
+                        style: TextStyle(fontSize: 16, color: AppColors.gold))),
+              ),
+            ],
+          )
         ],
       ),
-    );
-  }
-}
-
-class HomePageReccomendItem extends StatelessWidget {
-  final Product product;
-
-  const HomePageReccomendItem(this.product);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-          child: Text(product.mainTitle,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
-        ),
-        for (int i = 0; i < 2; i++) ProductItem(product),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-          child: TextButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            CategoryProductsPage(title: product.mainTitle)));
-              },
-              child: Text("Смотреть все товары",
-                  style: TextStyle(fontSize: 16, color: AppColors.gold))),
-        ),
-      ],
     );
   }
 }
