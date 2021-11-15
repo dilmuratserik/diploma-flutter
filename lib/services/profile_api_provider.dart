@@ -91,4 +91,45 @@ class ProfileProvider {
       return 'Error';
     }
   }
+
+  Future<Map<String, dynamic>> changeUserInfo(String avatar, String name, int country,
+      int city, String role,String id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    Map<String, dynamic> bodyDic = {
+      "avatar": avatar,
+      "name": name,
+      "country": country,
+      "city": city,
+      "role": role,
+    };
+    print(id);
+
+    if (role == '2') {
+      bodyDic["bin_iin"] = prefs.getString("bin_iin")!;
+    }
+
+
+    final response = await http.put(
+      Uri.parse(API_URL + 'users/detail/' + id),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+        // 'Connection': 'keep-alive',
+        'Authorization': "Token $token"
+      },
+      body: jsonEncode(bodyDic),
+    );
+
+    print(response);
+    print(response.body);
+    print("response code" + response.statusCode.toString());
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> result = jsonDecode(response.body);
+      return result;
+    } else {
+      return {'status': 'Error'};
+    }
+  }
 }

@@ -1,5 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:mobile/services/profile_api_provider.dart';
 import 'package:mobile/views/authorization/signin_page.dart';
 import 'package:mobile/views/profile/about_application_page.dart';
 import 'package:mobile/views/profile/about_us_page.dart';
@@ -20,12 +25,15 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+  final ImagePicker _picker = ImagePicker();
+
   bool _switchValue1 = false;
   bool _switchValue2 = false;
 
   String name = 'Name';
-  String ava =
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw9H5v50zD7IWdXEkTt7uwNHPEqgM_U0yWjA&usqp=CAU';
+  String ava = '';
+  int uid = 0;
 
   @override
   void initState() {
@@ -35,11 +43,32 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void getInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    uid = prefs.getInt("user_id")!;
+
     setState(() {
       name = prefs.getString('name')!;
       ava = prefs.getString('ava')!;
-    });
+     });
   }
+  void changeAvater(String ava) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var id = prefs.get('user_id')!;
+    int country = prefs.getInt('country')!;
+    int city = prefs.getInt("city")!;
+    String role = prefs.getString("role")!;
+    print(country);
+    print(city);
+
+
+    Map<String, dynamic> response =
+        await ProfileProvider().changeUserInfo(ava, name, country, city, role, id.toString());
+
+    if (response['status'] == 'ok') {
+      print("response " + response.toString());
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +83,50 @@ class _ProfilePageState extends State<ProfilePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                CircleAvatar(
-                  minRadius: MediaQuery.of(context).size.width / 11,
-                  backgroundImage: NetworkImage(ava),
+                GestureDetector(
+                  onTap: () async {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              ListTile(
+                                leading: new Icon(Icons.photo),
+                                title: new Text('Gallery'),
+                                onTap: () async {
+                                  Navigator.pop(context);
+
+                                  XFile? avatar = await _picker.pickImage(source: ImageSource.gallery);
+                                  setState(() {
+                                    if (avatar != null) ava = avatar.path;
+                                  });
+                                },
+                              ),
+                              ListTile(
+                                leading: new Icon(Icons.camera_alt),
+                                   title: new Text('Camera'),
+                                onTap: () async{
+                                  Navigator.pop(context);
+
+                                  XFile? avatar = await _picker.pickImage(source: ImageSource.camera, imageQuality: 40);
+                                  setState(() {
+                                    if (avatar != null) ava = avatar.path;
+                                  });
+
+                                  List<int> imageBytes = File(ava).readAsBytesSync();
+                                  String base64Image = base64Encode(imageBytes);
+                                  changeAvater(base64Image);
+                                },
+                              ),
+                            ],
+                          );
+                        });
+                  },
+                  child: CircleAvatar(
+                    minRadius: MediaQuery.of(context).size.width / 11,
+                    backgroundImage: getImage()
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
@@ -283,6 +353,15 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
+  }
+  getImage() {
+    if (ava.startsWith("http")) {
+      return NetworkImage(ava);
+    }
+    else {
+      var file = FileImage(File(ava));
+      return file;
+    }
   }
 
   Widget getTitleText(String title) {

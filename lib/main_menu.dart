@@ -62,6 +62,13 @@ class _MainMenuPageState extends State<MainMenuPage> {
       print('ok!');
       prefs.setString('name', response['name'].toString());
       prefs.setString('ava', response['avatar']);
+      prefs.setInt('country', response['country']);
+      prefs.setInt( "city", response['city']);
+      int role = response["role"];
+      prefs.setInt('role', role);
+      if (role == 2) {
+        prefs.setString("bin_iin", response["bin_iin"]);
+      }
       setState(() {
         name = response['name'];
         phone = response['phone'];
