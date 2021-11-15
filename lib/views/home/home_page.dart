@@ -165,7 +165,8 @@ class _HomePageState extends State<HomePage> {
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
               ),
               for (int i = 0; i < productsHits.length; i++)
-                ProductItem(productsHits[i]),
+                ProductItem(
+                    productsHits[i], categoryTitles[productsHits[i].category]),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -174,7 +175,8 @@ class _HomePageState extends State<HomePage> {
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
               ),
               for (int i = 0; i < productsCategory1.length; i++)
-                ProductItem(productsCategory1[i]),
+                ProductItem(productsCategory1[i],
+                    categoryTitles[productsCategory1[i].category]),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -197,7 +199,8 @@ class _HomePageState extends State<HomePage> {
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
               ),
               for (int i = 0; i < productsCategory2.length; i++)
-                ProductItem(productsCategory2[i]),
+                ProductItem(productsCategory2[i],
+                    categoryTitles[productsCategory2[i].category]),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -220,7 +223,8 @@ class _HomePageState extends State<HomePage> {
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
               ),
               for (int i = 0; i < productsCategory3.length; i++)
-                ProductItem(productsCategory3[i]),
+                ProductItem(productsCategory3[i],
+                    categoryTitles[productsCategory3[i].category]),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -243,7 +247,8 @@ class _HomePageState extends State<HomePage> {
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
               ),
               for (int i = 0; i < productsCategory4.length; i++)
-                ProductItem(productsCategory4[i]),
+                ProductItem(productsCategory4[i],
+                    categoryTitles[productsCategory4[i].category]),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 0),

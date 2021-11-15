@@ -15,7 +15,26 @@ class BasketPage extends StatefulWidget {
 }
 
 class _BasketPageState extends State<BasketPage> {
-  List<Product> products = [];
+  List<Map<String, dynamic>> products = [];
+
+  int amount = 0;
+
+  List<String> categoryTitles = [
+    "Снековая продукция",
+    "Сырная продукция",
+    "Рыбная продукция",
+    "Мясная продукция"
+  ];
+
+  @override
+  void initState() {
+    products = AppConstants.basket;
+    for (var i in products) {
+      amount += int.parse(
+          (Product.fromJson(i['product']).price * i['count']).toString());
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +46,11 @@ class _BasketPageState extends State<BasketPage> {
           child: ListView.builder(
               itemCount: products.length,
               itemBuilder: (BuildContext context, int index) =>
-                  BasketProductItem(products[index])),
+                  BasketProductItem(
+                      Product.fromCustomJson(products[index]['product']),
+                      categoryTitles[
+                          Product.fromCustomJson(products[index]['product'])
+                              .category])),
         ),
         Divider(),
         Padding(
@@ -35,7 +58,7 @@ class _BasketPageState extends State<BasketPage> {
           child: Row(children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-              child: Text('2900 ₸',
+              child: Text(amount.toString() + ' ₸',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
             ),
             Spacer(),

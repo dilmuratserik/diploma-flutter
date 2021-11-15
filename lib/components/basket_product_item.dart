@@ -4,9 +4,10 @@ import 'package:mobile/views/categories/about_product.dart';
 import 'package:mobile/views/utills/const.dart';
 
 class BasketProductItem extends StatefulWidget {
-  BasketProductItem(this.product);
+  BasketProductItem(this.product, this.categoryTitle);
   // const BasketProductItem({Key? key, required this.product}) : super(key: key);
   final Product product;
+  final String categoryTitle;
 
   @override
   _BasketProductItemState createState() => _BasketProductItemState();
@@ -20,12 +21,7 @@ class _BasketProductItemState extends State<BasketProductItem> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 3),
       child: GestureDetector(
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => AboutProductPage(widget.product)));
-        },
+        onTap: () {},
         child: Card(
           elevation: 2,
           shape: RoundedRectangleBorder(
@@ -46,8 +42,8 @@ class _BasketProductItemState extends State<BasketProductItem> {
                             shape: BoxShape.circle,
                             image: new DecorationImage(
                                 fit: BoxFit.fill,
-                                image: new AssetImage(
-                                    "assets/images/cheese.jpg")))),
+                                image:
+                                    new NetworkImage(widget.product.image)))),
                     Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 15),
@@ -69,7 +65,7 @@ class _BasketProductItemState extends State<BasketProductItem> {
                                       overflow: TextOverflow.fade),
                                 ),
                                 Text(
-                                  widget.product.price.toString(),
+                                  widget.product.price.toString() + ' тг',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16),

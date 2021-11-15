@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/models/product_model.dart';
 import 'package:mobile/views/utills/const.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AboutProductPage extends StatefulWidget {
-  AboutProductPage(this.product);
+  AboutProductPage(this.product, this.categoryTitle);
   final Product product;
+  final String categoryTitle;
 
   @override
   _AboutProductPageState createState() => _AboutProductPageState();
@@ -12,9 +14,14 @@ class AboutProductPage extends StatefulWidget {
 
 class _AboutProductPageState extends State<AboutProductPage> {
   int count = 1;
+  int amount = 0;
+  int amountWithDiscount = 0;
 
   @override
   void initState() {
+    amount = widget.product.price;
+    amountWithDiscount = int.parse((50 + amount).toString());
+    // amountWithDiscount = int.parse((amount + (amount * 0.1)).toString());
     super.initState();
   }
 
@@ -38,8 +45,8 @@ class _AboutProductPageState extends State<AboutProductPage> {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Center(
-                child: Image.asset(
-                  'assets/images/cheese.jpg',
+                child: Image.network(
+                  widget.product.image,
                   width: MediaQuery.of(context).size.width * 0.8,
                   height: MediaQuery.of(context).size.width * 0.8,
                   fit: BoxFit.fill,
@@ -55,13 +62,13 @@ class _AboutProductPageState extends State<AboutProductPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                 child: Text(
-                  widget.product.description,
+                  widget.categoryTitle,
                   style: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
               Row(
                 children: [
-                  Text(widget.product.price.toString() + ' / 100 гр',
+                  Text(widget.product.price.toString() + ' ₸ / 100 гр',
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   Spacer(),
@@ -70,7 +77,10 @@ class _AboutProductPageState extends State<AboutProductPage> {
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
-                            count = count - 1;
+                            if (count > 1) count = count - 1;
+                            amount = count * widget.product.price;
+                            amountWithDiscount =
+                                int.parse((50 + amount).toString());
                           });
                         },
                         child: Container(
@@ -113,6 +123,9 @@ class _AboutProductPageState extends State<AboutProductPage> {
                         onTap: () {
                           setState(() {
                             count = count + 1;
+                            amount = count * widget.product.price;
+                            amountWithDiscount =
+                                int.parse((50 + amount).toString());
                           });
                         },
                         child: Container(
@@ -147,7 +160,7 @@ class _AboutProductPageState extends State<AboutProductPage> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 child: Text(
-                  'Lorem Lorem Lorem Lorem Lorem Lorem Lorem as Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem',
+                  widget.product.description,
                   style: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
@@ -161,7 +174,7 @@ class _AboutProductPageState extends State<AboutProductPage> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                           child: Text(
-                            '500 тг',
+                            amountWithDiscount.toString() + ' тг',
                             style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey,
@@ -170,7 +183,7 @@ class _AboutProductPageState extends State<AboutProductPage> {
                         ),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          child: Text('450 тг',
+                          child: Text(amount.toString() + ' тг',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600)),
                         ),
@@ -180,7 +193,51 @@ class _AboutProductPageState extends State<AboutProductPage> {
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: ElevatedButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (!AppConstants.basketIDs
+                              .contains(widget.product.id)) {
+                            Map<String, dynamic> order = {};
+                            order['product'] = widget.product.toJson();
+                            order['count'] = count;
+                            AppConstants.basket.add(order);
+                            AppConstants.basketIDs.add(widget.product.id);
+                            Alert(
+                              context: context,
+                              type: AlertType.success,
+                              title: "Успешно",
+                              desc: "Продукт успешно добавлен!",
+                              buttons: [
+                                DialogButton(
+                                  child: Text(
+                                    "Ок",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
+                                  onPressed: () => Navigator.pop(context),
+                                  color: Color.fromRGBO(0, 179, 134, 1.0),
+                                ),
+                              ],
+                            ).show();
+                          } else {
+                            Alert(
+                              context: context,
+                              type: AlertType.error,
+                              title: "Извините",
+                              desc: "Продукт уже в корзине!",
+                              buttons: [
+                                DialogButton(
+                                  child: Text(
+                                    "Понятно",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
+                                  onPressed: () => Navigator.pop(context),
+                                  color: Color.fromRGBO(0, 179, 134, 1.0),
+                                ),
+                              ],
+                            ).show();
+                          }
+                        },
                         style: ElevatedButton.styleFrom(
                             primary: AppColors.green,
                             padding: EdgeInsets.only(left: 18, right: 18),

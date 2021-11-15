@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:mobile/models/product_model.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 
 class AppColors {
@@ -22,4 +23,7 @@ class AppConstants {
   static bool isSignIn = false;
   static bool isHaveLockScreen = false;
   static String lockCode = "lockCode";
+
+  static List<Map<String, dynamic>> basket = [];
+  static List<int> basketIDs = [];
 }

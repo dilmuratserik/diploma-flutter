@@ -80,20 +80,20 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                           ),
                           value: 3,
                         ),
-                        DropdownMenuItem(
-                          child: Text(
-                            "По новинкам",
-                            style: TextStyle(fontWeight: FontWeight.w500),
-                          ),
-                          value: 4,
-                        ),
-                        DropdownMenuItem(
-                          child: Text(
-                            "По скидкам",
-                            style: TextStyle(fontWeight: FontWeight.w500),
-                          ),
-                          value: 5,
-                        ),
+                        // DropdownMenuItem(
+                        //   child: Text(
+                        //     "По новинкам",
+                        //     style: TextStyle(fontWeight: FontWeight.w500),
+                        //   ),
+                        //   value: 4,
+                        // ),
+                        // DropdownMenuItem(
+                        //   child: Text(
+                        //     "По скидкам",
+                        //     style: TextStyle(fontWeight: FontWeight.w500),
+                        //   ),
+                        //   value: 5,
+                        // ),
                       ],
                       onChanged: (value) {
                         setState(() {
@@ -109,7 +109,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                 child: ListView.builder(
                   itemCount: products.length,
                   itemBuilder: (BuildContext context, int index) =>
-                      ProductItem(products[index]),
+                      ProductItem(products[index], widget.title),
                 ),
               ),
             ])),

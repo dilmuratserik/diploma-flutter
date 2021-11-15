@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:mobile/models/product_model.dart';
 import 'package:mobile/views/categories/about_product.dart';
 import 'package:mobile/views/utills/const.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
+  final String categoryTitle;
 
-  const ProductItem(this.product);
+  const ProductItem(this.product, this.categoryTitle);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,8 @@ class ProductItem extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => AboutProductPage(product)));
+                  builder: (context) =>
+                      AboutProductPage(product, categoryTitle)));
         },
         child: Card(
           elevation: 2,
@@ -32,15 +35,13 @@ class ProductItem extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    new Container(
-                        width: 90.0,
-                        height: 90.0,
-                        decoration: new BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: new DecorationImage(
-                                fit: BoxFit.fill,
-                                image: new AssetImage(
-                                    "assets/images/cheese.jpg")))),
+                    Container(
+                      width: 90.0,
+                      height: 90.0,
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(product.image),
+                      ),
+                    ),
                     Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 15),
@@ -62,7 +63,7 @@ class ProductItem extends StatelessWidget {
                                       overflow: TextOverflow.fade),
                                 ),
                                 Text(
-                                  product.price.toString(),
+                                  product.price.toString() + ' тг',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16),
@@ -74,7 +75,50 @@ class ProductItem extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (!AppConstants.basketIDs.contains(product.id)) {
+                        Map<String, dynamic> order = {};
+                        order['product'] = product.toJson();
+                        order['count'] = 1;
+                        AppConstants.basket.add(order);
+                        AppConstants.basketIDs.add(product.id);
+                        Alert(
+                          context: context,
+                          type: AlertType.success,
+                          title: "Успешно",
+                          desc: "Продукт успешно добавлен!",
+                          buttons: [
+                            DialogButton(
+                              child: Text(
+                                "Ок",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              color: Color.fromRGBO(0, 179, 134, 1.0),
+                            ),
+                          ],
+                        ).show();
+                      } else {
+                        Alert(
+                          context: context,
+                          type: AlertType.error,
+                          title: "Извините",
+                          desc: "Продукт уже в корзине!",
+                          buttons: [
+                            DialogButton(
+                              child: Text(
+                                "Понятно",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              color: Color.fromRGBO(0, 179, 134, 1.0),
+                            ),
+                          ],
+                        ).show();
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                         primary: AppColors.green,
                         padding: EdgeInsets.only(left: 18, right: 18),
