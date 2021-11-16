@@ -76,24 +76,24 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         top: 20, left: 20, bottom: 5),
-                                    child: Text('Номер заказа',
+                                    child: Text('Заказ',
                                         style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.w600)),
                                   ),
-                                  Spacer(),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 20,
-                                        left: 20,
-                                        bottom: 5,
-                                        right: 20),
-                                    child: Text('№12312312',
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: AppColors.green,
-                                            fontWeight: FontWeight.w600)),
-                                  ),
+                                  // Spacer(),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(
+                                  //       top: 20,
+                                  //       left: 20,
+                                  //       bottom: 5,
+                                  //       right: 20),
+                                  //   child: Text('№12312312',
+                                  //       style: TextStyle(
+                                  //           fontSize: 20,
+                                  //           color: AppColors.green,
+                                  //           fontWeight: FontWeight.w600)),
+                                  // ),
                                 ]),
                                 Padding(
                                   padding: const EdgeInsets.only(

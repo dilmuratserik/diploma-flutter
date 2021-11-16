@@ -62,9 +62,9 @@ class OrdersProvider {
     }
     var token = prefs.getString('token');
     Map<String, dynamic> bodyDic = {
-      "password": delivery_type,
-      "role": counterparty,
-      "name": sendedProducts,
+      "type_delivery": delivery_type,
+      "counterparty": counterparty,
+      "products": sendedProducts,
     };
 
     final response = await http.post(
@@ -76,6 +76,8 @@ class OrdersProvider {
       },
       body: jsonEncode(bodyDic),
     );
+
+    print(bodyDic);
 
     print(response.body);
 
