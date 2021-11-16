@@ -10,6 +10,7 @@ import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:mobile/views/utills/utill.dart';
 import 'package:mobile/views/authorization/verification_page.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main_menu.dart';
@@ -170,10 +171,23 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                     var connectivityResult =
                         await (Connectivity().checkConnectivity());
                     if (connectivityResult == ConnectivityResult.none) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Соединение с интернетом отсутствует.",
-                            style: TextStyle(fontSize: 16)),
-                      ));
+                      Alert(
+                        context: context,
+                        type: AlertType.error,
+                        title: "Внимание",
+                        desc: "Соединение с интернетом отсутствует.",
+                        buttons: [
+                          DialogButton(
+                            child: Text(
+                              "Ok",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                            color: Color.fromRGBO(0, 179, 134, 1.0),
+                          ),
+                        ],
+                      ).show();
                     } else {
                       sendData();
                     }
@@ -205,21 +219,63 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
           passwordController.text);
       if (response['status'] == 'ok') {
         prefs.setString('role', widget.role);
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => MainMenuPage()),
-            (Route<dynamic> route) => false);
-        AppConstants.isSignIn = true;
+        Alert(
+          context: context,
+          type: AlertType.success,
+          title: "Поздравляем",
+          desc: "Регистрация прошла успешно.",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "Ok",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => MainMenuPage()),
+                    (Route<dynamic> route) => false);
+                AppConstants.isSignIn = true;
+              },
+              color: Color.fromRGBO(0, 179, 134, 1.0),
+            ),
+          ],
+        ).show();
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Что-то пошло не так, попробуйте еще раз.",
-              style: TextStyle(fontSize: 20)),
-        ));
+        Alert(
+          context: context,
+          type: AlertType.error,
+          title: "Извините",
+          desc: "Сервер не отвечает! Попробуйте позже...",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "Ok",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+              color: Color.fromRGBO(0, 179, 134, 1.0),
+            ),
+          ],
+        ).show();
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Пороли не совпадают.", style: TextStyle(fontSize: 20)),
-      ));
+      Alert(
+        context: context,
+        type: AlertType.error,
+        title: "Внимание",
+        desc: "Пороли не совпадают.",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Ok",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () => Navigator.pop(context),
+            color: Color.fromRGBO(0, 179, 134, 1.0),
+          ),
+        ],
+      ).show();
     }
   }
 }

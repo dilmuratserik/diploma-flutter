@@ -19,7 +19,7 @@ class AuthProvider {
       }),
     );
 
-    print(response.body);
+    // print(response.body);
 
     if (response.statusCode == 200) {
       Map<String, dynamic> result = jsonDecode(response.body);
@@ -93,7 +93,7 @@ class AuthProvider {
       Map<String, dynamic> result = jsonDecode(response.body);
       return result;
     } else {
-      print("body"+ response.body);
+      print("body" + response.body);
       print("status" + response.statusCode.toString());
       return {'status': 'Error'};
     }
@@ -125,7 +125,7 @@ class AuthProvider {
       body: jsonEncode(bodyDic),
     );
 
-    print(response.body);
+    // print(response.body);
 
     if (response.statusCode == 200) {
       Map<String, dynamic> result = jsonDecode(response.body);

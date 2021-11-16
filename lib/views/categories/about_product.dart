@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/models/basket_order_model.dart';
 import 'package:mobile/models/product_model.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -196,9 +197,8 @@ class _AboutProductPageState extends State<AboutProductPage> {
                         onPressed: () {
                           if (!AppConstants.basketIDs
                               .contains(widget.product.id)) {
-                            Map<String, dynamic> order = {};
-                            order['product'] = widget.product.toJson();
-                            order['count'] = count;
+                            BasketOrder order =
+                                BasketOrder(widget.product, count);
                             AppConstants.basket.add(order);
                             AppConstants.basketIDs.add(widget.product.id);
                             Alert(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/models/basket_order_model.dart';
 import 'package:mobile/models/product_model.dart';
 import 'package:mobile/views/categories/about_product.dart';
 import 'package:mobile/views/utills/const.dart';
@@ -77,9 +78,7 @@ class ProductItem extends StatelessWidget {
                   child: ElevatedButton.icon(
                     onPressed: () {
                       if (!AppConstants.basketIDs.contains(product.id)) {
-                        Map<String, dynamic> order = {};
-                        order['product'] = product.toJson();
-                        order['count'] = 1;
+                        BasketOrder order = BasketOrder(product, 1);
                         AppConstants.basket.add(order);
                         AppConstants.basketIDs.add(product.id);
                         Alert(

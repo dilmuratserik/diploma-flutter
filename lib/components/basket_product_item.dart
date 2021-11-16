@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/models/basket_order_model.dart';
 import 'package:mobile/models/product_model.dart';
 import 'package:mobile/views/categories/about_product.dart';
 import 'package:mobile/views/utills/const.dart';
 
 class BasketProductItem extends StatefulWidget {
-  BasketProductItem(this.product, this.categoryTitle);
+  BasketProductItem(this.order, this.categoryTitle);
   // const BasketProductItem({Key? key, required this.product}) : super(key: key);
-  final Product product;
+  BasketOrder order;
   final String categoryTitle;
 
   @override
@@ -14,8 +15,6 @@ class BasketProductItem extends StatefulWidget {
 }
 
 class _BasketProductItemState extends State<BasketProductItem> {
-  int count = 1;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,8 +41,8 @@ class _BasketProductItemState extends State<BasketProductItem> {
                             shape: BoxShape.circle,
                             image: new DecorationImage(
                                 fit: BoxFit.fill,
-                                image:
-                                    new NetworkImage(widget.product.image)))),
+                                image: new NetworkImage(
+                                    widget.order.product.image)))),
                     Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 15),
@@ -53,28 +52,35 @@ class _BasketProductItemState extends State<BasketProductItem> {
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(widget.product.name,
+                                Text(widget.order.product.name,
                                     style: TextStyle(fontSize: 18),
                                     overflow: TextOverflow.fade),
                                 Padding(
                                   padding:
                                       const EdgeInsets.only(top: 8, bottom: 8),
-                                  child: Text(widget.product.description,
+                                  child: Text(widget.order.product.description,
                                       style: TextStyle(
                                           fontSize: 16, color: Colors.grey),
                                       overflow: TextOverflow.fade),
                                 ),
                                 Text(
-                                  widget.product.price.toString() + ' тг',
+                                  widget.order.product.price.toString() + ' тг',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16),
                                 )
                               ]),
                         )),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5),
-                      child: Icon(Icons.delete_outlined, color: AppColors.gold),
+                    GestureDetector(
+                      onTap: () {
+                        AppConstants.basket.remove(widget.order);
+                        AppConstants.basketIDs.remove(widget.order.product.id);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child:
+                            Icon(Icons.delete_outlined, color: AppColors.gold),
+                      ),
                     )
                   ],
                 ),
@@ -86,7 +92,12 @@ class _BasketProductItemState extends State<BasketProductItem> {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              count = count - 1;
+                              if (widget.order.count > 1) {
+                                int index =
+                                    AppConstants.basket.indexOf(widget.order);
+                                widget.order.count = widget.order.count - 1;
+                                AppConstants.basket[index] = widget.order;
+                              }
                             });
                           },
                           child: Container(
@@ -119,7 +130,7 @@ class _BasketProductItemState extends State<BasketProductItem> {
                       decoration:
                           BoxDecoration(border: Border.all(color: Colors.grey)),
                       child: Center(
-                          child: Text(count.toString(),
+                          child: Text(widget.order.count.toString(),
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w700))),
                     ),
@@ -128,7 +139,10 @@ class _BasketProductItemState extends State<BasketProductItem> {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              count = count + 1;
+                              int index =
+                                  AppConstants.basket.indexOf(widget.order);
+                              widget.order.count = widget.order.count + 1;
+                              AppConstants.basket[index] = widget.order;
                             });
                           },
                           child: Container(

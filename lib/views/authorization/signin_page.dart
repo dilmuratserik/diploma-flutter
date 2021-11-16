@@ -13,6 +13,7 @@ import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:mobile/views/utills/utill.dart';
 import 'package:mobile/views/authorization/verification_page.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main_menu.dart';
@@ -33,6 +34,8 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   void initState() {
+    phoneController.text = '+77783579279';
+    passwordController.text = '123456';
     super.initState();
   }
 
@@ -173,10 +176,23 @@ class _SignInPageState extends State<SignInPage> {
                     var connectivityResult =
                         await (Connectivity().checkConnectivity());
                     if (connectivityResult == ConnectivityResult.none) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Соединение с интернетом отсутствует.",
-                            style: TextStyle(fontSize: 16)),
-                      ));
+                      Alert(
+                        context: context,
+                        type: AlertType.error,
+                        title: "Внимание",
+                        desc: "Соединение с интернетом отсутствует.",
+                        buttons: [
+                          DialogButton(
+                            child: Text(
+                              "Ok",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                            color: Color.fromRGBO(0, 179, 134, 1.0),
+                          ),
+                        ],
+                      ).show();
                     } else {
                       login();
                     }
@@ -238,16 +254,40 @@ class _SignInPageState extends State<SignInPage> {
             (Route<dynamic> route) => false);
         AppConstants.isSignIn = true;
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Неправильный логин или пароль.",
-              style: TextStyle(fontSize: 16)),
-        ));
+        Alert(
+          context: context,
+          type: AlertType.error,
+          title: "Извините",
+          desc: "Неправильный логин или пароль.",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "Ok",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+              color: Color.fromRGBO(0, 179, 134, 1.0),
+            ),
+          ],
+        ).show();
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content:
-            Text("Заполните поля корректно.", style: TextStyle(fontSize: 16)),
-      ));
+      Alert(
+        context: context,
+        type: AlertType.error,
+        title: "Внимание",
+        desc: "Заполните поля корректно.",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Ok",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () => Navigator.pop(context),
+            color: Color.fromRGBO(0, 179, 134, 1.0),
+          ),
+        ],
+      ).show();
     }
   }
 }

@@ -10,6 +10,7 @@ import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:mobile/views/utills/utill.dart';
 import 'package:mobile/views/authorization/verification_page.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class RegistrationSecondPage extends StatefulWidget {
   const RegistrationSecondPage({Key? key}) : super(key: key);
@@ -341,11 +342,23 @@ class _RegistrationSecondPageState extends State<RegistrationSecondPage> {
                                 cityID != 0) {
                               nextPage();
                             } else {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content: Text("Заполните поля.",
-                                    style: TextStyle(fontSize: 16)),
-                              ));
+                              Alert(
+                                context: context,
+                                type: AlertType.error,
+                                title: "Внимание",
+                                desc: "Заполните поля.",
+                                buttons: [
+                                  DialogButton(
+                                    child: Text(
+                                      "Ok",
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 20),
+                                    ),
+                                    onPressed: () => Navigator.pop(context),
+                                    color: Color.fromRGBO(0, 179, 134, 1.0),
+                                  ),
+                                ],
+                              ).show();
                             }
                           },
                           style: ElevatedButton.styleFrom(

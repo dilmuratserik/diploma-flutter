@@ -1,9 +1,12 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobile/components/basket_product_item.dart';
 import 'package:mobile/components/buttonGreen.dart';
+import 'package:mobile/models/basket_order_model.dart';
 import 'package:mobile/models/product_model.dart';
 import 'package:mobile/views/utills/const.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 import 'checkout_page.dart';
 
@@ -15,7 +18,8 @@ class BasketPage extends StatefulWidget {
 }
 
 class _BasketPageState extends State<BasketPage> {
-  List<Map<String, dynamic>> products = [];
+  List<BasketOrder> products = [];
+  Timer? timer;
 
   int amount = 0;
 
@@ -28,12 +32,28 @@ class _BasketPageState extends State<BasketPage> {
 
   @override
   void initState() {
+    timer = Timer.periodic(const Duration(seconds: 2), (timer) => getBasket());
     products = AppConstants.basket;
     for (var i in products) {
-      amount += int.parse(
-          (Product.fromJson(i['product']).price * i['count']).toString());
+      amount += i.product.price * i.count;
     }
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  getBasket() {
+    amount = 0;
+    setState(() {
+      products = AppConstants.basket;
+      for (var i in products) {
+        amount += i.product.price * i.count;
+      }
+    });
   }
 
   @override
@@ -46,11 +66,8 @@ class _BasketPageState extends State<BasketPage> {
           child: ListView.builder(
               itemCount: products.length,
               itemBuilder: (BuildContext context, int index) =>
-                  BasketProductItem(
-                      Product.fromCustomJson(products[index]['product']),
-                      categoryTitles[
-                          Product.fromCustomJson(products[index]['product'])
-                              .category])),
+                  BasketProductItem(products[index],
+                      categoryTitles[products[index].product.category])),
         ),
         Divider(),
         Padding(
@@ -66,8 +83,29 @@ class _BasketPageState extends State<BasketPage> {
               padding: const EdgeInsets.only(right: 10),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CheckoutPage()));
+                  if (products.length > 0) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CheckoutPage(products)));
+                  } else {
+                    Alert(
+                      context: context,
+                      type: AlertType.error,
+                      title: "Извините",
+                      desc: "Корзина пуста!",
+                      buttons: [
+                        DialogButton(
+                          child: Text(
+                            "Понятно",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                          color: Color.fromRGBO(0, 179, 134, 1.0),
+                        ),
+                      ],
+                    ).show();
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                     primary: AppColors.green,

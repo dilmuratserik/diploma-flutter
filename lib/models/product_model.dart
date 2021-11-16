@@ -46,15 +46,4 @@ class Product {
     data['subcategory'] = this.subcategory;
     return data;
   }
-
-  Product.fromCustomJson(Map<String, dynamic> json) {
-    id = int.parse(json['id'].toString());
-    image = json['product_image'];
-    name = json['name'];
-    description = json['description'];
-    price = int.parse(json['price'].toString());
-    weight = json['weight'];
-    category = int.parse(json['category'].toString());
-    subcategory = int.parse(json['subcategory'].toString());
-  }
 }

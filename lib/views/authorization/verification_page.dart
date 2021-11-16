@@ -8,7 +8,8 @@ import 'package:mobile/views/sales_rep/home_page/sales_home_page.dart';
 import 'package:mobile/views/sales_rep/sales_main_menu.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:pin_code_fields/pin_code_fields.dart' as pin;
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class VerificationPage extends StatefulWidget {
@@ -163,14 +164,14 @@ class _VerificationPageState extends State<VerificationPage> {
   }
 
   Widget getInputFiled(BuildContext context) {
-    return PinCodeTextField(
+    return pin.PinCodeTextField(
       appContext: context,
       length: 4,
       obscureText: false,
       cursorColor: AppColors.green,
-      animationType: AnimationType.fade,
-      pinTheme: PinTheme(
-          shape: PinCodeFieldShape.box,
+      animationType: pin.AnimationType.fade,
+      pinTheme: pin.PinTheme(
+          shape: pin.PinCodeFieldShape.box,
           borderRadius: BorderRadius.circular(5),
           fieldHeight: 65,
           fieldWidth: 55,
@@ -222,9 +223,6 @@ class _VerificationPageState extends State<VerificationPage> {
     if (textEditingController.text.length == 4) {
       var response =
           await AuthProvider().sendVerificationCode(textEditingController.text);
-      print("sendver");
-      print(response);
-      print("sendver");
       if (response['status'] == 'ok') {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString("token", response['key']);
@@ -233,14 +231,40 @@ class _VerificationPageState extends State<VerificationPage> {
             MaterialPageRoute(builder: (context) => RegistrationSecondPage()));
         AppConstants.isSignIn = true;
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Неправильный код.", style: TextStyle(fontSize: 20)),
-        ));
+        Alert(
+          context: context,
+          type: AlertType.error,
+          title: "Внимание",
+          desc: "Неправильный код.",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "Ok",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+              color: Color.fromRGBO(0, 179, 134, 1.0),
+            ),
+          ],
+        ).show();
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Заполните поле.", style: TextStyle(fontSize: 20)),
-      ));
+      Alert(
+        context: context,
+        type: AlertType.error,
+        title: "Внимание",
+        desc: "Заполните поле.",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Ok",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () => Navigator.pop(context),
+            color: Color.fromRGBO(0, 179, 134, 1.0),
+          ),
+        ],
+      ).show();
     }
   }
 }

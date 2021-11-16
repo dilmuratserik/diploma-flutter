@@ -11,6 +11,7 @@ import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:mobile/views/utills/utill.dart';
 import 'package:mobile/views/authorization/verification_page.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -125,10 +126,23 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     var connectivityResult =
                         await (Connectivity().checkConnectivity());
                     if (connectivityResult == ConnectivityResult.none) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Соединение с интернетом отсутствует.",
-                            style: TextStyle(fontSize: 16)),
-                      ));
+                      Alert(
+                        context: context,
+                        type: AlertType.error,
+                        title: "Внимание",
+                        desc: "Соединение с интернетом отсутствует.",
+                        buttons: [
+                          DialogButton(
+                            child: Text(
+                              "Ok",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                            color: Color.fromRGBO(0, 179, 134, 1.0),
+                          ),
+                        ],
+                      ).show();
                     } else {
                       registration();
                     }
@@ -181,15 +195,40 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       phone: phoneController.text,
                     )));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content:
-              Text("Something went wrong.", style: TextStyle(fontSize: 20)),
-        ));
+        Alert(
+          context: context,
+          type: AlertType.error,
+          title: "Извините",
+          desc: "Сервер не отвечает! Попробуйте позже...",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "Ok",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+              color: Color.fromRGBO(0, 179, 134, 1.0),
+            ),
+          ],
+        ).show();
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Заполните поле.", style: TextStyle(fontSize: 20)),
-      ));
+      Alert(
+        context: context,
+        type: AlertType.error,
+        title: "Внимание",
+        desc: "Заполните поле.",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Ok",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () => Navigator.pop(context),
+            color: Color.fromRGBO(0, 179, 134, 1.0),
+          ),
+        ],
+      ).show();
     }
   }
 }
