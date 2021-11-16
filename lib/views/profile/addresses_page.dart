@@ -13,7 +13,6 @@ class AddressesPage extends StatefulWidget {
 }
 
 class _AddressesPageState extends State<AddressesPage> {
-
   @override
   void initState() {
     super.initState();
@@ -22,49 +21,48 @@ class _AddressesPageState extends State<AddressesPage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
 
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          centerTitle: true,
-          title: Text('Адреса', style: TextStyle(color: Colors.black, fontSize: 18)),
-          brightness: Brightness.light,
-          automaticallyImplyLeading: true,
-          backgroundColor: Colors.white,
-          shadowColor: Colors.white,
-          bottomOpacity: 1,
-          iconTheme: IconThemeData(color: Colors.black)
-        ),
-        body: Column(
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height*0.6,
-              child: ListView.separated(
-                itemCount: 2,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    child: AddressItem()
-                  );
-                },
-                separatorBuilder: (context, index){
-                  return Divider();
-                }
-              )
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical:60),
-              child: Center(child: getButton('ДОБАВИТЬ АДРЕС')),
-            ),
-          ],
-        ),
-        )
-    );
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        },
+        child: Scaffold(
+          appBar: AppBar(
+              elevation: 0,
+              centerTitle: true,
+              title: Text('Адреса',
+                  style: TextStyle(color: Colors.black, fontSize: 18)),
+              brightness: Brightness.light,
+              automaticallyImplyLeading: true,
+              backgroundColor: Colors.white,
+              shadowColor: Colors.white,
+              bottomOpacity: 1,
+              iconTheme: IconThemeData(color: Colors.black)),
+          body: Column(
+            children: [
+              Container(
+                  height: MediaQuery.of(context).size.height * 0.6,
+                  child: ListView.separated(
+                      itemCount: 2,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 6, vertical: 2),
+                            child: AddressItem());
+                      },
+                      separatorBuilder: (context, index) {
+                        return Divider();
+                      })),
+              Spacer(),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 40),
+                child: Center(child: getButton('ДОБАВИТЬ АДРЕС')),
+              ),
+            ],
+          ),
+        ));
   }
 }

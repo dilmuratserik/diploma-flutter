@@ -1,9 +1,13 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile/components/buttonGreen.dart';
 import 'package:mobile/models/basket_order_model.dart';
+import 'package:mobile/services/orders_api_provider.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckoutPage extends StatefulWidget {
   CheckoutPage(this.order);
@@ -14,7 +18,8 @@ class CheckoutPage extends StatefulWidget {
 }
 
 class _CheckoutPageState extends State<CheckoutPage> {
-  Object? _value = 1;
+  Object? value1 = 1;
+  Object? value2 = 1;
   bool _switchValue1 = false;
   TextEditingController commentController = TextEditingController();
   FocusNode commentFocusNode = FocusNode();
@@ -199,20 +204,28 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             isEmpty: false,
                             child: DropdownButtonHideUnderline(
                                 child: DropdownButton(
-                                    value: _value,
+                                    value: value1,
                                     items: [
                                       DropdownMenuItem(
-                                        child: Text("Доставка"),
+                                        child: Text("Самовывоз"),
                                         value: 1,
                                       ),
                                       DropdownMenuItem(
-                                        child: Text("Самовывоз"),
+                                        child: Text("Yandex"),
                                         value: 2,
+                                      ),
+                                      DropdownMenuItem(
+                                        child: Text("Glovo"),
+                                        value: 3,
+                                      ),
+                                      DropdownMenuItem(
+                                        child: Text("Wolt"),
+                                        value: 4,
                                       )
                                     ],
                                     onChanged: (value) {
                                       setState(() {
-                                        _value = value;
+                                        value1 = value;
                                       });
                                     },
                                     hint: Text("Способ доставки")))),
@@ -240,20 +253,25 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             isEmpty: false,
                             child: DropdownButtonHideUnderline(
                                 child: DropdownButton(
-                                    value: _value,
+                                    value: value2,
                                     items: [
                                       DropdownMenuItem(
                                         child: Text("Наличными"),
                                         value: 1,
                                       ),
                                       DropdownMenuItem(
-                                        child: Text("Картой"),
+                                        child: Text("Картой Visa/MasterCard"),
+                                        value: 2,
+                                      ),
+                                      DropdownMenuItem(
+                                        child:
+                                            Text("Оплата в системе Kaspi.kz"),
                                         value: 2,
                                       )
                                     ],
                                     onChanged: (value) {
                                       setState(() {
-                                        _value = value;
+                                        value2 = value;
                                       });
                                     },
                                     hint: Text("Способ оплаты")))),
@@ -357,5 +375,29 @@ class _CheckoutPageState extends State<CheckoutPage> {
         ));
   }
 
-  void createOrder() async {}
+  void createOrder() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      Alert(
+        context: context,
+        type: AlertType.error,
+        title: "Внимание",
+        desc: "Соединение с интернетом отсутствует.",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Ok",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () => Navigator.pop(context),
+            color: Color.fromRGBO(0, 179, 134, 1.0),
+          ),
+        ],
+      ).show();
+    } else {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var response = await OrdersProvider().createOrder(
+          int.parse(value1.toString()), prefs.getInt('user_id')!, widget.order);
+    }
+  }
 }
