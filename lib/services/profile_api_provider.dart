@@ -97,8 +97,7 @@ class ProfileProvider {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
     Map<String, dynamic> bodyDic = {
-      "avatar": avatar,
-      "name": name,
+       "name": name,
       "country": country,
       "city": city,
       "role": role,
@@ -115,8 +114,7 @@ class ProfileProvider {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
-        // 'Connection': 'keep-alive',
-        'Authorization': "Token $token"
+         'Authorization': "Token $token"
       },
       body: jsonEncode(bodyDic),
     );

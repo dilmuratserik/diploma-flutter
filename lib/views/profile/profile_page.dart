@@ -35,6 +35,8 @@ class _ProfilePageState extends State<ProfilePage> {
   String ava = '';
   int uid = 0;
 
+
+
   @override
   void initState() {
     getInfo();
@@ -49,23 +51,6 @@ class _ProfilePageState extends State<ProfilePage> {
       name = prefs.getString('name')!;
       ava = prefs.getString('ava')!;
      });
-  }
-  void changeAvater(String ava) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var id = prefs.get('user_id')!;
-    int country = prefs.getInt('country')!;
-    int city = prefs.getInt("city")!;
-    String role = prefs.getString("role")!;
-    print(country);
-    print(city);
-
-
-    Map<String, dynamic> response =
-        await ProfileProvider().changeUserInfo(ava, name, country, city, role, id.toString());
-
-    if (response['status'] == 'ok') {
-      print("response " + response.toString());
-    }
   }
 
 
@@ -116,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
                                   List<int> imageBytes = File(ava).readAsBytesSync();
                                   String base64Image = base64Encode(imageBytes);
-                                  changeAvater(base64Image);
+                                  // changeAvater(base64Image);
                                 },
                               ),
                             ],
