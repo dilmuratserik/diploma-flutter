@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/models/order_sales_rep_model.dart';
 import 'package:mobile/views/sales_rep/order_page/saled_order_description_page.dart';
- import 'package:mobile/views/utills/const.dart';
+import 'package:mobile/views/utills/const.dart';
 
 class SalesOrderItem extends StatefulWidget {
-  const SalesOrderItem({Key? key}) : super(key: key);
+  const SalesOrderItem({Key? key, required this.order}) : super(key: key);
+  final OrderSalesRep order;
 
   @override
   _SalesOrderItemState createState() => _SalesOrderItemState();
@@ -14,8 +16,11 @@ class _SalesOrderItemState extends State<SalesOrderItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => SalesOrderDescriptionPage()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    SalesOrderDescriptionPage(order: widget.order)));
       },
       child: Card(
         elevation: 3,
@@ -26,7 +31,7 @@ class _SalesOrderItemState extends State<SalesOrderItem> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Заказ №45565",
+                "Заказ №" + widget.order.id.toString(),
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
               ),
               Padding(
@@ -64,7 +69,7 @@ class _SalesOrderItemState extends State<SalesOrderItem> {
                         Padding(
                           padding: const EdgeInsets.only(left: 6.0),
                           child: Text(
-                            "27.09.2021 14:31",
+                            widget.order.date,
                             style: TextStyle(color: AppColors.presentationGray),
                           ),
                         )
@@ -80,8 +85,6 @@ class _SalesOrderItemState extends State<SalesOrderItem> {
       ),
     );
   }
-
-
 
   Widget getDivider() {
     return Divider(

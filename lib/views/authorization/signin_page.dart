@@ -248,10 +248,22 @@ class _SignInPageState extends State<SignInPage> {
         prefs.setInt("user_id", response['uid']);
         prefs.setString("role", response['role'].toString());
 
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => MainMenuPage()),
-            (Route<dynamic> route) => false);
+        if (response['role'] == 4) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => SalesMainMenuPage(role: 4)),
+              (Route<dynamic> route) => false);
+        } else if (response['role'] == 3) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => SalesMainMenuPage(role: 3)),
+              (Route<dynamic> route) => false);
+        } else {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => MainMenuPage()),
+              (Route<dynamic> route) => false);
+        }
         AppConstants.isSignIn = true;
       } else {
         Alert(

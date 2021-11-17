@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mobile/services/profile_api_provider.dart';
 import 'package:mobile/views/utills/const.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
@@ -22,10 +25,39 @@ class _SalesHomePageState extends State<SalesHomePage> {
   late TooltipBehavior _tooltipBehavior;
 
   final ImagePicker _picker = ImagePicker();
-  String avatarPath = "";
+
+  String name = 'Name';
+  String phone = '77____________';
+  String ava = '';
+
+  void getProfileInfo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var id = prefs.get('user_id');
+    Map<String, dynamic> response =
+        await ProfileProvider().getProfileInfo(id.toString());
+
+    if (response['status'] != 'Error') {
+      print('ok!');
+      prefs.setString('name', response['name'].toString());
+      prefs.setString('ava', response['avatar']);
+      prefs.setInt('country', response['country']);
+      prefs.setInt("city", response['city']);
+      int role = response["role"];
+      prefs.setInt('role', role);
+      if (role == 2) {
+        prefs.setString("bin_iin", response["bin_iin"].toString());
+      }
+      setState(() {
+        name = response['name'];
+        phone = response['phone'];
+        ava = response['avatar'];
+      });
+    }
+  }
 
   @override
   void initState() {
+    getProfileInfo();
     _chartData = getChartData();
     _chartData2 = getChartData2();
     _tooltipBehavior = TooltipBehavior(enable: true);
@@ -47,17 +79,18 @@ class _SalesHomePageState extends State<SalesHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Stack(
-                    children: [CircleAvatar(
+                  Stack(children: [
+                    CircleAvatar(
                       minRadius: MediaQuery.of(context).size.width / 8,
-                       backgroundImage:
-                        getImage(),),
-                      // AssetImage(
-                      //     "assets/images/person.jpg")
-                      Positioned(
-                          top: 80,
-                          left: 75,
-                          child: CircleButton(onTap: () async {
+                      backgroundImage: getImage(),
+                    ),
+                    // AssetImage(
+                    //     "assets/images/person.jpg")
+                    Positioned(
+                      top: 70,
+                      left: 65,
+                      child: CircleButton(
+                          onTap: () async {
                             showModalBottomSheet(
                                 context: context,
                                 builder: (context) {
@@ -70,40 +103,57 @@ class _SalesHomePageState extends State<SalesHomePage> {
                                         onTap: () async {
                                           Navigator.pop(context);
 
-                                          XFile? avatar = await _picker.pickImage(source: ImageSource.gallery);
+                                          XFile? avatar =
+                                              await _picker.pickImage(
+                                                  source: ImageSource.gallery);
                                           setState(() {
-                                            if (avatar != null) avatarPath = avatar.path;
+                                            if (avatar != null)
+                                              ava = avatar.path;
                                           });
+
+                                          List<int> imageBytes =
+                                              File(ava).readAsBytesSync();
+                                          String base64Image =
+                                              base64Encode(imageBytes);
+                                          changeAvater(base64Image);
                                         },
                                       ),
                                       ListTile(
                                         leading: new Icon(Icons.camera_alt),
                                         title: new Text('Camera'),
-                                        onTap: () async{
+                                        onTap: () async {
                                           Navigator.pop(context);
 
-                                          XFile? avatar = await _picker.pickImage(source: ImageSource.camera);
+                                          XFile? avatar =
+                                              await _picker.pickImage(
+                                                  source: ImageSource.camera);
+
                                           setState(() {
-                                            if (avatar != null) avatarPath = avatar.path;
+                                            if (avatar != null)
+                                              ava = avatar.path;
                                           });
 
+                                          List<int> imageBytes =
+                                              File(ava).readAsBytesSync();
+                                          String base64Image =
+                                              base64Encode(imageBytes);
+                                          changeAvater(base64Image);
                                         },
                                       ),
                                     ],
                                   );
                                 });
-
-                          }, iconData: Icon(Icons.edit, color: AppColors.green)),)
-                    ]
-                  ),
-
+                          },
+                          iconData: Icon(Icons.edit, color: AppColors.green)),
+                    )
+                  ]),
                   Column(
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsets.only(bottom: 4, right: 4, top: 16, left: 16),
+                        padding: const EdgeInsets.only(
+                            bottom: 4, right: 4, top: 16, left: 16),
                         child: Text(
-                          "Маратов Марат",
+                          name,
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 18,
@@ -122,16 +172,16 @@ class _SalesHomePageState extends State<SalesHomePage> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 4),
-                              child: Text("+77081622547",
+                              child: Text('+' + phone,
                                   style: TextStyle(
-                                      color: AppColors.presentationGray, fontSize: 15)),
+                                      color: AppColors.presentationGray,
+                                      fontSize: 15)),
                             ),
                           ],
                         ),
                       ),
                     ],
                   ),
-
                 ],
               ),
             ),
@@ -205,7 +255,7 @@ class _SalesHomePageState extends State<SalesHomePage> {
                                                 print("value ${value}");
                                               })
                                         ]),
-                                   ),
+                                  ),
                                   Padding(
                                     padding:
                                         const EdgeInsets.only(top: 0, left: 16),
@@ -234,37 +284,36 @@ class _SalesHomePageState extends State<SalesHomePage> {
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Container(
-                                width: 800,
+                                  width: 800,
                                   child: SfCartesianChart(
-                                // title: ChartTitle(text: 'Yearly sales analysis'),
-                                legend: Legend(isVisible: false),
-                                tooltipBehavior: _tooltipBehavior,
-                                series: <ChartSeries<SalesData, String>>[
-                                  LineSeries<SalesData, String>(
-                                       dataSource: _chartData,
-                                      xValueMapper: (SalesData sales, _) =>
-                                          sales.month,
-                                      yValueMapper: (SalesData sales, _) =>
-                                          sales.sales,
-                                      dataLabelSettings:
-                                          DataLabelSettings(isVisible: true),
-                                      enableTooltip: false),
-                                  LineSeries<SalesData, String>(
-                                      dataSource: _chartData2,
-                                      xValueMapper: (SalesData sales, _) =>
-                                      sales.month,
-                                      yValueMapper: (SalesData sales, _) =>
-                                      sales.sales,
-                                      dataLabelSettings:
-                                      DataLabelSettings(isVisible: true),
-                                      enableTooltip: false)
-                                ],
+                                    // title: ChartTitle(text: 'Yearly sales analysis'),
+                                    legend: Legend(isVisible: false),
+                                    tooltipBehavior: _tooltipBehavior,
+                                    series: <ChartSeries<SalesData, String>>[
+                                      LineSeries<SalesData, String>(
+                                          dataSource: _chartData,
+                                          xValueMapper: (SalesData sales, _) =>
+                                              sales.month,
+                                          yValueMapper: (SalesData sales, _) =>
+                                              sales.sales,
+                                          dataLabelSettings: DataLabelSettings(
+                                              isVisible: true),
+                                          enableTooltip: false),
+                                      LineSeries<SalesData, String>(
+                                          dataSource: _chartData2,
+                                          xValueMapper: (SalesData sales, _) =>
+                                              sales.month,
+                                          yValueMapper: (SalesData sales, _) =>
+                                              sales.sales,
+                                          dataLabelSettings: DataLabelSettings(
+                                              isVisible: true),
+                                          enableTooltip: false)
+                                    ],
                                     primaryXAxis: CategoryAxis(),
-                                // primaryXAxis: NumericAxis(
-                                //   edgeLabelPlacement: EdgeLabelPlacement.shift,
-                                // ),
-                              )
-                              ),
+                                    // primaryXAxis: NumericAxis(
+                                    //   edgeLabelPlacement: EdgeLabelPlacement.shift,
+                                    // ),
+                                  )),
                             ),
                           ]))
                     ])),
@@ -274,12 +323,31 @@ class _SalesHomePageState extends State<SalesHomePage> {
     );
   }
 
-   getImage() {
-     if (avatarPath.isNotEmpty)
-     return  FileImage(File(avatarPath));
-      else
-      return AssetImage("assets/images/person.jpg");
-  }   
+  getImage() {
+    if (ava.startsWith("http")) {
+      return NetworkImage(ava);
+    } else {
+      var file = FileImage(File(ava));
+      return file;
+    }
+  }
+
+  void changeAvater(String ava) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var id = prefs.get('user_id')!;
+    int country = prefs.getInt('country')!;
+    int city = prefs.getInt("city")!;
+    String role = prefs.getString("role")!;
+    print(country);
+    print(city);
+
+    Map<String, dynamic> response = await ProfileProvider()
+        .changeUserInfo(ava, name, country, city, role, id.toString());
+
+    if (response['status'] == 'ok') {
+      print("response " + response.toString());
+    }
+  }
 
   Widget getDivider() {
     return Divider(
@@ -323,6 +391,7 @@ class _SalesHomePageState extends State<SalesHomePage> {
     ];
     return chartData;
   }
+
   List<SalesData> getChartData2() {
     final List<SalesData> chartData = [
       SalesData("Январь", 12),
@@ -348,26 +417,25 @@ class SalesData {
   final String month;
   final double sales;
 }
+
 class CircleButton extends StatelessWidget {
   final GestureTapCallback onTap;
   final Icon iconData;
 
-  const CircleButton({Key? key, required this.onTap, required this.iconData}) : super(key: key);
+  const CircleButton({Key? key, required this.onTap, required this.iconData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return new InkResponse(
-      onTap: onTap,
-      child: new Container(
-         // width: size,
-        // height: size,
-        decoration: new BoxDecoration(
-          color: AppColors.lightGray,
-          shape: BoxShape.circle,
-        ),
-        child: iconData
-      )
-    );
+        onTap: onTap,
+        child: new Container(
+            // width: size,
+            // height: size,
+            decoration: new BoxDecoration(
+              color: AppColors.lightGray,
+              shape: BoxShape.circle,
+            ),
+            child: iconData));
   }
 }

@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
 
   List<Widget> routes = [
     MainMenuPage(),
-    SalesMainMenuPage(),
+    SalesMainMenuPage(role: 3),
   ];
 
   Map<int, Color> color = {

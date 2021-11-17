@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/models/order_sales_rep_model.dart';
 import 'package:mobile/views/utills/const.dart';
 
 class SalesOrderDescriptionPage extends StatelessWidget {
-  const SalesOrderDescriptionPage({Key? key}) : super(key: key);
+  const SalesOrderDescriptionPage({Key? key, required this.order})
+      : super(key: key);
+  final OrderSalesRep order;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class SalesOrderDescriptionPage extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 6.0),
-                        child: Text("Заказ  №45565",
+                        child: Text("Заказ  №" + order.id.toString(),
                             style: TextStyle(
                                 color: AppColors.green,
                                 fontWeight: FontWeight.bold,
@@ -42,7 +45,7 @@ class SalesOrderDescriptionPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
-                          "11 мая 2021 12:00 - доставлен",
+                          order.date + " - доставлен",
                           style: TextStyle(
                               color: AppColors.presentationGray, fontSize: 16),
                         ),
@@ -87,24 +90,29 @@ class SalesOrderDescriptionPage extends StatelessWidget {
                               color: AppColors.presentationGray, fontSize: 16),
                         ),
                       ),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
+                      for (var i in order.productOrder)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 18.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                  child: Text(
+                                i['count'].toString() +
+                                    'x ' +
+                                    i['product']['name'].toString(),
+                                style: TextStyle(fontSize: 18),
+                                maxLines: 5,
+                                softWrap: true,
+                              )),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 6),
+                                child: Text(i['count'].toString() + ' ₸',
+                                    style: TextStyle(fontSize: 18)),
+                              )
+                            ],
+                          ),
+                        )
                     ],
                   ),
                 ),

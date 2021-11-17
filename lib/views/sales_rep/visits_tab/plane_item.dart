@@ -48,7 +48,9 @@ class _PlaneItemState extends State<PlaneItem> {
                             padding: const EdgeInsets.only(left: 6.0),
                             child: Text(
                               "27.09.2021",
-                              style: TextStyle(color: AppColors.green, fontWeight: FontWeight.w600),
+                              style: TextStyle(
+                                  color: AppColors.green,
+                                  fontWeight: FontWeight.w600),
                             ),
                           )
                         ],
@@ -65,7 +67,7 @@ class _PlaneItemState extends State<PlaneItem> {
                     color: AppColors.gold,
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width*0.77,
+                    width: MediaQuery.of(context).size.width * 0.76,
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
