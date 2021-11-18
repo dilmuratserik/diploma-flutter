@@ -343,7 +343,7 @@ class _ProfilePageState extends State<ProfilePage> {
     if (ava.startsWith("http")) {
       return NetworkImage(ava);
     }
-    else {
+    else if (ava.isNotEmpty){
       var file = FileImage(File(ava));
       return file;
     }

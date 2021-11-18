@@ -65,7 +65,7 @@ class ProfileProvider {
     }
   }
 
-  Future<String> changePassword(String str) async {
+  Future<String> changePassword(String oldPassword, String newPassword) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
     print("tokens" + token.toString());
@@ -78,8 +78,8 @@ class ProfileProvider {
         'Authorization': "Token $token"
       },
       body: jsonEncode(<String, dynamic>{
-        "old_password": '1',
-        "new_password": '2',
+        "old_password": oldPassword,
+        "new_password": newPassword,
       }),
     );
 
@@ -92,25 +92,25 @@ class ProfileProvider {
     }
   }
 
-  Future<Map<String, dynamic>> changeUserInfo(String avatar, String name, int country,
-      int city, String role,String id) async {
+  Future<Map<String, dynamic>> changeUserInfo( String name,String bin, int country,
+      int city, String role,String user_id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
     Map<String, dynamic> bodyDic = {
-       "name": name,
+      "name": name,
       "country": country,
       "city": city,
       "role": role,
     };
-    print(id);
 
     if (role == '2') {
-      bodyDic["bin_iin"] = prefs.getString("bin_iin")!;
+      bodyDic["bin_iin"] = bin;
     }
+    print(bodyDic);
 
 
     final response = await http.put(
-      Uri.parse(API_URL + 'users/detail/' + id),
+      Uri.parse(API_URL + 'users/detail/' + user_id + "/"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',

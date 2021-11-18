@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/buttonGreen.dart';
+import 'package:mobile/services/profile_api_provider.dart';
 import 'package:mobile/views/utills/const.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({Key? key}) : super(key: key);
@@ -69,8 +71,12 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                             });
                           },
                           child: (firstObsure)
-                              ? Icon(Icons.visibility_off, color: AppColors.presentationGray,)
-                              : Icon(Icons.visibility, color: AppColors.presentationGray)),
+                              ? Icon(
+                                  Icons.visibility_off,
+                                  color: AppColors.presentationGray,
+                                )
+                              : Icon(Icons.visibility,
+                                  color: AppColors.presentationGray)),
                       labelStyle: TextStyle(
                           color: firstFocusNode.hasFocus
                               ? AppColors.gold
@@ -119,8 +125,12 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                             });
                           },
                           child: (secondObsure)
-                              ? Icon(Icons.visibility_off, color: AppColors.presentationGray,)
-                              : Icon(Icons.visibility, color: AppColors.presentationGray)),
+                              ? Icon(
+                                  Icons.visibility_off,
+                                  color: AppColors.presentationGray,
+                                )
+                              : Icon(Icons.visibility,
+                                  color: AppColors.presentationGray)),
                       labelStyle: TextStyle(
                           color: secondFocusNode.hasFocus
                               ? AppColors.gold
@@ -169,8 +179,12 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                             });
                           },
                           child: (thirdObsure)
-                              ? Icon(Icons.visibility_off, color: AppColors.presentationGray,)
-                              : Icon(Icons.visibility, color: AppColors.presentationGray)),
+                              ? Icon(
+                                  Icons.visibility_off,
+                                  color: AppColors.presentationGray,
+                                )
+                              : Icon(Icons.visibility,
+                                  color: AppColors.presentationGray)),
                       labelStyle: TextStyle(
                           color: thirdFocusNode.hasFocus
                               ? AppColors.gold
@@ -201,5 +215,44 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             ),
           ]),
         ));
+  }
+
+  void changePassword(String oldPassword, String newPassword) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var uid = prefs.getInt("user_id");
+    print("uid " + uid.toString());
+
+    String response =
+        await ProfileProvider().changePassword(oldPassword, newPassword);
+
+    if (response == "Succes") {
+      final snackBar = SnackBar(content: Text('Данные изменены'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+    else {
+      final snackBar = SnackBar(content: Text('Проверьте соединение с интернетом, или повторите позже!'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
+  Widget getButton(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
+      child: ElevatedButton(
+        onPressed: () {
+
+        },
+        style: ElevatedButton.styleFrom(
+            minimumSize: Size(double.infinity, 30),
+            // double.infinity is the width and 30 is the height
+            primary: AppColors.green,
+            padding: EdgeInsets.symmetric(vertical: 17),
+            textStyle: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Roboto")),
+        child: Text(text),
+      ),
+    );
   }
 }

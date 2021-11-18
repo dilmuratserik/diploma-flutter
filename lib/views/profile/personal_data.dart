@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile/components/buttonGreen.dart';
 import 'package:mobile/models/product_model.dart';
+import 'package:mobile/services/profile_api_provider.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/utill.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -60,7 +61,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
       role = prefs.getInt("role")!;
        fullNameController.text = prefs.getString("name")!;
       _value3 = listOfCities[(prefs.getInt("city")! - 1)]["id"];
-      // _value2 = listOfCountries[0]["id"];
+      _value2 =  listOfCountries[prefs.getInt("country")!-1]["id"]-1;
       if (role == 2) {
         binController.text = prefs.getString("bin_iin")!;
       }
@@ -68,20 +69,34 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
   }
 
   void changeUserInfo(
-      String name, String bin, String country, String city, String role) async {
+      String name, String bin, int country, int city, String role) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var id = prefs.get('user_id')!;
+    var uid = prefs.getInt("user_id");
+    print("uid " + uid.toString());
 
-    String role = prefs.getString("role")!;
-    print(country);
-    print(city);
+    countryID = listOfCountries[int.parse(country.toString())]['id'];
+    cityID = listOfCities[int.parse(city.toString())]['id'];
+    print("cityId " + cityID.toString());
+    print("countryId " + countryID.toString());
 
-    // Map<String, dynamic> response =
-    // await ProfileProvider().changeUserInfo(ava, name, country, city, role, id.toString());
-    //
-    // if (response['status'] == 'ok') {
-    //   print("response " + response.toString());
-    // }
+    Map<String, dynamic> response =
+    await ProfileProvider().changeUserInfo( name,bin, countryID, cityID, role, uid.toString());
+
+    if (response['status'] != 'Error') {
+      print("response " + response.toString());
+      prefs.setInt("city", city);
+      prefs.setInt("country", country);
+      prefs.setString("name",name);
+      if (role == 2) {
+        prefs.setString("bin_iin", bin);
+      }
+      final snackBar = SnackBar(content: Text('Данные изменены'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+    else {
+      final snackBar = SnackBar(content: Text('Проверьте соединение с интернетом, или повторите позже!'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   @override
@@ -377,7 +392,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
       child: ElevatedButton(
         onPressed: () {
           changeUserInfo(fullNameController.text, binController.text,
-              countryController.text, cityController.text, role.toString());
+              int.parse(_value2.toString()), int.parse(_value3.toString()), role.toString());
         },
         style: ElevatedButton.styleFrom(
             minimumSize: Size(double.infinity, 30),
