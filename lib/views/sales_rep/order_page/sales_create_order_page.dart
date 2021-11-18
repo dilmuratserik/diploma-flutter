@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/buttonGreen.dart';
+import 'package:mobile/services/orders_api_provider.dart';
 import 'package:mobile/views/utills/const.dart';
 
 class SalesCreateOrderPage extends StatefulWidget {
@@ -25,7 +26,27 @@ class _SalesCreateOrderPageState extends State<SalesCreateOrderPage> {
   var countProduct = 0;
   Object? _value = 1;
 
-  List<String> items = ["asd", "asssd"];
+  List<String> items = [];
+
+  @override
+  void initState() {
+    getPoinNames();
+    super.initState();
+  }
+
+  void getPoinNames() async {
+    var response = await OrdersProvider().getPointNames();
+    if (response['status'] == 'ok') {
+      List<String> tempList = [];
+      for (var i in response['data']) {
+        tempList.add(i['name']);
+      }
+
+      setState(() {
+        items = tempList;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,14 +126,11 @@ class _SalesCreateOrderPageState extends State<SalesCreateOrderPage> {
                           child: DropdownButton(
                               value: _value,
                               items: [
-                                DropdownMenuItem(
-                                  child: Text("Торговая точка 1"),
-                                  value: 1,
-                                ),
-                                DropdownMenuItem(
-                                  child: Text("Торговая точка 2"),
-                                  value: 2,
-                                )
+                                for (int i = 0; i < items.length; i++)
+                                  DropdownMenuItem(
+                                    child: Text(items[i]),
+                                    value: i + 1,
+                                  ),
                               ],
                               onChanged: (value) {
                                 setState(() {

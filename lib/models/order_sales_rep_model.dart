@@ -8,6 +8,8 @@ class OrderSalesRep {
   String deliveredDate = '';
   int typeDelivery = 0;
   int courier = 0;
+  int total = 0;
+  String counterpartyName = '';
 
   OrderSalesRep(
       {required this.id,
@@ -18,7 +20,9 @@ class OrderSalesRep {
       required this.status,
       required this.deliveredDate,
       required this.typeDelivery,
-      required this.courier});
+      required this.courier,
+      required this.total,
+      required this.counterpartyName});
 
   OrderSalesRep.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -32,6 +36,8 @@ class OrderSalesRep {
     deliveredDate = json['delivered_date'];
     typeDelivery = json['type_delivery'];
     courier = json['courier'];
+    total = json['total'];
+    counterpartyName = json['counterparty']['name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -45,6 +51,7 @@ class OrderSalesRep {
     data['delivered_date'] = this.deliveredDate;
     data['type_delivery'] = this.typeDelivery;
     data['courier'] = this.courier;
+    data['total'] = this.total;
     return data;
   }
 }

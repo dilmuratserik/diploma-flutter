@@ -19,7 +19,9 @@ class AppColors {
 
 class AppConstants {
   static final String baseUrl = "http://137.184.52.236/";
-  static final String phone = "phone";
+  static String name = 'Name';
+  static String phone = '77____________';
+  static String ava = '';
 
   static bool isSignIn = false;
   static bool isHaveLockScreen = false;

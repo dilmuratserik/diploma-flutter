@@ -26,9 +26,12 @@ class _SalesHomePageState extends State<SalesHomePage> {
 
   final ImagePicker _picker = ImagePicker();
 
-  String name = 'Name';
-  String phone = '77____________';
-  String ava = '';
+  String name = AppConstants.name;
+  String phone = AppConstants.phone;
+  String ava = AppConstants.ava;
+  String region = '';
+  String priceType = '';
+  String orderSector = '';
 
   void getProfileInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -37,11 +40,13 @@ class _SalesHomePageState extends State<SalesHomePage> {
         await ProfileProvider().getProfileInfo(id.toString());
 
     if (response['status'] != 'Error') {
-      print('ok!');
       prefs.setString('name', response['name'].toString());
       prefs.setString('ava', response['avatar']);
       prefs.setInt('country', response['country']);
       prefs.setInt("city", response['city']);
+      AppConstants.name = response['name'];
+      AppConstants.phone = response['phone'];
+      AppConstants.ava = response['avatar'];
       int role = response["role"];
       prefs.setInt('role', role);
       if (role == 2) {
@@ -51,6 +56,23 @@ class _SalesHomePageState extends State<SalesHomePage> {
         name = response['name'];
         phone = response['phone'];
         ava = response['avatar'];
+        region = response['locations'].toString();
+
+        if (response['type_price'] == 1) {
+          priceType = 'Розница';
+        } else if (response['type_price'] == 2) {
+          priceType = 'Оптовый';
+        } else {
+          priceType = 'Спец. цена';
+        }
+
+        if (response['order_sector'] == 1) {
+          orderSector = 'Пивнушка';
+        } else if (response['order_sector'] == 2) {
+          orderSector = 'Магазин';
+        } else {
+          orderSector = 'Супермаркет';
+        }
       });
     }
   }
@@ -223,61 +245,61 @@ class _SalesHomePageState extends State<SalesHomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   getTitle("Регион"),
-                                  getSubtitle("Алматы, склад Алматы"),
+                                  getSubtitle(region),
                                   getDivider(),
                                   getTitle("Тип цены"),
-                                  getSubtitle("Розница"),
+                                  getSubtitle(priceType),
                                   getDivider(),
                                   getTitle("Сектор заказа"),
-                                  getSubtitle("Супермаркет"),
+                                  getSubtitle(orderSector),
                                   getDivider(),
                                   getTitle("Время работы"),
-                                  getSubtitle("С 9:00 до 12:00"),
+                                  getSubtitle("С 9:00 до 20:00"),
                                   getDivider(),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(top: 0, left: 16),
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Включить GPS навигатор?",
-                                            style: TextStyle(fontSize: 18),
-                                          ),
-                                          Switch(
-                                              value: _switchValue1,
-                                              activeColor: AppColors.gold,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  _switchValue1 = value;
-                                                });
-                                                print("value ${value}");
-                                              })
-                                        ]),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(top: 0, left: 16),
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Привязан телефон?",
-                                            style: TextStyle(fontSize: 18),
-                                          ),
-                                          Switch(
-                                              value: _switchValue2,
-                                              activeColor: AppColors.gold,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  _switchValue2 = value;
-                                                });
-                                                print("value ${value}");
-                                              })
-                                        ]),
-                                  ),
+                                  // Padding(
+                                  //   padding:
+                                  //       const EdgeInsets.only(top: 0, left: 16),
+                                  //   child: Row(
+                                  //       mainAxisAlignment:
+                                  //           MainAxisAlignment.spaceBetween,
+                                  //       children: [
+                                  //         Text(
+                                  //           "Включить GPS навигатор?",
+                                  //           style: TextStyle(fontSize: 18),
+                                  //         ),
+                                  //         Switch(
+                                  //             value: _switchValue1,
+                                  //             activeColor: AppColors.gold,
+                                  //             onChanged: (value) {
+                                  //               setState(() {
+                                  //                 _switchValue1 = value;
+                                  //               });
+                                  //               print("value ${value}");
+                                  //             })
+                                  //       ]),
+                                  // ),
+                                  // Padding(
+                                  //   padding:
+                                  //       const EdgeInsets.only(top: 0, left: 16),
+                                  //   child: Row(
+                                  //       mainAxisAlignment:
+                                  //           MainAxisAlignment.spaceBetween,
+                                  //       children: [
+                                  //         Text(
+                                  //           "Привязан телефон?",
+                                  //           style: TextStyle(fontSize: 18),
+                                  //         ),
+                                  //         Switch(
+                                  //             value: _switchValue2,
+                                  //             activeColor: AppColors.gold,
+                                  //             onChanged: (value) {
+                                  //               setState(() {
+                                  //                 _switchValue2 = value;
+                                  //               });
+                                  //               print("value ${value}");
+                                  //             })
+                                  //       ]),
+                                  // ),
                                 ],
                               ),
                             ),

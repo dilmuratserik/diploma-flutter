@@ -19,10 +19,11 @@ class ProfileProvider {
       },
     );
 
-    print(response.body);
+    // print(response.body);
 
     if (response.statusCode == 200) {
-      Map<String, dynamic> result = jsonDecode(response.body);
+      Map<String, dynamic> result =
+          jsonDecode(utf8.decode(response.body.codeUnits));
       return result;
     } else {
       return {'status': 'Error'};
@@ -92,8 +93,8 @@ class ProfileProvider {
     }
   }
 
-  Future<Map<String, dynamic>> changeUserInfo( String name,String bin, int country,
-      int city, String role,String user_id) async {
+  Future<Map<String, dynamic>> changeUserInfo(String name, String bin,
+      int country, int city, String role, String user_id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
     Map<String, dynamic> bodyDic = {
@@ -108,13 +109,12 @@ class ProfileProvider {
     }
     print(bodyDic);
 
-
     final response = await http.put(
       Uri.parse(API_URL + 'users/detail/' + user_id + "/"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
-         'Authorization': "Token $token"
+        'Authorization': "Token $token"
       },
       body: jsonEncode(bodyDic),
     );

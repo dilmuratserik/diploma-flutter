@@ -37,7 +37,7 @@ class _SalesOrderItemState extends State<SalesOrderItem> {
               Padding(
                 padding: const EdgeInsets.only(top: 9.0),
                 child: Text(
-                  'Бегалиев 5, Морошкин магазин',
+                  widget.order.counterpartyName,
                   style: TextStyle(fontSize: 18),
                 ),
               ),
@@ -50,7 +50,8 @@ class _SalesOrderItemState extends State<SalesOrderItem> {
                             fontSize: 18, color: AppColors.presentationGray)),
                     Padding(
                       padding: const EdgeInsets.only(left: 4.0),
-                      child: Text("3 000 ₸", style: TextStyle(fontSize: 18)),
+                      child: Text(widget.order.total.toString() + " ₸",
+                          style: TextStyle(fontSize: 18)),
                     )
                   ],
                 ),
@@ -75,7 +76,11 @@ class _SalesOrderItemState extends State<SalesOrderItem> {
                         )
                       ],
                     ),
-                    getStateButton(AppColors.lightGreen, "Доставлен")
+                    widget.order.status == 1
+                        ? getStateButton(AppColors.lightRed, "Новый")
+                        : widget.order.status == 2
+                            ? getStateButton(AppColors.yellow, "В обработке")
+                            : getStateButton(AppColors.lightGreen, "Доставлен")
                   ],
                 ),
               )

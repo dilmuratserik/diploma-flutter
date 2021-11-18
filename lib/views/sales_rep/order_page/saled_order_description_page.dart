@@ -45,7 +45,12 @@ class SalesOrderDescriptionPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
-                          order.date + " - доставлен",
+                          order.date +
+                              (order.status == 1
+                                  ? " - новый"
+                                  : order.status == 2
+                                      ? " - в обработке"
+                                      : " - доставлен"),
                           style: TextStyle(
                               color: AppColors.presentationGray, fontSize: 16),
                         ),
@@ -61,7 +66,7 @@ class SalesOrderDescriptionPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
-                          "Бегалиев 5, Морошкин магазин",
+                          order.counterpartyName,
                           style: TextStyle(fontSize: 16),
                         ),
                       ),
@@ -77,7 +82,7 @@ class SalesOrderDescriptionPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 6.0),
                         child: Text(
-                          "3 000 ₸",
+                          order.total.toString() + " ₸",
                           style: TextStyle(fontSize: 16),
                         ),
                       ),
@@ -107,7 +112,10 @@ class SalesOrderDescriptionPage extends StatelessWidget {
                               )),
                               Padding(
                                 padding: const EdgeInsets.only(left: 6),
-                                child: Text(i['count'].toString() + ' ₸',
+                                child: Text(
+                                    (i['product']['price'] * i['count'])
+                                            .toString() +
+                                        ' ₸',
                                     style: TextStyle(fontSize: 18)),
                               )
                             ],
