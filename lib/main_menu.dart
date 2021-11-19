@@ -4,11 +4,13 @@ import 'package:mobile/services/profile_api_provider.dart';
 import 'package:mobile/views/basket/basket_page.dart';
 import 'package:mobile/views/categories/categories_page.dart';
 import 'package:mobile/views/home/home_page.dart';
+import 'package:mobile/views/map_page.dart';
 import 'package:mobile/views/profile/profile_page.dart';
 import 'package:mobile/views/sales_rep/list_of_payments_page.dart/list_of_payments_page.dart';
 import 'package:mobile/views/sales_rep/order_page/sales_order_page.dart';
 import 'package:mobile/views/sales_rep/points_tab/points_main_page.dart';
 import 'package:mobile/views/sales_rep/home_page/sales_home_page.dart';
+import 'package:mobile/views/sales_rep/settings/settings_page,dart.dart';
 import 'package:mobile/views/sales_rep/visits_tab/visits_main_page.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
@@ -175,20 +177,18 @@ class _MainMenuPageState extends State<MainMenuPage> {
               title:
                   const Text("Карта объектов", style: TextStyle(fontSize: 16)),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
                 Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MapPage()));
               },
             ),
             ListTile(
               leading: Icon(Icons.settings),
               title: const Text("Настройки", style: TextStyle(fontSize: 16)),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
                 Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SettingsPage()));
               },
             ),
             ListTile(

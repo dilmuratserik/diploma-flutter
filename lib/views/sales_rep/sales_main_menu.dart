@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:mobile/views/delivery/order_tab/delivery_sales_order_page.dart';
 import 'package:mobile/views/delivery/points_tab/delivery_points_page.dart';
+import 'package:mobile/views/map_page.dart';
 import 'package:mobile/views/sales_rep/points_tab/points_main_page.dart';
 import 'package:mobile/views/sales_rep/settings/settings_page,dart.dart';
 import 'package:mobile/views/sales_rep/visits_tab/visits_main_page.dart';
@@ -242,10 +243,9 @@ class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
             leading: Icon(Icons.my_location),
             title: const Text("Карта объектов", style: TextStyle(fontSize: 16)),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
               Navigator.pop(context);
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => MapPage()));
             },
           ),
           ListTile(
