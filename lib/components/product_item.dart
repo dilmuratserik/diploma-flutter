@@ -8,8 +8,9 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 class ProductItem extends StatelessWidget {
   final Product product;
   final String categoryTitle;
+  final bool isSalesRep;
 
-  const ProductItem(this.product, this.categoryTitle);
+  const ProductItem(this.product, this.categoryTitle, this.isSalesRep);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class ProductItem extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      AboutProductPage(product, categoryTitle)));
+                      AboutProductPage(product, categoryTitle, isSalesRep)));
         },
         child: Card(
           elevation: 2,
@@ -77,45 +78,89 @@ class ProductItem extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 10),
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      if (!AppConstants.basketIDs.contains(product.id)) {
-                        BasketOrder order = BasketOrder(product, 1);
-                        AppConstants.basket.add(order);
-                        AppConstants.basketIDs.add(product.id);
-                        Alert(
-                          context: context,
-                          type: AlertType.success,
-                          title: "Успешно",
-                          desc: "Продукт успешно добавлен!",
-                          buttons: [
-                            DialogButton(
-                              child: Text(
-                                "Ок",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
+                      if (isSalesRep) {
+                        if (!AppConstants.basketIDsSalesRep
+                            .contains(product.id)) {
+                          BasketOrder order = BasketOrder(product, 1);
+                          AppConstants.basketSalesRep.add(order);
+                          AppConstants.basketIDsSalesRep.add(product.id);
+                          Alert(
+                            context: context,
+                            type: AlertType.success,
+                            title: "Успешно",
+                            desc: "Продукт успешно добавлен!",
+                            buttons: [
+                              DialogButton(
+                                child: Text(
+                                  "Ок",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
+                                onPressed: () => Navigator.pop(context),
+                                color: Color.fromRGBO(0, 179, 134, 1.0),
                               ),
-                              onPressed: () => Navigator.pop(context),
-                              color: Color.fromRGBO(0, 179, 134, 1.0),
-                            ),
-                          ],
-                        ).show();
+                            ],
+                          ).show();
+                        } else {
+                          Alert(
+                            context: context,
+                            type: AlertType.error,
+                            title: "Извините",
+                            desc: "Продукт уже в корзине!",
+                            buttons: [
+                              DialogButton(
+                                child: Text(
+                                  "Понятно",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
+                                onPressed: () => Navigator.pop(context),
+                                color: Color.fromRGBO(0, 179, 134, 1.0),
+                              ),
+                            ],
+                          ).show();
+                        }
                       } else {
-                        Alert(
-                          context: context,
-                          type: AlertType.error,
-                          title: "Извините",
-                          desc: "Продукт уже в корзине!",
-                          buttons: [
-                            DialogButton(
-                              child: Text(
-                                "Понятно",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
+                        if (!AppConstants.basketIDs.contains(product.id)) {
+                          BasketOrder order = BasketOrder(product, 1);
+                          AppConstants.basket.add(order);
+                          AppConstants.basketIDs.add(product.id);
+                          Alert(
+                            context: context,
+                            type: AlertType.success,
+                            title: "Успешно",
+                            desc: "Продукт успешно добавлен!",
+                            buttons: [
+                              DialogButton(
+                                child: Text(
+                                  "Ок",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
+                                onPressed: () => Navigator.pop(context),
+                                color: Color.fromRGBO(0, 179, 134, 1.0),
                               ),
-                              onPressed: () => Navigator.pop(context),
-                              color: Color.fromRGBO(0, 179, 134, 1.0),
-                            ),
-                          ],
-                        ).show();
+                            ],
+                          ).show();
+                        } else {
+                          Alert(
+                            context: context,
+                            type: AlertType.error,
+                            title: "Извините",
+                            desc: "Продукт уже в корзине!",
+                            buttons: [
+                              DialogButton(
+                                child: Text(
+                                  "Понятно",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
+                                onPressed: () => Navigator.pop(context),
+                                color: Color.fromRGBO(0, 179, 134, 1.0),
+                              ),
+                            ],
+                          ).show();
+                        }
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -126,9 +171,11 @@ class ProductItem extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           fontFamily: "Roboto",
                         )),
-                    icon: Icon(Icons.shopping_cart_outlined, size: 18),
+                    icon: isSalesRep
+                        ? Container()
+                        : Icon(Icons.shopping_cart_outlined, size: 18),
                     label: Text(
-                      "В КОРЗИНУ",
+                      isSalesRep ? 'ДОБАВИТЬ' : 'В КОРЗИНУ',
                     ),
                   ),
                 )

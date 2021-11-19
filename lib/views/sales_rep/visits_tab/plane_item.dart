@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/models/plan_model.dart';
 import 'package:mobile/views/sales_rep/visits_tab/plane_description.dart';
 import 'package:mobile/views/utills/const.dart';
 
 class PlaneItem extends StatefulWidget {
-  const PlaneItem({Key? key}) : super(key: key);
+  const PlaneItem({Key? key, required this.plan}) : super(key: key);
+  final Plan plan;
 
   @override
   _PlaneItemState createState() => _PlaneItemState();
@@ -14,8 +16,10 @@ class _PlaneItemState extends State<PlaneItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => PlaneDescriptionPage()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => PlaneDescriptionPage(plan: widget.plan)));
       },
       child: Card(
         elevation: 3,
@@ -30,7 +34,7 @@ class _PlaneItemState extends State<PlaneItem> {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      "Код: 465",
+                      "Код: " + widget.plan.id.toString(),
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
@@ -47,7 +51,7 @@ class _PlaneItemState extends State<PlaneItem> {
                           Padding(
                             padding: const EdgeInsets.only(left: 6.0),
                             child: Text(
-                              "27.09.2021",
+                              widget.plan.date,
                               style: TextStyle(
                                   color: AppColors.green,
                                   fontWeight: FontWeight.w600),
@@ -71,7 +75,7 @@ class _PlaneItemState extends State<PlaneItem> {
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
-                        'Бегалиев 5, Морошкин магазинa',
+                        widget.plan.pointName,
                         style: TextStyle(fontSize: 18),
                       ),
                     ),

@@ -8,11 +8,13 @@ import 'package:mobile/models/product_model.dart';
 import 'package:mobile/services/orders_api_provider.dart';
 
 class CategoryProductsPage extends StatefulWidget {
-  CategoryProductsPage(this.title, this.category, this.subcategory);
+  CategoryProductsPage(
+      this.title, this.category, this.subcategory, this.isSalesRep);
 
   final String title;
   final String category;
   final String subcategory;
+  final bool isSalesRep;
 
   @override
   State<CategoryProductsPage> createState() => _CategoryProductsPageState();
@@ -108,8 +110,8 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                 height: MediaQuery.of(context).size.height * 0.79,
                 child: ListView.builder(
                   itemCount: products.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      ProductItem(products[index], widget.title),
+                  itemBuilder: (BuildContext context, int index) => ProductItem(
+                      products[index], widget.title, widget.isSalesRep),
                 ),
               ),
             ])),

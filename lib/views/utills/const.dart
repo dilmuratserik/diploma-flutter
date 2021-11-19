@@ -27,6 +27,9 @@ class AppConstants {
   static bool isHaveLockScreen = false;
   static String lockCode = "lockCode";
 
-  static List<BasketOrder> basket = [];
   static List<int> basketIDs = [];
+  static List<BasketOrder> basket = [];
+
+  static List<int> basketIDsSalesRep = [];
+  static List<BasketOrder> basketSalesRep = [];
 }

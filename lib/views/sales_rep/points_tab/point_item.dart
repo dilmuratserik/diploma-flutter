@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/models/point_model.dart';
 import 'package:mobile/views/sales_rep/points_tab/point_creating_page.dart';
 import 'package:mobile/views/utills/const.dart';
 
 class PointItem extends StatefulWidget {
-  const PointItem({Key? key}) : super(key: key);
+  const PointItem({Key? key, required this.point}) : super(key: key);
+  final Point point;
 
   @override
   _PointItemState createState() => _PointItemState();
@@ -13,10 +15,7 @@ class _PointItemState extends State<PointItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => PointCreatingPage()));
-      },
+      onTap: () {},
       child: Card(
         elevation: 3,
         margin: EdgeInsets.all(8),
@@ -30,7 +29,7 @@ class _PointItemState extends State<PointItem> {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      "Код: 465",
+                      "Код: " + widget.point.binIin,
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
@@ -41,7 +40,7 @@ class _PointItemState extends State<PointItem> {
                       Padding(
                         padding: const EdgeInsets.only(left: 6.0),
                         child: Text(
-                          "Долг: 50 000 тг",
+                          "Долг: " + widget.point.debt.toString() + " тг",
                           style: TextStyle(
                               color: Colors.black, fontWeight: FontWeight.w600),
                         ),
@@ -62,7 +61,7 @@ class _PointItemState extends State<PointItem> {
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
-                        'Бегалиев 5, Морошкин магазинa',
+                        widget.point.name,
                         style: TextStyle(fontSize: 18),
                       ),
                     ),

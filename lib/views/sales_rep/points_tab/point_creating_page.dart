@@ -34,8 +34,8 @@ class _PointCreatingPageState extends State<PointCreatingPage> {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: Text('Точки',
-            style: TextStyle(color: Colors.black, fontSize: 18)),
+        title:
+            Text('Точки', style: TextStyle(color: Colors.black, fontSize: 18)),
         automaticallyImplyLeading: true,
         backgroundColor: Colors.white,
         shadowColor: Colors.white,
@@ -54,264 +54,291 @@ class _PointCreatingPageState extends State<PointCreatingPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Container(
-                          child: TextFormField(
-                            onTap: (){},
-                            focusNode: focusNode1,
-                            controller: controller1,
-                            cursorColor: Colors.black,
-                            maxLength: 30,
-                            decoration: InputDecoration(
-                              labelStyle: TextStyle(color: focusNode1.hasFocus ? AppColors.gold : Colors.grey),
-                              focusColor: Colors.grey,
-                              fillColor: Colors.grey,
-                              counterText: "",
-                              labelText: "Код организации",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(color: Colors.grey, width:1)
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.gold, width:1)
-                              )
+                          padding: const EdgeInsets.all(5),
+                          child: Container(
+                            child: TextFormField(
+                              onTap: () {},
+                              focusNode: focusNode1,
+                              controller: controller1,
+                              cursorColor: Colors.black,
+                              maxLength: 30,
+                              decoration: InputDecoration(
+                                  labelStyle: TextStyle(
+                                      color: focusNode1.hasFocus
+                                          ? AppColors.gold
+                                          : Colors.grey),
+                                  focusColor: Colors.grey,
+                                  fillColor: Colors.grey,
+                                  counterText: "",
+                                  labelText: "Код организации",
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 1)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColors.gold, width: 1))),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Заполните это поле';
+                                }
+                                return null;
+                              },
                             ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Заполните это поле';
-                              }
-                              return null;
-                            },
-                          ),
-                        )
-                      ),
+                          )),
                       Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Container(
-                          child: TextFormField(
-                            onTap: (){},
-                            focusNode: focusNode2,
-                            controller: controller2,
-                            cursorColor: Colors.black,
-                            maxLength: 30,
-                            decoration: InputDecoration(
-                              labelStyle: TextStyle(color: focusNode2.hasFocus ? AppColors.gold : Colors.grey),
-                              focusColor: Colors.grey,
-                              fillColor: Colors.grey,
-                              counterText: "",
-                              labelText: "Название организации",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(color: Colors.grey, width:1)
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.gold, width:1)
-                              )
+                          padding: const EdgeInsets.all(5),
+                          child: Container(
+                            child: TextFormField(
+                              onTap: () {},
+                              focusNode: focusNode2,
+                              controller: controller2,
+                              cursorColor: Colors.black,
+                              maxLength: 30,
+                              decoration: InputDecoration(
+                                  labelStyle: TextStyle(
+                                      color: focusNode2.hasFocus
+                                          ? AppColors.gold
+                                          : Colors.grey),
+                                  focusColor: Colors.grey,
+                                  fillColor: Colors.grey,
+                                  counterText: "",
+                                  labelText: "Название организации",
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 1)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColors.gold, width: 1))),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Заполните это поле';
+                                }
+                                return null;
+                              },
                             ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Заполните это поле';
-                              }
-                              return null;
-                            },
-                          ),
-                        )
-                      ),
+                          )),
                       Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Container(
-                          child: TextFormField(
-                            onTap: (){},
-                            focusNode: focusNode3,
-                            controller: controller3,
-                            cursorColor: Colors.black,
-                            maxLength: 30,
-                            decoration: InputDecoration(
-                              labelStyle: TextStyle(color: focusNode3.hasFocus ? AppColors.gold : Colors.grey),
-                              focusColor: Colors.grey,
-                              fillColor: Colors.grey,
-                              counterText: "",
-                              labelText: "Номер телефона",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(color: Colors.grey, width:1)
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.gold, width:1)
-                              )
+                          padding: const EdgeInsets.all(5),
+                          child: Container(
+                            child: TextFormField(
+                              onTap: () {},
+                              focusNode: focusNode3,
+                              controller: controller3,
+                              cursorColor: Colors.black,
+                              maxLength: 30,
+                              decoration: InputDecoration(
+                                  labelStyle: TextStyle(
+                                      color: focusNode3.hasFocus
+                                          ? AppColors.gold
+                                          : Colors.grey),
+                                  focusColor: Colors.grey,
+                                  fillColor: Colors.grey,
+                                  counterText: "",
+                                  labelText: "Номер телефона",
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 1)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColors.gold, width: 1))),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Заполните это поле';
+                                }
+                                return null;
+                              },
                             ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Заполните это поле';
-                              }
-                              return null;
-                            },
-                          ),
-                        )
-                      ),
+                          )),
                       Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Container(
-                          child: TextFormField(
-                            onTap: (){},
-                            focusNode: focusNode4,
-                            controller: controller4,
-                            cursorColor: Colors.black,
-                            maxLength: 30,
-                            decoration: InputDecoration(
-                              labelStyle: TextStyle(color: focusNode4.hasFocus ? AppColors.gold : Colors.grey),
-                              focusColor: Colors.grey,
-                              fillColor: Colors.grey,
-                              counterText: "",
-                              labelText: "Email",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(color: Colors.grey, width:1)
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.gold, width:1)
-                              )
+                          padding: const EdgeInsets.all(5),
+                          child: Container(
+                            child: TextFormField(
+                              onTap: () {},
+                              focusNode: focusNode4,
+                              controller: controller4,
+                              cursorColor: Colors.black,
+                              maxLength: 30,
+                              decoration: InputDecoration(
+                                  labelStyle: TextStyle(
+                                      color: focusNode4.hasFocus
+                                          ? AppColors.gold
+                                          : Colors.grey),
+                                  focusColor: Colors.grey,
+                                  fillColor: Colors.grey,
+                                  counterText: "",
+                                  labelText: "Email",
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 1)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColors.gold, width: 1))),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Заполните это поле';
+                                }
+                                return null;
+                              },
                             ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Заполните это поле';
-                              }
-                              return null;
-                            },
-                          ),
-                        )
-                      ),
+                          )),
                       Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Container(
-                          child: TextFormField(
-                            onTap: (){},
-                            focusNode: focusNode5,
-                            controller: controller5,
-                            cursorColor: Colors.black,
-                            maxLength: 30,
-                            decoration: InputDecoration(
-                              labelStyle: TextStyle(color: focusNode5.hasFocus ? AppColors.gold : Colors.grey),
-                              focusColor: Colors.grey,
-                              fillColor: Colors.grey,
-                              counterText: "",
-                              labelText: "ФИО",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(color: Colors.grey, width:1)
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.gold, width:1)
-                              )
+                          padding: const EdgeInsets.all(5),
+                          child: Container(
+                            child: TextFormField(
+                              onTap: () {},
+                              focusNode: focusNode5,
+                              controller: controller5,
+                              cursorColor: Colors.black,
+                              maxLength: 30,
+                              decoration: InputDecoration(
+                                  labelStyle: TextStyle(
+                                      color: focusNode5.hasFocus
+                                          ? AppColors.gold
+                                          : Colors.grey),
+                                  focusColor: Colors.grey,
+                                  fillColor: Colors.grey,
+                                  counterText: "",
+                                  labelText: "ФИО",
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 1)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColors.gold, width: 1))),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Заполните это поле';
+                                }
+                                return null;
+                              },
                             ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Заполните это поле';
-                              }
-                              return null;
-                            },
-                          ),
-                        )
-                      ),
+                          )),
                       Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Container(
-                          child: TextFormField(
-                            onTap: (){},
-                            focusNode: focusNode6,
-                            controller: controller6,
-                            cursorColor: Colors.black,
-                            maxLength: 30,
-                            decoration: InputDecoration(
-                              labelStyle: TextStyle(color: focusNode6.hasFocus ? AppColors.gold : Colors.grey),
-                              focusColor: Colors.grey,
-                              fillColor: Colors.grey,
-                              counterText: "",
-                              labelText: "БИН/ИИН организации",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(color: Colors.grey, width:1)
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.gold, width:1)
-                              )
+                          padding: const EdgeInsets.all(5),
+                          child: Container(
+                            child: TextFormField(
+                              onTap: () {},
+                              focusNode: focusNode6,
+                              controller: controller6,
+                              cursorColor: Colors.black,
+                              maxLength: 30,
+                              decoration: InputDecoration(
+                                  labelStyle: TextStyle(
+                                      color: focusNode6.hasFocus
+                                          ? AppColors.gold
+                                          : Colors.grey),
+                                  focusColor: Colors.grey,
+                                  fillColor: Colors.grey,
+                                  counterText: "",
+                                  labelText: "БИН/ИИН организации",
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 1)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColors.gold, width: 1))),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Заполните это поле';
+                                }
+                                return null;
+                              },
                             ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Заполните это поле';
-                              }
-                              return null;
-                            },
-                          ),
-                        )
-                      ),
+                          )),
                       Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Container(
-                          child: TextFormField(
-                            onTap: (){},
-                            focusNode: focusNode7,
-                            controller: controller7,
-                            cursorColor: Colors.black,
-                            maxLength: 30,
-                            decoration: InputDecoration(
-                              labelStyle: TextStyle(color: focusNode7.hasFocus ? AppColors.gold : Colors.grey),
-                              focusColor: Colors.grey,
-                              fillColor: Colors.grey,
-                              counterText: "",
-                              labelText: "Категория",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(color: Colors.grey, width:1)
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.gold, width:1)
-                              )
+                          padding: const EdgeInsets.all(5),
+                          child: Container(
+                            child: TextFormField(
+                              onTap: () {},
+                              focusNode: focusNode7,
+                              controller: controller7,
+                              cursorColor: Colors.black,
+                              maxLength: 30,
+                              decoration: InputDecoration(
+                                  labelStyle: TextStyle(
+                                      color: focusNode7.hasFocus
+                                          ? AppColors.gold
+                                          : Colors.grey),
+                                  focusColor: Colors.grey,
+                                  fillColor: Colors.grey,
+                                  counterText: "",
+                                  labelText: "Категория",
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 1)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColors.gold, width: 1))),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Заполните это поле';
+                                }
+                                return null;
+                              },
                             ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Заполните это поле';
-                              }
-                              return null;
-                            },
-                          ),
-                        )
-                      ),
+                          )),
                       Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Container(
-                          child: TextFormField(
-                            onTap: (){},
-                            focusNode: focusNode8,
-                            controller: controller8,
-                            cursorColor: Colors.black,
-                            maxLength: 30,
-                            decoration: InputDecoration(
-                              labelStyle: TextStyle(color: focusNode8.hasFocus ? AppColors.gold : Colors.grey),
-                              focusColor: Colors.grey,
-                              fillColor: Colors.grey,
-                              counterText: "",
-                              labelText: "Комментарий",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(color: Colors.grey, width:1)
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.gold, width:1)
-                              )
+                          padding: const EdgeInsets.all(5),
+                          child: Container(
+                            child: TextFormField(
+                              onTap: () {},
+                              focusNode: focusNode8,
+                              controller: controller8,
+                              cursorColor: Colors.black,
+                              maxLength: 30,
+                              decoration: InputDecoration(
+                                  labelStyle: TextStyle(
+                                      color: focusNode8.hasFocus
+                                          ? AppColors.gold
+                                          : Colors.grey),
+                                  focusColor: Colors.grey,
+                                  fillColor: Colors.grey,
+                                  counterText: "",
+                                  labelText: "Комментарий",
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 1)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColors.gold, width: 1))),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Заполните это поле';
+                                }
+                                return null;
+                              },
                             ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Заполните это поле';
-                              }
-                              return null;
-                            },
-                          ),
-                        )
-                      ),
+                          )),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-                        child: getButton('ДОБАВИТЬ ТОЧКУ'),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 0, vertical: 10),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 30, left: 20, right: 20),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              createPoint();
+                            },
+                            style: ElevatedButton.styleFrom(
+                                minimumSize: Size(double.infinity,
+                                    30), // double.infinity is the width and 30 is the height
+                                primary: AppColors.green,
+                                padding: EdgeInsets.symmetric(vertical: 17),
+                                textStyle: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "Roboto")),
+                            child: Text('ДОБАВИТЬ ТОЧКУ'),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -323,4 +350,6 @@ class _PointCreatingPageState extends State<PointCreatingPage> {
       ),
     );
   }
+
+  void createPoint() async {}
 }

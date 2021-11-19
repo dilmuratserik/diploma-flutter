@@ -124,7 +124,10 @@ class _HomePageState extends State<HomePage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => CategoryProductsPage(
-                                categoryTitles[index], index.toString(), '1')));
+                                categoryTitles[index],
+                                index.toString(),
+                                '1',
+                                false)));
                   },
                   child: Column(
                     children: [
@@ -165,8 +168,8 @@ class _HomePageState extends State<HomePage> {
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
               ),
               for (int i = 0; i < productsHits.length; i++)
-                ProductItem(
-                    productsHits[i], categoryTitles[productsHits[i].category]),
+                ProductItem(productsHits[i],
+                    categoryTitles[productsHits[i].category], false),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -176,7 +179,7 @@ class _HomePageState extends State<HomePage> {
               ),
               for (int i = 0; i < productsCategory1.length; i++)
                 ProductItem(productsCategory1[i],
-                    categoryTitles[productsCategory1[i].category]),
+                    categoryTitles[productsCategory1[i].category], false),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -186,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => CategoryProductsPage(
-                                  'Снековая продукция', '3', '1')));
+                                  'Снековая продукция', '3', '1', false)));
                     },
                     child: Text("Смотреть все товары",
                         style: TextStyle(fontSize: 16, color: AppColors.gold))),
@@ -200,7 +203,7 @@ class _HomePageState extends State<HomePage> {
               ),
               for (int i = 0; i < productsCategory2.length; i++)
                 ProductItem(productsCategory2[i],
-                    categoryTitles[productsCategory2[i].category]),
+                    categoryTitles[productsCategory2[i].category], false),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -210,7 +213,7 @@ class _HomePageState extends State<HomePage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => CategoryProductsPage(
-                                  'Рыбная продукция', '2', '1')));
+                                  'Рыбная продукция', '2', '1', false)));
                     },
                     child: Text("Смотреть все товары",
                         style: TextStyle(fontSize: 16, color: AppColors.gold))),
@@ -224,7 +227,7 @@ class _HomePageState extends State<HomePage> {
               ),
               for (int i = 0; i < productsCategory3.length; i++)
                 ProductItem(productsCategory3[i],
-                    categoryTitles[productsCategory3[i].category]),
+                    categoryTitles[productsCategory3[i].category], false),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -234,7 +237,7 @@ class _HomePageState extends State<HomePage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => CategoryProductsPage(
-                                  'Сырная продукция', '1', '1')));
+                                  'Сырная продукция', '1', '1', false)));
                     },
                     child: Text("Смотреть все товары",
                         style: TextStyle(fontSize: 16, color: AppColors.gold))),
@@ -248,7 +251,7 @@ class _HomePageState extends State<HomePage> {
               ),
               for (int i = 0; i < productsCategory4.length; i++)
                 ProductItem(productsCategory4[i],
-                    categoryTitles[productsCategory4[i].category]),
+                    categoryTitles[productsCategory4[i].category], false),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -258,7 +261,7 @@ class _HomePageState extends State<HomePage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => CategoryProductsPage(
-                                  'Мясная продукция', '4', '1')));
+                                  'Мясная продукция', '4', '1', false)));
                     },
                     child: Text("Смотреть все товары",
                         style: TextStyle(fontSize: 16, color: AppColors.gold))),

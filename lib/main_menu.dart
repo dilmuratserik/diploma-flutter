@@ -31,7 +31,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    CategoriesPage(),
+    CategoriesPage(isSalesRep: false),
     BasketPage(),
     ProfilePage()
   ];
@@ -63,7 +63,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
       prefs.setString('name', response['name'].toString());
       prefs.setString('ava', response['avatar']);
       prefs.setInt('country', response['country']);
-      prefs.setInt( "city", response['city']);
+      prefs.setInt("city", response['city']);
       int role = response["role"];
       prefs.setInt('role', role);
       if (role == 2) {

@@ -1,7 +1,11 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/components/buttonGreen.dart';
+import 'package:mobile/models/basket_order_model.dart';
 import 'package:mobile/services/orders_api_provider.dart';
+import 'package:mobile/views/categories/categories_page.dart';
 import 'package:mobile/views/utills/const.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class SalesCreateOrderPage extends StatefulWidget {
   const SalesCreateOrderPage({Key? key}) : super(key: key);
@@ -28,10 +32,21 @@ class _SalesCreateOrderPageState extends State<SalesCreateOrderPage> {
 
   List<String> items = [];
 
+  List<BasketOrder> products = [];
+
   @override
   void initState() {
     getPoinNames();
+    products = AppConstants.basketSalesRep;
+    products.length > 0 ? isVisible == true : isVisible = false;
     super.initState();
+  }
+
+  void refresh() {
+    setState(() {
+      products = AppConstants.basketSalesRep;
+      products.length > 0 ? isVisible == true : isVisible = false;
+    });
   }
 
   void getPoinNames() async {
@@ -300,28 +315,36 @@ class _SalesCreateOrderPageState extends State<SalesCreateOrderPage> {
                   ),
                 ),
               ),
-              Visibility(
-                visible: isVisible,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: Text(
-                    "Содержание заказа",
-                    style: TextStyle(
-                        color: AppColors.presentationGray, fontSize: 16),
-                  ),
-                ),
-              ),
-              for (int i = 0; i < countProduct; i++)
-                getMeaningOrder("1х Коса копченая, Золото колчака", "500 ₸"),
+              products.length != 0
+                  ? Visibility(
+                      visible: true,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: Text(
+                          "Содержание заказа",
+                          style: TextStyle(
+                              color: AppColors.presentationGray, fontSize: 16),
+                        ),
+                      ),
+                    )
+                  : Container(),
+              for (int i = 0; i < products.length; i++)
+                getMeaningOrder(
+                    products[i].count.toString() +
+                        "х " +
+                        products[i].product.name,
+                    products[i].product.price.toString() + " ₸"),
               Padding(
                 padding: const EdgeInsets.only(
                     top: 30, bottom: 5, left: 5, right: 5),
                 child: ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      isVisible = true;
-                      countProduct = 3;
-                    });
+                    Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    CategoriesPage(isSalesRep: true)))
+                        .whenComplete(() => refresh());
                   },
                   style: ElevatedButton.styleFrom(
                       minimumSize: Size(double.infinity, 30),
@@ -339,7 +362,9 @@ class _SalesCreateOrderPageState extends State<SalesCreateOrderPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    createOrder();
+                  },
                   style: ElevatedButton.styleFrom(
                       minimumSize: Size(double.infinity,
                           30), // double.infinity is the width and 30 is the height
@@ -397,5 +422,32 @@ class _SalesCreateOrderPageState extends State<SalesCreateOrderPage> {
         ],
       ),
     );
+  }
+
+  void createOrder() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      Alert(
+        context: context,
+        type: AlertType.error,
+        title: "Внимание",
+        desc: "Соединение с интернетом отсутствует.",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Ok",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () => Navigator.pop(context),
+            color: Color.fromRGBO(0, 179, 134, 1.0),
+          ),
+        ],
+      ).show();
+    } else {
+      // var response = await OrdersProvider().createOrder(
+      //     int.parse(value1.toString()), prefs.getInt('user_id')!, widget.order);
+      AppConstants.basketSalesRep = [];
+      AppConstants.basketIDsSalesRep = [];
+    }
   }
 }

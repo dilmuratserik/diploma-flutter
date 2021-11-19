@@ -3,8 +3,9 @@ import 'package:mobile/models/entry_model.dart';
 import 'package:mobile/views/categories/category_products.dart';
 
 class EntryItem extends StatelessWidget {
-  const EntryItem(this.entry);
+  const EntryItem(this.entry, this.isSalesRep);
   final Entry entry;
+  final bool isSalesRep;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class EntryItem extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => CategoryProductsPage(
-                            entry.children[i].title, '1', '1')));
+                            entry.children[i].title, '1', '1', isSalesRep)));
               },
               title: Text(entry.children[i].title,
                   style: TextStyle(fontWeight: FontWeight.w500)),
