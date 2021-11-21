@@ -85,8 +85,8 @@ class ProfileProvider {
     );
 
     print(response.body);
-
-    if (response.statusCode == 200) {
+    Map<String, dynamic> result = jsonDecode(utf8.decode(response.body.codeUnits));
+    if (result["status"] == "ok") {
       return 'Success';
     } else {
       return 'Error';
@@ -130,4 +130,66 @@ class ProfileProvider {
       return {'status': 'Error'};
     }
   }
+
+  Future<List<dynamic>> getAddresses() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+
+    final response = await http.get(
+      Uri.parse(API_URL + "location/my/address/"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+        'Authorization': "Token $token"
+      },
+    );
+
+    print(response);
+    print(response.body);
+    print("response code" + response.statusCode.toString());
+
+    if (response.statusCode == 200) {
+      List<dynamic> result = jsonDecode(response.body);
+      print(result);
+      return result;
+    } else {
+      return [{'status': 'Error'}];
+    }
+  }
+
+
+  Future<Map<String,dynamic>> addNewAddress(String street, int house, int floor, int apartment, int entrance) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    print(token);
+    Map<String, dynamic> bodyDic = {
+      "street": street,
+      "house": house,
+      "floor": floor,
+      "apartment": apartment,
+      "entrance": entrance,
+    };
+
+    final response = await http.post(
+      Uri.parse(API_URL + "location/my/address/"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+        'Authorization': "Token $token"
+      },
+      body: bodyDic
+    );
+
+    print(response);
+    print(response.body);
+    print("response code" + response.statusCode.toString());
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> result = jsonDecode(response.body);
+      return result;
+    } else {
+      return {'status': 'Error'};
+    }
+  }
+
 }

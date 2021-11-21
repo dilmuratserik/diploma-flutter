@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile/components/address_item.dart';
-import 'package:mobile/components/buttonGreen.dart';
+import 'package:mobile/models/Address.dart';
+import 'package:mobile/services/profile_api_provider.dart';
 import 'package:mobile/views/utills/const.dart';
+
+import 'add_new_address.dart';
 
 class AddressesPage extends StatefulWidget {
   // AddressesPage(this.product);
@@ -13,8 +16,12 @@ class AddressesPage extends StatefulWidget {
 }
 
 class _AddressesPageState extends State<AddressesPage> {
+
+  List<Address> listAddresses = [];
+
   @override
   void initState() {
+    getAddresses();
     super.initState();
   }
 
@@ -45,12 +52,12 @@ class _AddressesPageState extends State<AddressesPage> {
               Container(
                   height: MediaQuery.of(context).size.height * 0.6,
                   child: ListView.separated(
-                      itemCount: 2,
+                      itemCount: listAddresses.length,
                       itemBuilder: (context, index) {
                         return Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 6, vertical: 2),
-                            child: AddressItem());
+                            child: AddressItem(address: listAddresses[index]));
                       },
                       separatorBuilder: (context, index) {
                         return Divider();
@@ -64,5 +71,46 @@ class _AddressesPageState extends State<AddressesPage> {
             ],
           ),
         ));
+  }
+
+  Widget getButton(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 30, left: 20,right: 20),
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewAddressPage()));
+        },
+        style: ElevatedButton.styleFrom(
+            minimumSize: Size(double.infinity, 30), // double.infinity is the width and 30 is the height
+            primary: AppColors.green,
+            padding: EdgeInsets.symmetric( vertical: 17),
+            textStyle: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Roboto")),
+        child: Text(text),
+      ),
+    );
+  }
+
+
+
+  void getAddresses() async {
+    // Map<String, dynamic> response =
+    List<dynamic> response =await ProfileProvider().getAddresses();
+
+    if (response[0]["status"] != 'Error') {
+      setState(() {
+        for (var i in response) {
+          listAddresses.add(Address.fromJson(i));
+        }
+      });
+      // final snackBar = SnackBar(content: Text('Данные изменены'));
+      // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+    else {
+      final snackBar = SnackBar(content: Text('Проверьте соединение с интернетом, или повторите позже!'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }

@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/models/Address.dart';
 import 'package:mobile/views/profile/add_new_address.dart';
 import 'package:mobile/views/utills/const.dart';
 
 class AddressItem extends StatelessWidget{
-  const AddressItem();
-  // final Entry entry;
+   // final Entry entry;
+
+  const AddressItem({
+    Key? key,
+    required this.address
+  }) : super(key: key);
+
+  final Address address;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +21,7 @@ class AddressItem extends StatelessWidget{
         backgroundColor: AppColors.gold,
         child: Icon(Icons.home, color: Colors.white,)
       ),
-      title: Text("Микрорайон Аксай-1, 1к2"),
+      title: Text("Микрорайон ${address.street}, ${address.house}к${address.apartment}"),
       trailing: Icon(Icons.keyboard_arrow_right),
       onTap: (){
         Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewAddressPage()));
@@ -22,3 +29,5 @@ class AddressItem extends StatelessWidget{
     );
   }
 }
+
+

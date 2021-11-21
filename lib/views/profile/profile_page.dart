@@ -32,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
   bool _switchValue2 = false;
 
   String name = 'Name';
-  String ava = '';
+  String ava = "";
   int uid = 0;
 
 

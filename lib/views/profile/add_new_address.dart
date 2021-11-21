@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile/components/buttonGreen.dart';
+import 'package:mobile/models/Address.dart';
+import 'package:mobile/services/profile_api_provider.dart';
 import 'package:mobile/views/utills/const.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddNewAddressPage extends StatefulWidget {
   // AddNewAddressPage(this.product);
   // final Product product;
+
+  // const AddNewAddressPage({
+  //   Key? key,
+  //   required this.address
+  // }) : super(key: key);
+  //
+  // final Address address;
 
   @override
   _AddNewAddressPageState createState() => _AddNewAddressPageState();
@@ -256,4 +266,48 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
         )
     );
   }
+
+
+
+  void addNewAddress(
+      String street, int house, int floor, int apartment, int entrance) async {
+
+    Map<String, dynamic> response =
+    await ProfileProvider().addNewAddress( street,  house,  floor,  apartment,  entrance);
+
+    if (response['status'] != 'Error') {
+     print("resposnse "+ response.toString());
+       final snackBar = SnackBar(content: Text('Данные изменены'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+    else {
+      final snackBar = SnackBar(content: Text('Проверьте соединение с интернетом, или повторите позже!'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
+
+
+  Widget getButton(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 30, left: 20,right: 20),
+      child: ElevatedButton(
+        onPressed: () {
+          addNewAddress(firstController.text, int.parse(secondController.text), int.parse(thirdController.text),
+              int.parse(fourthController.text),int.parse(fifthController.text));
+        },
+        style: ElevatedButton.styleFrom(
+            minimumSize: Size(double.infinity, 30), // double.infinity is the width and 30 is the height
+            primary: AppColors.green,
+            padding: EdgeInsets.symmetric( vertical: 17),
+            textStyle: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Roboto")),
+        child: Text(text),
+      ),
+    );
+  }
+
+
 }

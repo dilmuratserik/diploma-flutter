@@ -24,6 +24,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   bool secondObsure = true;
   bool thirdObsure = true;
 
+  final _formKey = GlobalKey<FormState>();
+
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -95,6 +98,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     if (value!.isEmpty) {
                       return 'Заполните это поле';
                     }
+                    else if (value.length < 8) {
+                      return 'Минимально необходимое количество символов 8';
+                    }
                     return null;
                   },
                 ),
@@ -146,8 +152,11 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                           borderSide:
                               BorderSide(color: AppColors.gold, width: 1))),
                   validator: (value) {
-                    if (value!.isEmpty) {
+                    if (  value!.isEmpty) {
                       return 'Заполните это поле';
+                    }
+                    else if (value.length < 8) {
+                      return 'Минимально необходимое количество символов 8';
                     }
                     return null;
                   },
@@ -200,8 +209,14 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                           borderSide:
                               BorderSide(color: AppColors.gold, width: 1))),
                   validator: (value) {
-                    if (value!.isEmpty) {
+                    if (  value!.isEmpty ) {
                       return 'Заполните это поле';
+                    }
+                    else if (value.length < 8) {
+                      return 'Минимально необходимое количество символов 8';
+                    }
+                    else if (value != secondController.text) {
+                      return 'Пароли не совпадают';
                     }
                     return null;
                   },
@@ -225,12 +240,12 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     String response =
         await ProfileProvider().changePassword(oldPassword, newPassword);
 
-    if (response == "Succes") {
+    if (response == "Success") {
       final snackBar = SnackBar(content: Text('Данные изменены'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
     else {
-      final snackBar = SnackBar(content: Text('Проверьте соединение с интернетом, или повторите позже!'));
+      final snackBar = SnackBar(content: Text('У вас неправильный пароль'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
@@ -240,7 +255,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
       child: ElevatedButton(
         onPressed: () {
-
+           changePassword(firstController.text, secondController.text);
         },
         style: ElevatedButton.styleFrom(
             minimumSize: Size(double.infinity, 30),

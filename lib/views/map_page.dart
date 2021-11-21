@@ -13,9 +13,9 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   @override
   void initState() {
-    if (defaultTargetPlatform == TargetPlatform.android) {
-      AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
-    }
+    // if (defaultTargetPlatform == TargetPlatform.android) {
+    //   AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
+    // }
     super.initState();
   }
 
