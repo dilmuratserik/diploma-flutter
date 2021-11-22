@@ -177,7 +177,7 @@ class ProfileProvider {
         'Accept': 'application/json',
         'Authorization': "Token $token"
       },
-      body: bodyDic
+      body: jsonEncode(bodyDic)
     );
 
     print(response);
@@ -189,6 +189,67 @@ class ProfileProvider {
       return result;
     } else {
       return {'status': 'Error'};
+    }
+  }
+
+  Future<Map<String,dynamic>> deleteAddress(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    print(token);
+    Map<String, dynamic> bodyDic = {
+      "id": id,
+    };
+
+    final response = await http.delete(
+        Uri.parse(API_URL + "location/my/address/"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json',
+          'Authorization': "Token $token"
+        },
+        body: jsonEncode(bodyDic)
+    );
+
+     print(response.body);
+      print("response code" + response.statusCode.toString());
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> result = jsonDecode(response.body);
+      return result;
+    } else {
+      return {'status': 'Error'};
+    }
+  }
+
+  Future<String> changeAddress(int id, String street, int house, int floor, int apartment, int entrance) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    print("tokens" + token.toString());
+
+    Map<String, dynamic> bodyDic = {
+      "street": street,
+      "house": house,
+      "floor": floor,
+      "apartment": apartment,
+      "entrance": entrance,
+    };
+
+    final response = await http.put(
+      Uri.parse(API_URL + 'location/my/address/' + id.toString()+"/"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+        'Authorization': "Token $token"
+      },
+      body: jsonEncode(bodyDic),
+    );
+
+    print(response.body);
+    Map<String, dynamic> result = jsonDecode(utf8.decode(response.body.codeUnits));
+    if (result["status"] == "ok") {
+      return 'Success';
+    } else {
+      return 'Error';
     }
   }
 

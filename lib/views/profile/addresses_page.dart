@@ -78,7 +78,7 @@ class _AddressesPageState extends State<AddressesPage> {
       padding: const EdgeInsets.only(top: 30, left: 20,right: 20),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewAddressPage()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewAddressPage(address: null,)));
         },
         style: ElevatedButton.styleFrom(
             minimumSize: Size(double.infinity, 30), // double.infinity is the width and 30 is the height

@@ -24,7 +24,7 @@ class AddressItem extends StatelessWidget{
       title: Text("Микрорайон ${address.street}, ${address.house}к${address.apartment}"),
       trailing: Icon(Icons.keyboard_arrow_right),
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewAddressPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewAddressPage(address: address,)));
       },
     );
   }

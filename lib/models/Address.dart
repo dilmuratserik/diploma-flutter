@@ -1,4 +1,5 @@
 class Address {
+  int id = -1;
   String street= "";
   String house ="";
   int floor =-1;
@@ -12,6 +13,7 @@ class Address {
       this.lat, this.lng, this.user);
 
   Address.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     street = json['street'];
     house = json['house'];
     floor = json['floor'];
