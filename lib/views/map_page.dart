@@ -11,11 +11,37 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
+  Completer<GoogleMapController> _controller = Completer();
+
+  static final CameraPosition _initialCameraPosition = CameraPosition(
+    target: LatLng(43.236345, 76.929023),
+    zoom: 14.4746,
+  );
+
+  static final CameraPosition _goingCameraPosition = CameraPosition(
+      bearing: 192.8334901395799,
+      target: LatLng(43.237154, 76.945567),
+      tilt: 59.440717697143555,
+      zoom: 19.151926040649414);
+
+  var marker1 = Marker(
+      markerId: MarkerId('id-1'),
+      position: LatLng(43.236345, 76.929023),
+      infoWindow: InfoWindow(title: 'КазНИТУ'),
+      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue));
+
+  var marker2 = Marker(
+      markerId: MarkerId('id-2'),
+      position: LatLng(43.237154, 76.945567),
+      infoWindow: InfoWindow(title: 'Акимат'),
+      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen));
+
+  bool justBool = true;
+
+  final Set<Marker> _markers = {};
+
   @override
   void initState() {
-    // if (defaultTargetPlatform == TargetPlatform.android) {
-    //   AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
-    // }
     super.initState();
   }
 
@@ -33,50 +59,37 @@ class _MapPageState extends State<MapPage> {
           shadowColor: Colors.white,
           bottomOpacity: 1,
           iconTheme: IconThemeData(color: Colors.black)),
-      body: MapSample(),
-    );
-  }
-}
-
-class MapSample extends StatefulWidget {
-  @override
-  State<MapSample> createState() => MapSampleState();
-}
-
-class MapSampleState extends State<MapSample> {
-  Completer<GoogleMapController> _controller = Completer();
-
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
-
-  static final CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
-
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
       body: GoogleMap(
-        mapType: MapType.normal,
-        initialCameraPosition: _kGooglePlex,
+        myLocationButtonEnabled: false,
+        mapType: MapType.hybrid,
+        initialCameraPosition: _initialCameraPosition,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
+          _onMapCreated(controller);
         },
+        markers: _markers,
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: Text('To the lake!'),
-        icon: Icon(Icons.directions_boat),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _goTo,
+        child: Icon(Icons.map),
       ),
     );
   }
 
-  Future<void> _goToTheLake() async {
+  Future<void> _goTo() async {
     final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+    justBool
+        ? controller
+            .animateCamera(CameraUpdate.newCameraPosition(_goingCameraPosition))
+        : controller.animateCamera(
+            CameraUpdate.newCameraPosition(_initialCameraPosition));
+    justBool = !justBool;
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+    setState(() {
+      _markers.add(marker1);
+      _markers.add(marker2);
+    });
   }
 }
