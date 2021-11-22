@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mobile/components/product_item.dart';
 import 'package:mobile/models/product_model.dart';
+import 'package:mobile/services/orders_api_provider.dart';
 import 'package:mobile/views/categories/category_products.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
@@ -36,6 +37,13 @@ class _HomePageState extends State<HomePage> {
   List<Product> productsCategory2 = [];
   List<Product> productsCategory3 = [];
   List<Product> productsCategory4 = [];
+
+  @override
+  void initState() {
+    // getHits();
+    // getRecommendations();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -271,5 +279,46 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  void getHits() async {
+    var response = await OrdersProvider().getHits();
+    if (response['status'] == 'ok') {
+      List<Product> tempList = [];
+      for (var i in response['data']) {
+        tempList.add(Product.fromJson(i));
+      }
+      setState(() {
+        productsHits = tempList;
+      });
+    }
+  }
+
+  void getRecommendations() async {
+    var response = await OrdersProvider().getRecommendations();
+    if (response['status'] == 'ok') {
+      List<Product> tempList1 = [];
+      List<Product> tempList2 = [];
+      List<Product> tempList3 = [];
+      List<Product> tempList4 = [];
+      for (var i in response['data']) {
+        Product tempProduct = Product.fromJson(i);
+        if (tempProduct.category == 1) {
+          tempList1.add(tempProduct);
+        } else if (tempProduct.category == 2) {
+          tempList2.add(tempProduct);
+        } else if (tempProduct.category == 3) {
+          tempList3.add(tempProduct);
+        } else if (tempProduct.category == 4) {
+          tempList4.add(tempProduct);
+        }
+      }
+      setState(() {
+        productsCategory1 = tempList1;
+        productsCategory2 = tempList2;
+        productsCategory3 = tempList3;
+        productsCategory4 = tempList4;
+      });
+    }
   }
 }

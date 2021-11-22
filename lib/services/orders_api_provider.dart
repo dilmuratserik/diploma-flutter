@@ -19,7 +19,7 @@ class OrdersProvider {
           'Authorization': "Token $token"
         });
 
-    // print(response.body);
+    print(response.body);
 
     if (response.statusCode == 200) {
       Map<String, dynamic> result =
@@ -82,7 +82,8 @@ class OrdersProvider {
     print(response.body);
 
     if (response.statusCode == 200) {
-      Map<String, dynamic> result = jsonDecode(response.body);
+      Map<String, dynamic> data = jsonDecode(response.body);
+      Map<String, dynamic> result = {'status': 'ok', 'data': data};
       return result;
     } else {
       return {'status': 'Error'};
@@ -125,6 +126,47 @@ class OrdersProvider {
       List<dynamic> data = jsonDecode(utf8.decode(response.body.codeUnits));
       Map<String, dynamic> result = {'status': 'ok', 'data': data};
 
+      return result;
+    } else {
+      return {'status': 'Error'};
+    }
+  }
+
+  Future<Map<String, dynamic>> getHits() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+
+    final response = await http
+        .get(Uri.parse(API_URL + 'product/hits/'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': "Token $token"
+    });
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(utf8.decode(response.body.codeUnits));
+      Map<String, dynamic> result = {'status': 'ok', 'data': data};
+      return result;
+    } else {
+      return {'status': 'Error'};
+    }
+  }
+
+  Future<Map<String, dynamic>> getRecommendations() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+
+    final response = await http.get(
+        Uri.parse(API_URL + 'product/recommendation/'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json',
+          'Authorization': "Token $token"
+        });
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(utf8.decode(response.body.codeUnits));
+      Map<String, dynamic> result = {'status': 'ok', 'data': data};
       return result;
     } else {
       return {'status': 'Error'};

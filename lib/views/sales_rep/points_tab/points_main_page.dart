@@ -44,9 +44,10 @@ class _PointsMainPageState extends State<PointsMainPage> {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PointCreatingPage()));
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PointCreatingPage()))
+                      .whenComplete(() => getPoints());
                 },
                 style: ElevatedButton.styleFrom(
                     minimumSize: Size(double.infinity,

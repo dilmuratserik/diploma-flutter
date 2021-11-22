@@ -20,10 +20,11 @@ class Product {
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    if (json['product_image'] != null) {
+    if (json['product_image'] != []) {
       image = json['product_image'][0]['image'];
     } else {
-      image = 'https://tkcert.su/uploads/sert-tovarov/deklaracija-na-syr.jpg';
+      image =
+          'https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png';
     }
     name = json['name'];
     description = json['description'];

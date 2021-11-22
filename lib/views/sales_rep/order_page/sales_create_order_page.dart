@@ -6,6 +6,7 @@ import 'package:mobile/services/orders_api_provider.dart';
 import 'package:mobile/views/categories/categories_page.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SalesCreateOrderPage extends StatefulWidget {
   const SalesCreateOrderPage({Key? key}) : super(key: key);
@@ -86,40 +87,40 @@ class _SalesCreateOrderPageState extends State<SalesCreateOrderPage> {
                   style: TextStyle(fontSize: 18, color: Colors.black87),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 22),
-                child: Container(
-                  child: TextFormField(
-                    controller: firstController,
-                    cursorColor: Colors.black,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    maxLength: 30,
-                    decoration: InputDecoration(
-                        labelStyle: TextStyle(
-                            color: thirdFocusNode.hasFocus
-                                ? AppColors.gold
-                                : Colors.grey),
-                        focusColor: Colors.grey,
-                        fillColor: Colors.grey,
-                        counterText: "",
-                        labelText: "Номер заказа",
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            borderSide:
-                                BorderSide(color: Colors.grey, width: 1)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: AppColors.gold, width: 1))),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Заполните это поле';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 22),
+              //   child: Container(
+              //     child: TextFormField(
+              //       controller: firstController,
+              //       cursorColor: Colors.black,
+              //       enableSuggestions: false,
+              //       autocorrect: false,
+              //       maxLength: 30,
+              //       decoration: InputDecoration(
+              //           labelStyle: TextStyle(
+              //               color: thirdFocusNode.hasFocus
+              //                   ? AppColors.gold
+              //                   : Colors.grey),
+              //           focusColor: Colors.grey,
+              //           fillColor: Colors.grey,
+              //           counterText: "",
+              //           labelText: "Номер заказа",
+              //           enabledBorder: OutlineInputBorder(
+              //               borderRadius: BorderRadius.circular(5.0),
+              //               borderSide:
+              //                   BorderSide(color: Colors.grey, width: 1)),
+              //           focusedBorder: OutlineInputBorder(
+              //               borderSide:
+              //                   BorderSide(color: AppColors.gold, width: 1))),
+              //       validator: (value) {
+              //         if (value!.isEmpty) {
+              //           return 'Заполните это поле';
+              //         }
+              //         return null;
+              //       },
+              //     ),
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: SizedBox(
@@ -363,7 +364,27 @@ class _SalesCreateOrderPageState extends State<SalesCreateOrderPage> {
                     const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
                 child: ElevatedButton(
                   onPressed: () {
-                    createOrder();
+                    if (products.length != 0) {
+                      createOrder();
+                    } else {
+                      Alert(
+                        context: context,
+                        type: AlertType.warning,
+                        title: "Извините",
+                        desc: "Заполните все поля!",
+                        buttons: [
+                          DialogButton(
+                            child: Text(
+                              "Ок",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                            color: Color.fromRGBO(0, 179, 134, 1.0),
+                          ),
+                        ],
+                      ).show();
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                       minimumSize: Size(double.infinity,
@@ -444,10 +465,30 @@ class _SalesCreateOrderPageState extends State<SalesCreateOrderPage> {
         ],
       ).show();
     } else {
-      // var response = await OrdersProvider().createOrder(
-      //     int.parse(value1.toString()), prefs.getInt('user_id')!, widget.order);
-      AppConstants.basketSalesRep = [];
-      AppConstants.basketIDsSalesRep = [];
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var response = await OrdersProvider()
+          .createOrder(1, prefs.getInt('user_id')!, products);
+      if (response['status'] == 'ok') {
+        AppConstants.basketSalesRep = [];
+        AppConstants.basketIDsSalesRep = [];
+      } else {
+        Alert(
+          context: context,
+          type: AlertType.error,
+          title: "Внимание",
+          desc: "Сервер временно не отвечает, повторите позже...",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "Ok",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+              color: Color.fromRGBO(0, 179, 134, 1.0),
+            ),
+          ],
+        ).show();
+      }
     }
   }
 }

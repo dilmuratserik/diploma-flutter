@@ -26,4 +26,35 @@ class PointsProvider {
       return {'status': 'Error'};
     }
   }
+
+  Future<Map<String, dynamic>> createPoint(
+      String phone, String name, String iin, Object? orderSector) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+
+    final response = await http.post(
+      Uri.parse(API_URL + 'users/points/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+        'Authorization': "Token $token"
+      },
+      body: jsonEncode(<String, dynamic>{
+        "phone": phone,
+        "name": name,
+        "bin_iin": iin,
+        "order_sector": orderSector
+      }),
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = jsonDecode(response.body);
+      Map<String, dynamic> result = {'status': 'ok', 'data': data};
+      return result;
+    } else {
+      return {'status': 'Error'};
+    }
+  }
 }

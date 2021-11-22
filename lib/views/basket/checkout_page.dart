@@ -398,6 +398,27 @@ class _CheckoutPageState extends State<CheckoutPage> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var response = await OrdersProvider().createOrder(
           int.parse(value1.toString()), prefs.getInt('user_id')!, widget.order);
+      if (response['status'] == 'ok') {
+        AppConstants.basket = [];
+        AppConstants.basketIDs = [];
+      } else {
+        Alert(
+          context: context,
+          type: AlertType.error,
+          title: "Внимание",
+          desc: "Сервер временно не отвечает, повторите позже...",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "Ok",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+              color: Color.fromRGBO(0, 179, 134, 1.0),
+            ),
+          ],
+        ).show();
+      }
     }
   }
 }
