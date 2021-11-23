@@ -184,7 +184,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                                   TextStyle(color: Colors.white, fontSize: 20),
                             ),
                             onPressed: () => Navigator.pop(context),
-                            color: Color.fromRGBO(0, 179, 134, 1.0),
+                            color: AppColors.lightRed,
                           ),
                         ],
                       ).show();
@@ -237,7 +237,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                     (Route<dynamic> route) => false);
                 AppConstants.isSignIn = true;
               },
-              color: Color.fromRGBO(0, 179, 134, 1.0),
+              color: AppColors.green,
             ),
           ],
         ).show();
@@ -254,7 +254,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               onPressed: () => Navigator.pop(context),
-              color: Color.fromRGBO(0, 179, 134, 1.0),
+              color: AppColors.lightRed,
             ),
           ],
         ).show();
@@ -272,7 +272,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             onPressed: () => Navigator.pop(context),
-            color: Color.fromRGBO(0, 179, 134, 1.0),
+            color: AppColors.lightRed,
           ),
         ],
       ).show();

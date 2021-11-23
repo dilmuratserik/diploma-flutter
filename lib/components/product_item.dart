@@ -98,7 +98,7 @@ class ProductItem extends StatelessWidget {
                                       color: Colors.white, fontSize: 20),
                                 ),
                                 onPressed: () => Navigator.pop(context),
-                                color: Color.fromRGBO(0, 179, 134, 1.0),
+                                color: AppColors.green,
                               ),
                             ],
                           ).show();
@@ -116,7 +116,7 @@ class ProductItem extends StatelessWidget {
                                       color: Colors.white, fontSize: 20),
                                 ),
                                 onPressed: () => Navigator.pop(context),
-                                color: Color.fromRGBO(0, 179, 134, 1.0),
+                                color: AppColors.lightRed,
                               ),
                             ],
                           ).show();
@@ -139,7 +139,7 @@ class ProductItem extends StatelessWidget {
                                       color: Colors.white, fontSize: 20),
                                 ),
                                 onPressed: () => Navigator.pop(context),
-                                color: Color.fromRGBO(0, 179, 134, 1.0),
+                                color: AppColors.green,
                               ),
                             ],
                           ).show();
@@ -151,14 +151,13 @@ class ProductItem extends StatelessWidget {
                             desc: "Продукт уже в корзине!",
                             buttons: [
                               DialogButton(
-                                child: Text(
-                                  "Понятно",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                                onPressed: () => Navigator.pop(context),
-                                color: Color.fromRGBO(0, 179, 134, 1.0),
-                              ),
+                                  child: Text(
+                                    "Понятно",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
+                                  onPressed: () => Navigator.pop(context),
+                                  color: AppColors.lightRed),
                             ],
                           ).show();
                         }

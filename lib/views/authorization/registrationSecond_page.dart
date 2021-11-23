@@ -349,14 +349,13 @@ class _RegistrationSecondPageState extends State<RegistrationSecondPage> {
                                 desc: "Заполните поля.",
                                 buttons: [
                                   DialogButton(
-                                    child: Text(
-                                      "Ok",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
-                                    ),
-                                    onPressed: () => Navigator.pop(context),
-                                    color: Color.fromRGBO(0, 179, 134, 1.0),
-                                  ),
+                                      child: Text(
+                                        "Ok",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                      onPressed: () => Navigator.pop(context),
+                                      color: AppColors.lightRed),
                                 ],
                               ).show();
                             }

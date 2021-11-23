@@ -435,7 +435,7 @@ class _PointCreatingPageState extends State<PointCreatingPage> {
                                               fontSize: 20),
                                         ),
                                         onPressed: () => Navigator.pop(context),
-                                        color: Color.fromRGBO(0, 179, 134, 1.0),
+                                        color: AppColors.lightRed,
                                       ),
                                     ],
                                   ).show();
@@ -488,7 +488,7 @@ class _PointCreatingPageState extends State<PointCreatingPage> {
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             onPressed: () => Navigator.pop(context),
-            color: Color.fromRGBO(0, 179, 134, 1.0),
+            color: AppColors.lightRed,
           ),
         ],
       ).show();

@@ -24,6 +24,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
   TextEditingController commentController = TextEditingController();
   FocusNode commentFocusNode = FocusNode();
 
+  List<String> deliveryTypes = ['Самовывоз', 'Yandex', 'Glovo', 'Wolt'];
+
   int amount = 0;
 
   @override
@@ -266,7 +268,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                       DropdownMenuItem(
                                         child:
                                             Text("Оплата в системе Kaspi.kz"),
-                                        value: 2,
+                                        value: 3,
                                       )
                                     ],
                                     onChanged: (value) {
@@ -401,6 +403,30 @@ class _CheckoutPageState extends State<CheckoutPage> {
       if (response['status'] == 'ok') {
         AppConstants.basket = [];
         AppConstants.basketIDs = [];
+        Alert(
+          context: context,
+          type: AlertType.success,
+          title: "Заказ принят!",
+          desc: value1 == 1
+              ? "Оплата успешно прошла. Свой заказ можете забрать по выбранной точке самовызова"
+              : "Оплата успешно прошла. Чтобы осуществить доставку заказа, нажмите на “Перейти в ${deliveryTypes[int.parse(value1.toString()) - 1]}”",
+          buttons: [
+            DialogButton(
+              child: Text(
+                value1 == 1
+                    ? "Ok"
+                    : 'Перейти в ${deliveryTypes[int.parse(value1.toString()) - 1]}',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              color: AppColors.green,
+            ),
+          ],
+        ).show().whenComplete(() {
+          Navigator.pop(context);
+        });
       } else {
         Alert(
           context: context,
@@ -409,13 +435,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
           desc: "Сервер временно не отвечает, повторите позже...",
           buttons: [
             DialogButton(
-              child: Text(
-                "Ok",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              onPressed: () => Navigator.pop(context),
-              color: Color.fromRGBO(0, 179, 134, 1.0),
-            ),
+                child: Text(
+                  "Ok",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                onPressed: () => Navigator.pop(context),
+                color: AppColors.lightRed),
           ],
         ).show();
       }

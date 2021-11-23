@@ -183,14 +183,13 @@ class _SignInPageState extends State<SignInPage> {
                         desc: "Соединение с интернетом отсутствует.",
                         buttons: [
                           DialogButton(
-                            child: Text(
-                              "Ok",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                            onPressed: () => Navigator.pop(context),
-                            color: Color.fromRGBO(0, 179, 134, 1.0),
-                          ),
+                              child: Text(
+                                "Ok",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              color: AppColors.lightRed),
                         ],
                       ).show();
                     } else {
@@ -251,12 +250,14 @@ class _SignInPageState extends State<SignInPage> {
         if (response['role'] == 4) {
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => SalesMainMenuPage(role: 4)),
+              MaterialPageRoute(
+                  builder: (context) => SalesMainMenuPage(role: 4)),
               (Route<dynamic> route) => false);
         } else if (response['role'] == 3) {
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => SalesMainMenuPage(role: 3)),
+              MaterialPageRoute(
+                  builder: (context) => SalesMainMenuPage(role: 3)),
               (Route<dynamic> route) => false);
         } else {
           Navigator.pushAndRemoveUntil(
@@ -273,13 +274,12 @@ class _SignInPageState extends State<SignInPage> {
           desc: "Неправильный логин или пароль.",
           buttons: [
             DialogButton(
-              child: Text(
-                "Ok",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              onPressed: () => Navigator.pop(context),
-              color: Color.fromRGBO(0, 179, 134, 1.0),
-            ),
+                child: Text(
+                  "Ok",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                onPressed: () => Navigator.pop(context),
+                color: AppColors.lightRed),
           ],
         ).show();
       }
@@ -296,7 +296,7 @@ class _SignInPageState extends State<SignInPage> {
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             onPressed: () => Navigator.pop(context),
-            color: Color.fromRGBO(0, 179, 134, 1.0),
+            color: AppColors.lightRed,
           ),
         ],
       ).show();
