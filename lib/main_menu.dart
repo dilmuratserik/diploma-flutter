@@ -5,6 +5,7 @@ import 'package:mobile/views/authorization/signin_page.dart';
 import 'package:mobile/views/basket/basket_page.dart';
 import 'package:mobile/views/categories/categories_page.dart';
 import 'package:mobile/views/home/home_page.dart';
+import 'package:mobile/views/home/search_page.dart';
 import 'package:mobile/views/map_page.dart';
 import 'package:mobile/views/profile/profile_page.dart';
 import 'package:mobile/views/sales_rep/list_of_payments_page.dart/list_of_payments_page.dart';
@@ -63,7 +64,6 @@ class _MainMenuPageState extends State<MainMenuPage> {
         await ProfileProvider().getProfileInfo(id.toString());
 
     if (response['status'] != 'Error') {
-      print('ok!');
       prefs.setString('name', response['name'].toString());
       prefs.setString('ava', response['avatar']);
       prefs.setInt('country', response['country']);
@@ -109,14 +109,11 @@ class _MainMenuPageState extends State<MainMenuPage> {
           onTap: () {},
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
-            // child: Icon(Icons.search, color: Colors.black,),
             child:
                 _selectedIndex == 0 ? searchBar.getSearchAction(context) : null,
           ),
         ),
       ],
-      // title: new Text('My Home Page'),
-      // actions:
     );
   }
 
@@ -124,8 +121,21 @@ class _MainMenuPageState extends State<MainMenuPage> {
     searchBar = new SearchBar(
         inBar: false,
         setState: setState,
-        onSubmitted: print,
-        buildDefaultAppBar: buildAppBar);
+        onSubmitted: onSubmitted,
+        buildDefaultAppBar: buildAppBar,
+        onCleared: () {
+          // print("cleared");
+        },
+        onClosed: () {
+          // print("closed");
+        });
+  }
+
+  void onSubmitted(String value) {
+    setState(() {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => SearchPage(value)));
+    });
   }
 
   @override
@@ -258,20 +268,6 @@ class _MainMenuPageState extends State<MainMenuPage> {
         currentIndex: _selectedIndex,
         selectedItemColor: AppColors.green,
         onTap: _onItemTapped,
-      ),
-    );
-  }
-}
-
-class TextBox extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      color: Colors.black,
-      child: TextField(
-        decoration:
-            InputDecoration(border: InputBorder.none, hintText: 'Search'),
       ),
     );
   }
