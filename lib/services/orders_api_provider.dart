@@ -19,7 +19,7 @@ class OrdersProvider {
           'Authorization': "Token $token"
         });
 
-    print(response.body);
+    // print(response.body);
 
     if (response.statusCode == 200) {
       Map<String, dynamic> result =
@@ -77,9 +77,9 @@ class OrdersProvider {
       body: jsonEncode(bodyDic),
     );
 
-    print(bodyDic);
+    // print(bodyDic);
 
-    print(response.body);
+    // print(response.body);
 
     if (response.statusCode == 200) {
       Map<String, dynamic> data = jsonDecode(response.body);

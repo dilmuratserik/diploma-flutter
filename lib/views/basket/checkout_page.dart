@@ -20,20 +20,35 @@ class CheckoutPage extends StatefulWidget {
 class _CheckoutPageState extends State<CheckoutPage> {
   Object? value1 = 1;
   Object? value2 = 1;
+  Object? value3 = 1;
+  Object? value4 = 1;
+  Object? value5 = 1;
   bool _switchValue1 = false;
   TextEditingController commentController = TextEditingController();
   FocusNode commentFocusNode = FocusNode();
 
   List<String> deliveryTypes = ['Самовывоз', 'Yandex', 'Glovo', 'Wolt'];
+  List<String> cards = [];
+  List<String> points = [];
+  List<String> addresses = [];
 
   int amount = 0;
+  int role = 1;
 
   @override
   void initState() {
     for (var i in widget.order) {
       amount += i.product.price * i.count;
     }
+    getRole();
     super.initState();
+  }
+
+  void getRole() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      role = prefs.getInt('role')!;
+    });
   }
 
   @override
@@ -60,7 +75,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
           body: SingleChildScrollView(
             child: Container(
               height: MediaQuery.of(context).size.height +
-                  double.parse((10 + 80 * widget.order.length).toString()),
+                  double.parse((220 + 80 * widget.order.length).toString()),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -191,48 +206,58 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.w600)),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
-                      child: SizedBox(
-                        height: 60,
-                        child: InputDecorator(
-                            decoration: InputDecoration(
-                                labelStyle: TextStyle(color: Colors.black),
-                                errorStyle: TextStyle(
-                                    color: Colors.redAccent, fontSize: 16),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5.0))),
-                            isEmpty: false,
-                            child: DropdownButtonHideUnderline(
-                                child: DropdownButton(
-                                    value: value1,
-                                    items: [
-                                      DropdownMenuItem(
-                                        child: Text("Самовывоз"),
-                                        value: 1,
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("Yandex"),
-                                        value: 2,
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("Glovo"),
-                                        value: 3,
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("Wolt"),
-                                        value: 4,
-                                      )
-                                    ],
-                                    onChanged: (value) {
-                                      setState(() {
-                                        value1 = value;
-                                      });
-                                    },
-                                    hint: Text("Способ доставки")))),
-                      ),
-                    ),
+                    role == 2
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: Text(
+                                'Доставка осуществляется с помощью курьера от Galleon'),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: SizedBox(
+                              height: 60,
+                              child: InputDecorator(
+                                  decoration: InputDecoration(
+                                      labelStyle:
+                                          TextStyle(color: Colors.black),
+                                      errorStyle: TextStyle(
+                                          color: Colors.redAccent,
+                                          fontSize: 16),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0))),
+                                  isEmpty: false,
+                                  child: DropdownButtonHideUnderline(
+                                      child: DropdownButton(
+                                          value: value1,
+                                          items: [
+                                            DropdownMenuItem(
+                                              child: Text("Самовывоз"),
+                                              value: 1,
+                                            ),
+                                            DropdownMenuItem(
+                                              child: Text("Yandex"),
+                                              value: 2,
+                                            ),
+                                            DropdownMenuItem(
+                                              child: Text("Glovo"),
+                                              value: 3,
+                                            ),
+                                            DropdownMenuItem(
+                                              child: Text("Wolt"),
+                                              value: 4,
+                                            )
+                                          ],
+                                          onChanged: (value) {
+                                            setState(() {
+                                              value1 = value;
+                                            });
+                                          },
+                                          hint: Text("Способ доставки")))),
+                            ),
+                          ),
                     Padding(
                       padding:
                           const EdgeInsets.only(top: 10, left: 20, bottom: 5),
@@ -279,6 +304,141 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                     hint: Text("Способ оплаты")))),
                       ),
                     ),
+                    role == 2
+                        ? Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10, left: 20, bottom: 5),
+                            child: Text('Привязанные карты',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600)),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10, left: 20, bottom: 5),
+                            child: Text('Точки самовывоза',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600)),
+                          ),
+                    role == 2
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: SizedBox(
+                              height: 60,
+                              child: InputDecorator(
+                                  decoration: InputDecoration(
+                                      labelStyle:
+                                          TextStyle(color: Colors.black),
+                                      errorStyle: TextStyle(
+                                          color: Colors.redAccent,
+                                          fontSize: 16),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0))),
+                                  isEmpty: false,
+                                  child: DropdownButtonHideUnderline(
+                                      child: DropdownButton(
+                                          value: value3,
+                                          items: [
+                                            for (int i = 0;
+                                                i < cards.length;
+                                                i++)
+                                              DropdownMenuItem(
+                                                child: Text(cards[i]),
+                                                value: i + 1,
+                                              ),
+                                          ],
+                                          onChanged: (value) {
+                                            setState(() {
+                                              value3 = value;
+                                            });
+                                          },
+                                          hint: Text("Карты")))),
+                            ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: SizedBox(
+                              height: 60,
+                              child: InputDecorator(
+                                  decoration: InputDecoration(
+                                      labelStyle:
+                                          TextStyle(color: Colors.black),
+                                      errorStyle: TextStyle(
+                                          color: Colors.redAccent,
+                                          fontSize: 16),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0))),
+                                  isEmpty: false,
+                                  child: DropdownButtonHideUnderline(
+                                      child: DropdownButton(
+                                          value: value4,
+                                          items: [
+                                            for (int i = 0;
+                                                i < points.length;
+                                                i++)
+                                              DropdownMenuItem(
+                                                child: Text(points[i]),
+                                                value: i + 1,
+                                              ),
+                                          ],
+                                          onChanged: (value) {
+                                            setState(() {
+                                              value4 = value;
+                                            });
+                                          },
+                                          hint: Text("Точки")))),
+                            ),
+                          ),
+                    role == 2
+                        ? Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10, left: 20, bottom: 5),
+                            child: Text('Выберите адрес доставки',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600)),
+                          )
+                        : Container(),
+                    role == 2
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: SizedBox(
+                              height: 60,
+                              child: InputDecorator(
+                                  decoration: InputDecoration(
+                                      labelStyle:
+                                          TextStyle(color: Colors.black),
+                                      errorStyle: TextStyle(
+                                          color: Colors.redAccent,
+                                          fontSize: 16),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0))),
+                                  isEmpty: false,
+                                  child: DropdownButtonHideUnderline(
+                                      child: DropdownButton(
+                                          value: value5,
+                                          items: [
+                                            for (int i = 0;
+                                                i < addresses.length;
+                                                i++)
+                                              DropdownMenuItem(
+                                                child: Text(addresses[i]),
+                                                value: i + 1,
+                                              ),
+                                          ],
+                                          onChanged: (value) {
+                                            setState(() {
+                                              value5 = value;
+                                            });
+                                          },
+                                          hint: Text("Адреса")))),
+                            ),
+                          )
+                        : Container(),
                     Padding(
                       padding:
                           const EdgeInsets.only(top: 5, left: 20, bottom: 5),
@@ -399,7 +559,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
     } else {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var response = await OrdersProvider().createOrder(
-          int.parse(value1.toString()), prefs.getInt('user_id')!, widget.order);
+          role == 2 ? 2 : int.parse(value1.toString()),
+          prefs.getInt('user_id')!,
+          widget.order);
       if (response['status'] == 'ok') {
         AppConstants.basket = [];
         AppConstants.basketIDs = [];
@@ -414,7 +576,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
             DialogButton(
               child: Text(
                 value1 == 1
-                    ? "Ok"
+                    ? "Перейти в главную"
                     : 'Перейти в ${deliveryTypes[int.parse(value1.toString()) - 1]}',
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),

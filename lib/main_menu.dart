@@ -71,7 +71,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
       int role = response["role"];
       prefs.setInt('role', role);
       if (role == 2) {
-        prefs.setString("bin_iin", response["bin_iin"]);
+        prefs.setString("bin_iin", response["bin_iin"].toString());
       }
       setState(() {
         name = response['name'];

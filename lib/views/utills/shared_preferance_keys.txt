@@ -1,4 +1,4 @@
-'role' -> User Role (String)
+'role' -> User Role (int)
 'phone' -> Phone (String)
 'user_id' -> User ID (int)
 'token' -> Token (String)
