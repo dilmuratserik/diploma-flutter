@@ -25,7 +25,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   final ImagePicker _picker = ImagePicker();
 
   bool _switchValue1 = false;
@@ -34,8 +33,6 @@ class _ProfilePageState extends State<ProfilePage> {
   String name = 'Name';
   String ava = "";
   int uid = 0;
-
-
 
   @override
   void initState() {
@@ -50,10 +47,8 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() {
       name = prefs.getString('name')!;
       ava = prefs.getString('ava')!;
-     });
+    });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +77,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 onTap: () async {
                                   Navigator.pop(context);
 
-                                  XFile? avatar = await _picker.pickImage(source: ImageSource.gallery);
+                                  XFile? avatar = await _picker.pickImage(
+                                      source: ImageSource.gallery);
                                   setState(() {
                                     if (avatar != null) ava = avatar.path;
                                   });
@@ -90,16 +86,19 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               ListTile(
                                 leading: new Icon(Icons.camera_alt),
-                                   title: new Text('Camera'),
-                                onTap: () async{
+                                title: new Text('Camera'),
+                                onTap: () async {
                                   Navigator.pop(context);
 
-                                  XFile? avatar = await _picker.pickImage(source: ImageSource.camera, imageQuality: 40);
+                                  XFile? avatar = await _picker.pickImage(
+                                      source: ImageSource.camera,
+                                      imageQuality: 40);
                                   setState(() {
                                     if (avatar != null) ava = avatar.path;
                                   });
 
-                                  List<int> imageBytes = File(ava).readAsBytesSync();
+                                  List<int> imageBytes =
+                                      File(ava).readAsBytesSync();
                                   String base64Image = base64Encode(imageBytes);
                                   // changeAvater(base64Image);
                                 },
@@ -109,9 +108,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         });
                   },
                   child: CircleAvatar(
-                    minRadius: MediaQuery.of(context).size.width / 11,
-                    backgroundImage: getImage()
-                  ),
+                      minRadius: MediaQuery.of(context).size.width / 11,
+                      backgroundImage: getImage()),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
@@ -320,30 +318,30 @@ class _ProfilePageState extends State<ProfilePage> {
                           builder: (context) => AboutApplicationPage()));
                 },
                 child: getMenuText("О приложении")),
-            InkWell(
-              onTap: () {},
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Text(
-                  "Выйти",
-                  style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500),
-                ),
-              ),
-            )
+            // InkWell(
+            //   onTap: () {},
+            //   child: Container(
+            //     width: MediaQuery.of(context).size.width,
+            //     padding: const EdgeInsets.symmetric(vertical: 10),
+            //     child: Text(
+            //       "Выйти",
+            //       style: TextStyle(
+            //           color: Colors.red,
+            //           fontSize: 18,
+            //           fontWeight: FontWeight.w500),
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),
     );
   }
+
   getImage() {
     if (ava.startsWith("http")) {
       return NetworkImage(ava);
-    }
-    else if (ava.isNotEmpty){
+    } else if (ava.isNotEmpty) {
       var file = FileImage(File(ava));
       return file;
     }
