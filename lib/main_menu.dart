@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobile/services/profile_api_provider.dart';
+import 'package:mobile/views/authorization/signin_page.dart';
 import 'package:mobile/views/basket/basket_page.dart';
 import 'package:mobile/views/categories/categories_page.dart';
 import 'package:mobile/views/home/home_page.dart';
@@ -14,6 +15,7 @@ import 'package:mobile/views/sales_rep/settings/settings_page,dart.dart';
 import 'package:mobile/views/sales_rep/visits_tab/visits_main_page.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MainMenuPage extends StatefulWidget {
@@ -96,7 +98,6 @@ class _MainMenuPageState extends State<MainMenuPage> {
       ),
       leading: GestureDetector(
           onTap: () {
-            print("asd");
             _key.currentState!.openDrawer();
           },
           child: Icon(
@@ -195,10 +196,40 @@ class _MainMenuPageState extends State<MainMenuPage> {
               leading: Icon(Icons.logout),
               title: const Text("Выйти", style: TextStyle(fontSize: 16)),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
                 Navigator.pop(context);
+                Alert(
+                  context: context,
+                  type: AlertType.warning,
+                  title: "Внимание",
+                  desc: "Вы точно хотите выйти?",
+                  buttons: [
+                    DialogButton(
+                      child: Text(
+                        "Да",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                      onPressed: () {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignInPage()),
+                            (Route<dynamic> route) => false);
+                        AppConstants.isSignIn = false;
+                      },
+                      color: Colors.red,
+                    ),
+                    DialogButton(
+                      child: Text(
+                        "Нет",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      color: Colors.grey,
+                    ),
+                  ],
+                ).show();
               },
             ),
           ],

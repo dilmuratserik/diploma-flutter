@@ -41,7 +41,8 @@ class ProductItem extends StatelessWidget {
                       width: 90.0,
                       height: 90.0,
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage(product.image),
+                        backgroundImage:
+                            NetworkImage(product.image[0]['image']),
                       ),
                     ),
                     Padding(

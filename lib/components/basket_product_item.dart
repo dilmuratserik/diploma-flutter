@@ -42,7 +42,7 @@ class _BasketProductItemState extends State<BasketProductItem> {
                             image: new DecorationImage(
                                 fit: BoxFit.fill,
                                 image: new NetworkImage(
-                                    widget.order.product.image)))),
+                                    widget.order.product.image[0]['image'])))),
                     Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 15),

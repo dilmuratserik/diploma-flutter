@@ -48,7 +48,7 @@ class _AboutProductPageState extends State<AboutProductPage> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Center(
                 child: Image.network(
-                  widget.product.image,
+                  widget.product.image[0]['image'],
                   width: MediaQuery.of(context).size.width * 0.8,
                   height: MediaQuery.of(context).size.width * 0.8,
                   fit: BoxFit.fill,

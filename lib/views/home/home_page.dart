@@ -40,8 +40,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // getHits();
-    // getRecommendations();
+    getHits();
+    getRecommendations();
     super.initState();
   }
 

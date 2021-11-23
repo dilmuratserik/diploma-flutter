@@ -1,12 +1,12 @@
 class Product {
   late final int id;
-  late final String image;
+  late final List<dynamic> image;
   late final String name;
   late final String description;
   late final int price;
   late final double weight;
-  late final int category;
-  late final int subcategory;
+  late final dynamic category;
+  late final dynamic subcategory;
 
   Product(
       {required this.id,
@@ -20,19 +20,19 @@ class Product {
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    if (json['product_image'] != []) {
-      image = json['product_image'][0]['image'];
-    } else {
-      image =
-          'https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png';
-    }
+    image = json['product_image'];
+    image.add({
+      'image':
+          'https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png'
+    });
     name = json['name'];
     description = json['description'];
     price = json['price'];
-    weight = 100;
-    // weight = json['weight'];
-    category = json['category'];
-    subcategory = json['subcategory'];
+    json['weight'] == null ? weight = 100 : weight = json['weight'];
+    json['category'] == null ? category = 0 : category = json['category'];
+    json['subcategory'] == null
+        ? subcategory = 0
+        : subcategory = json['subcategory'];
   }
 
   Map<String, dynamic> toJson() {
