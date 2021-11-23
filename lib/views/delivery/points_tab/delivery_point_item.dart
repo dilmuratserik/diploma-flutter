@@ -38,14 +38,15 @@ class _DeliveryPointItemState extends State<DeliveryPointItem> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 6.0),
-                          child: Text(
-                            "Долг: 50 000 тг",
-                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
-                          ),
-                        )
-                      ],
+                      Padding(
+                        padding: const EdgeInsets.only(left: 6.0),
+                        child: Text(
+                          "Долг: 50 000 тг",
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.w600),
+                        ),
+                      )
+                    ],
                   ),
                 ],
               ),
@@ -57,7 +58,7 @@ class _DeliveryPointItemState extends State<DeliveryPointItem> {
                     color: AppColors.gold,
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width*0.77,
+                    width: MediaQuery.of(context).size.width * 0.76,
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Text(

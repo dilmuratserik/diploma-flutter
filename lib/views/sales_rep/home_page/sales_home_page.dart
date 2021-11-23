@@ -32,6 +32,7 @@ class _SalesHomePageState extends State<SalesHomePage> {
   String region = '';
   String priceType = '';
   String orderSector = '';
+  int role = 1;
 
   void getProfileInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -47,7 +48,7 @@ class _SalesHomePageState extends State<SalesHomePage> {
       AppConstants.name = response['name'];
       AppConstants.phone = response['phone'];
       AppConstants.ava = response['avatar'];
-      int role = response["role"];
+      role = response["role"];
       prefs.setInt('role', role);
       if (role == 2) {
         prefs.setString("bin_iin", response["bin_iin"].toString());
@@ -217,7 +218,7 @@ class _SalesHomePageState extends State<SalesHomePage> {
             // ),
 
             DefaultTabController(
-                length: 2, // length of tabs
+                length: role == 3 ? 2 : 1, // length of tabs
                 initialIndex: 0,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -227,10 +228,14 @@ class _SalesHomePageState extends State<SalesHomePage> {
                           labelColor: AppColors.green,
                           unselectedLabelColor: Colors.black,
                           indicatorColor: AppColors.green,
-                          tabs: [
-                            Tab(text: "ОБо мне".toUpperCase()),
-                            Tab(text: "Рейтинг".toUpperCase()),
-                          ],
+                          tabs: role == 3
+                              ? [
+                                  Tab(text: "ОБо мне".toUpperCase()),
+                                  Tab(text: "Рейтинг".toUpperCase()),
+                                ]
+                              : [
+                                  Tab(text: "ОБо мне".toUpperCase()),
+                                ],
                         ),
                       ),
                       Container(
@@ -239,105 +244,138 @@ class _SalesHomePageState extends State<SalesHomePage> {
                               border: Border(
                                   top: BorderSide(
                                       color: Colors.grey, width: 0.5))),
-                          child: TabBarView(children: <Widget>[
-                            Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  getTitle("Регион"),
-                                  getSubtitle(region),
-                                  getDivider(),
-                                  getTitle("Тип цены"),
-                                  getSubtitle(priceType),
-                                  getDivider(),
-                                  getTitle("Сектор заказа"),
-                                  getSubtitle(orderSector),
-                                  getDivider(),
-                                  getTitle("Время работы"),
-                                  getSubtitle("С 9:00 до 20:00"),
-                                  getDivider(),
-                                  // Padding(
-                                  //   padding:
-                                  //       const EdgeInsets.only(top: 0, left: 16),
-                                  //   child: Row(
-                                  //       mainAxisAlignment:
-                                  //           MainAxisAlignment.spaceBetween,
-                                  //       children: [
-                                  //         Text(
-                                  //           "Включить GPS навигатор?",
-                                  //           style: TextStyle(fontSize: 18),
-                                  //         ),
-                                  //         Switch(
-                                  //             value: _switchValue1,
-                                  //             activeColor: AppColors.gold,
-                                  //             onChanged: (value) {
-                                  //               setState(() {
-                                  //                 _switchValue1 = value;
-                                  //               });
-                                  //               print("value ${value}");
-                                  //             })
-                                  //       ]),
-                                  // ),
-                                  // Padding(
-                                  //   padding:
-                                  //       const EdgeInsets.only(top: 0, left: 16),
-                                  //   child: Row(
-                                  //       mainAxisAlignment:
-                                  //           MainAxisAlignment.spaceBetween,
-                                  //       children: [
-                                  //         Text(
-                                  //           "Привязан телефон?",
-                                  //           style: TextStyle(fontSize: 18),
-                                  //         ),
-                                  //         Switch(
-                                  //             value: _switchValue2,
-                                  //             activeColor: AppColors.gold,
-                                  //             onChanged: (value) {
-                                  //               setState(() {
-                                  //                 _switchValue2 = value;
-                                  //               });
-                                  //               print("value ${value}");
-                                  //             })
-                                  //       ]),
-                                  // ),
-                                ],
-                              ),
-                            ),
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Container(
-                                  width: 800,
-                                  child: SfCartesianChart(
-                                    // title: ChartTitle(text: 'Yearly sales analysis'),
-                                    legend: Legend(isVisible: false),
-                                    tooltipBehavior: _tooltipBehavior,
-                                    series: <ChartSeries<SalesData, String>>[
-                                      LineSeries<SalesData, String>(
-                                          dataSource: _chartData,
-                                          xValueMapper: (SalesData sales, _) =>
-                                              sales.month,
-                                          yValueMapper: (SalesData sales, _) =>
-                                              sales.sales,
-                                          dataLabelSettings: DataLabelSettings(
-                                              isVisible: true),
-                                          enableTooltip: false),
-                                      LineSeries<SalesData, String>(
-                                          dataSource: _chartData2,
-                                          xValueMapper: (SalesData sales, _) =>
-                                              sales.month,
-                                          yValueMapper: (SalesData sales, _) =>
-                                              sales.sales,
-                                          dataLabelSettings: DataLabelSettings(
-                                              isVisible: true),
-                                          enableTooltip: false)
-                                    ],
-                                    primaryXAxis: CategoryAxis(),
-                                    // primaryXAxis: NumericAxis(
-                                    //   edgeLabelPlacement: EdgeLabelPlacement.shift,
-                                    // ),
-                                  )),
-                            ),
-                          ]))
+                          child: TabBarView(
+                              children: role == 3
+                                  ? <Widget>[
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            getTitle("Регион"),
+                                            getSubtitle(region),
+                                            getDivider(),
+                                            getTitle("Тип цены"),
+                                            getSubtitle(priceType),
+                                            getDivider(),
+                                            getTitle("Сектор заказа"),
+                                            getSubtitle(orderSector),
+                                            getDivider(),
+                                            getTitle("Время работы"),
+                                            getSubtitle("С 9:00 до 20:00"),
+                                            getDivider(),
+                                            // Padding(
+                                            //   padding:
+                                            //       const EdgeInsets.only(top: 0, left: 16),
+                                            //   child: Row(
+                                            //       mainAxisAlignment:
+                                            //           MainAxisAlignment.spaceBetween,
+                                            //       children: [
+                                            //         Text(
+                                            //           "Включить GPS навигатор?",
+                                            //           style: TextStyle(fontSize: 18),
+                                            //         ),
+                                            //         Switch(
+                                            //             value: _switchValue1,
+                                            //             activeColor: AppColors.gold,
+                                            //             onChanged: (value) {
+                                            //               setState(() {
+                                            //                 _switchValue1 = value;
+                                            //               });
+                                            //               print("value ${value}");
+                                            //             })
+                                            //       ]),
+                                            // ),
+                                            // Padding(
+                                            //   padding:
+                                            //       const EdgeInsets.only(top: 0, left: 16),
+                                            //   child: Row(
+                                            //       mainAxisAlignment:
+                                            //           MainAxisAlignment.spaceBetween,
+                                            //       children: [
+                                            //         Text(
+                                            //           "Привязан телефон?",
+                                            //           style: TextStyle(fontSize: 18),
+                                            //         ),
+                                            //         Switch(
+                                            //             value: _switchValue2,
+                                            //             activeColor: AppColors.gold,
+                                            //             onChanged: (value) {
+                                            //               setState(() {
+                                            //                 _switchValue2 = value;
+                                            //               });
+                                            //               print("value ${value}");
+                                            //             })
+                                            //       ]),
+                                            // ),
+                                          ],
+                                        ),
+                                      ),
+                                      SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Container(
+                                            width: 800,
+                                            child: SfCartesianChart(
+                                              // title: ChartTitle(text: 'Yearly sales analysis'),
+                                              legend: Legend(isVisible: false),
+                                              tooltipBehavior: _tooltipBehavior,
+                                              series: <
+                                                  ChartSeries<SalesData,
+                                                      String>>[
+                                                LineSeries<SalesData, String>(
+                                                    dataSource: _chartData,
+                                                    xValueMapper:
+                                                        (SalesData sales, _) =>
+                                                            sales.month,
+                                                    yValueMapper:
+                                                        (SalesData sales, _) =>
+                                                            sales.sales,
+                                                    dataLabelSettings:
+                                                        DataLabelSettings(
+                                                            isVisible: true),
+                                                    enableTooltip: false),
+                                                LineSeries<SalesData, String>(
+                                                    dataSource: _chartData2,
+                                                    xValueMapper:
+                                                        (SalesData sales, _) =>
+                                                            sales.month,
+                                                    yValueMapper:
+                                                        (SalesData sales, _) =>
+                                                            sales.sales,
+                                                    dataLabelSettings:
+                                                        DataLabelSettings(
+                                                            isVisible: true),
+                                                    enableTooltip: false)
+                                              ],
+                                              primaryXAxis: CategoryAxis(),
+                                              // primaryXAxis: NumericAxis(
+                                              //   edgeLabelPlacement: EdgeLabelPlacement.shift,
+                                              // ),
+                                            )),
+                                      ),
+                                    ]
+                                  : [
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            getTitle("Регион"),
+                                            getSubtitle(region),
+                                            getDivider(),
+                                            getTitle("Тип цены"),
+                                            getSubtitle(priceType),
+                                            getDivider(),
+                                            getTitle("Сектор заказа"),
+                                            getSubtitle(orderSector),
+                                            getDivider(),
+                                            getTitle("Время работы"),
+                                            getSubtitle("С 9:00 до 20:00"),
+                                            getDivider(),
+                                          ],
+                                        ),
+                                      ),
+                                    ]))
                     ])),
           ],
         ),
