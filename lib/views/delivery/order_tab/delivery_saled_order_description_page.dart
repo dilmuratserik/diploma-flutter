@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/models/order_sales_rep_model.dart';
 import 'package:mobile/views/utills/const.dart';
 
 class DeliverySalesOrderDescriptionPage extends StatelessWidget {
-  const DeliverySalesOrderDescriptionPage({Key? key}) : super(key: key);
+  const DeliverySalesOrderDescriptionPage({Key? key, required this.order})
+      : super(key: key);
+  final OrderSalesRep order;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class DeliverySalesOrderDescriptionPage extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 6.0),
-                        child: Text("Заказ  №45565",
+                        child: Text("Заказ  №" + order.id.toString(),
                             style: TextStyle(
                                 color: AppColors.green,
                                 fontWeight: FontWeight.bold,
@@ -42,7 +45,12 @@ class DeliverySalesOrderDescriptionPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
-                          "11 мая 2021 12:00 - доставлен",
+                          order.date +
+                              (order.status == 1
+                                  ? " - новый"
+                                  : order.status == 2
+                                      ? " - в обработке"
+                                      : " - доставлен"),
                           style: TextStyle(
                               color: AppColors.presentationGray, fontSize: 16),
                         ),
@@ -58,7 +66,7 @@ class DeliverySalesOrderDescriptionPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
-                          "Бегалиев 5, Морошкин магазин",
+                          order.counterpartyName,
                           style: TextStyle(fontSize: 16),
                         ),
                       ),
@@ -74,7 +82,7 @@ class DeliverySalesOrderDescriptionPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 6.0),
                         child: Text(
-                          "3 000 ₸",
+                          order.total.toString() + " ₸",
                           style: TextStyle(fontSize: 16),
                         ),
                       ),
@@ -87,24 +95,32 @@ class DeliverySalesOrderDescriptionPage extends StatelessWidget {
                               color: AppColors.presentationGray, fontSize: 16),
                         ),
                       ),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
-                      getMeaningOrder(
-                          "1х Коса копченая, Золото колчака", "500 ₸"),
+                      for (var i in order.productOrder)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 18.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                  child: Text(
+                                i['count'].toString() +
+                                    'x ' +
+                                    i['product']['name'].toString(),
+                                style: TextStyle(fontSize: 18),
+                                maxLines: 5,
+                                softWrap: true,
+                              )),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 6),
+                                child: Text(
+                                    (i['product']['price'] * i['count'])
+                                            .toString() +
+                                        ' ₸',
+                                    style: TextStyle(fontSize: 18)),
+                              )
+                            ],
+                          ),
+                        )
                     ],
                   ),
                 ),

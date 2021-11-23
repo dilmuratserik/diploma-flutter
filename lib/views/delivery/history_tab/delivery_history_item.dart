@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/models/order_sales_rep_model.dart';
+import 'package:mobile/services/courier_api_provider.dart';
 import 'package:mobile/views/delivery/order_tab/delivery_saled_order_description_page.dart';
 import 'package:mobile/views/sales_rep/order_page/saled_order_description_page.dart';
 import 'package:mobile/views/utills/const.dart';
 
 class DeliveryHistoryItem extends StatefulWidget {
-  const DeliveryHistoryItem({Key? key}) : super(key: key);
+  const DeliveryHistoryItem({Key? key, required this.order}) : super(key: key);
+  final OrderSalesRep order;
 
   @override
   _DeliveryHistoryItemState createState() => _DeliveryHistoryItemState();
@@ -12,13 +15,19 @@ class DeliveryHistoryItem extends StatefulWidget {
 
 class _DeliveryHistoryItemState extends State<DeliveryHistoryItem> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => DeliverySalesOrderDescriptionPage()));
+                builder: (context) =>
+                    DeliverySalesOrderDescriptionPage(order: widget.order)));
       },
       child: Card(
         elevation: 3,

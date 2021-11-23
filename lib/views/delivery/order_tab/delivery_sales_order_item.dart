@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/models/order_sales_rep_model.dart';
 import 'package:mobile/views/sales_rep/order_page/saled_order_description_page.dart';
- import 'package:mobile/views/utills/const.dart';
+import 'package:mobile/views/utills/const.dart';
 
 import 'delivery_saled_order_description_page.dart';
 
 class DeliverySalesOrderItem extends StatefulWidget {
-  const DeliverySalesOrderItem({Key? key}) : super(key: key);
+  const DeliverySalesOrderItem({Key? key, required this.order})
+      : super(key: key);
+  final OrderSalesRep order;
 
   @override
   _DeliverySalesOrderItemState createState() => _DeliverySalesOrderItemState();
@@ -16,8 +19,11 @@ class _DeliverySalesOrderItemState extends State<DeliverySalesOrderItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => DeliverySalesOrderDescriptionPage()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    DeliverySalesOrderDescriptionPage(order: widget.order)));
       },
       child: Card(
         elevation: 3,
@@ -28,13 +34,13 @@ class _DeliverySalesOrderItemState extends State<DeliverySalesOrderItem> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Заказ №45565",
+                "Заказ №" + widget.order.id.toString(),
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 9.0),
                 child: Text(
-                  'Бегалиев 5, Морошкин магазин',
+                  widget.order.counterpartyName,
                   style: TextStyle(fontSize: 18),
                 ),
               ),
@@ -47,7 +53,8 @@ class _DeliverySalesOrderItemState extends State<DeliverySalesOrderItem> {
                             fontSize: 18, color: AppColors.presentationGray)),
                     Padding(
                       padding: const EdgeInsets.only(left: 4.0),
-                      child: Text("3 000 ₸", style: TextStyle(fontSize: 18)),
+                      child: Text(widget.order.total.toString() + " ₸",
+                          style: TextStyle(fontSize: 18)),
                     )
                   ],
                 ),
@@ -66,13 +73,17 @@ class _DeliverySalesOrderItemState extends State<DeliverySalesOrderItem> {
                         Padding(
                           padding: const EdgeInsets.only(left: 6.0),
                           child: Text(
-                            "27.09.2021 14:31",
+                            widget.order.date,
                             style: TextStyle(color: AppColors.presentationGray),
                           ),
                         )
                       ],
                     ),
-                    getStateButton(AppColors.lightRed, "Новый")
+                    widget.order.status == 1
+                        ? getStateButton(AppColors.lightRed, "Новый")
+                        : widget.order.status == 2
+                            ? getStateButton(AppColors.yellow, "В обработке")
+                            : getStateButton(AppColors.lightGreen, "Доставлен")
                   ],
                 ),
               )
@@ -82,8 +93,6 @@ class _DeliverySalesOrderItemState extends State<DeliverySalesOrderItem> {
       ),
     );
   }
-
-
 
   Widget getDivider() {
     return Divider(
