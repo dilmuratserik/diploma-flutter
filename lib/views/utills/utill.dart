@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import 'const.dart';
+
 // Форматирование номера телефона
 class NumberTextInputFormatter extends TextInputFormatter {
   @override
-   TextEditingValue formatEditUpdate(
+  TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
     final int newTextLength = newValue.text.length;
     int selectionIndex = newValue.selection.end;
@@ -49,3 +51,16 @@ createAlertDialog(BuildContext context) {
                 )));
       });
 }
+
+var errorBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(10.0),
+    borderSide: BorderSide(color: Colors.red, width: 1));
+
+var enabledBorder =  OutlineInputBorder(
+    borderRadius: BorderRadius.circular(10.0),
+    borderSide:
+    BorderSide(color: Colors.grey, width: 1));
+
+var focusedBorder = OutlineInputBorder(
+    borderSide:
+    BorderSide(color: AppColors.gold, width: 1));
