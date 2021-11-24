@@ -101,7 +101,7 @@ class _BasketPageState extends State<BasketPage> {
                             style: TextStyle(color: Colors.white, fontSize: 20),
                           ),
                           onPressed: () => Navigator.pop(context),
-                          color: AppColors.lightRed,
+                          color: Colors.red,
                         ),
                       ],
                     ).show();

@@ -189,7 +189,7 @@ class _SignInPageState extends State<SignInPage> {
                                     color: Colors.white, fontSize: 20),
                               ),
                               onPressed: () => Navigator.pop(context),
-                              color: AppColors.lightRed),
+                              color: Colors.red),
                         ],
                       ).show();
                     } else {
@@ -279,7 +279,7 @@ class _SignInPageState extends State<SignInPage> {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () => Navigator.pop(context),
-                color: AppColors.lightRed),
+                color: Colors.red),
           ],
         ).show();
       }
@@ -296,7 +296,7 @@ class _SignInPageState extends State<SignInPage> {
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             onPressed: () => Navigator.pop(context),
-            color: AppColors.lightRed,
+            color: Colors.red,
           ),
         ],
       ).show();

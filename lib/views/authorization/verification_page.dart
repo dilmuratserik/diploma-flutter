@@ -243,7 +243,7 @@ class _VerificationPageState extends State<VerificationPage> {
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               onPressed: () => Navigator.pop(context),
-              color: AppColors.lightRed,
+              color: Colors.red,
             ),
           ],
         ).show();
@@ -261,7 +261,7 @@ class _VerificationPageState extends State<VerificationPage> {
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             onPressed: () => Navigator.pop(context),
-            color: AppColors.lightRed,
+            color: Colors.red,
           ),
         ],
       ).show();

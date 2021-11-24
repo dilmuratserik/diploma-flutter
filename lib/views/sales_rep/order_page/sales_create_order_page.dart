@@ -380,7 +380,7 @@ class _SalesCreateOrderPageState extends State<SalesCreateOrderPage> {
                                   TextStyle(color: Colors.white, fontSize: 20),
                             ),
                             onPressed: () => Navigator.pop(context),
-                            color: AppColors.lightRed,
+                            color: Colors.red,
                           ),
                         ],
                       ).show();
@@ -460,7 +460,7 @@ class _SalesCreateOrderPageState extends State<SalesCreateOrderPage> {
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             onPressed: () => Navigator.pop(context),
-            color: AppColors.lightRed,
+            color: Colors.red,
           ),
         ],
       ).show();
@@ -484,7 +484,7 @@ class _SalesCreateOrderPageState extends State<SalesCreateOrderPage> {
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               onPressed: () => Navigator.pop(context),
-              color: AppColors.lightRed,
+              color: Colors.red,
             ),
           ],
         ).show();

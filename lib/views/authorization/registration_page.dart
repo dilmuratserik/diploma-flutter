@@ -139,7 +139,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   TextStyle(color: Colors.white, fontSize: 20),
                             ),
                             onPressed: () => Navigator.pop(context),
-                            color: AppColors.lightRed,
+                            color: Colors.red,
                           ),
                         ],
                       ).show();
@@ -207,7 +207,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               onPressed: () => Navigator.pop(context),
-              color: AppColors.lightRed,
+              color: Colors.red,
             ),
           ],
         ).show();
@@ -225,7 +225,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             onPressed: () => Navigator.pop(context),
-            color: AppColors.lightRed,
+            color: Colors.red,
           ),
         ],
       ).show();

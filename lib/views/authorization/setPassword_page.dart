@@ -184,7 +184,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                                   TextStyle(color: Colors.white, fontSize: 20),
                             ),
                             onPressed: () => Navigator.pop(context),
-                            color: AppColors.lightRed,
+                            color: Colors.red,
                           ),
                         ],
                       ).show();
@@ -254,7 +254,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               onPressed: () => Navigator.pop(context),
-              color: AppColors.lightRed,
+              color: Colors.red,
             ),
           ],
         ).show();
@@ -272,7 +272,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             onPressed: () => Navigator.pop(context),
-            color: AppColors.lightRed,
+            color: Colors.red,
           ),
         ],
       ).show();

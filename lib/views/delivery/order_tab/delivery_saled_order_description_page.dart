@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/models/order_sales_rep_model.dart';
 import 'package:mobile/views/utills/const.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
-class DeliverySalesOrderDescriptionPage extends StatelessWidget {
+class DeliverySalesOrderDescriptionPage extends StatefulWidget {
   const DeliverySalesOrderDescriptionPage({Key? key, required this.order})
       : super(key: key);
   final OrderSalesRep order;
+
+  @override
+  State<DeliverySalesOrderDescriptionPage> createState() =>
+      _DeliverySalesOrderDescriptionPageState();
+}
+
+class _DeliverySalesOrderDescriptionPageState
+    extends State<DeliverySalesOrderDescriptionPage> {
+  TextEditingController firstController = TextEditingController();
+  FocusNode firstFocusNode = FocusNode();
+  Object? _value = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +33,37 @@ class DeliverySalesOrderDescriptionPage extends StatelessWidget {
           backgroundColor: Colors.white,
           shadowColor: Colors.white,
           bottomOpacity: 1,
-          iconTheme: IconThemeData(color: Colors.black)),
+          iconTheme: IconThemeData(color: Colors.black),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  if (firstController.text != '') {
+                    saveOrder();
+                  } else {
+                    Alert(
+                      context: context,
+                      type: AlertType.warning,
+                      title: "Извините",
+                      desc: "Заполните все поля!",
+                      buttons: [
+                        DialogButton(
+                          child: Text(
+                            "Ок",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                          color: Colors.red,
+                        ),
+                      ],
+                    ).show();
+                  }
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Text('Сохранить',
+                      style: TextStyle(color: AppColors.green, fontSize: 14)),
+                ))
+          ]),
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -36,7 +78,7 @@ class DeliverySalesOrderDescriptionPage extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 6.0),
-                        child: Text("Заказ  №" + order.id.toString(),
+                        child: Text("Заказ  №" + widget.order.id.toString(),
                             style: TextStyle(
                                 color: AppColors.green,
                                 fontWeight: FontWeight.bold,
@@ -45,10 +87,10 @@ class DeliverySalesOrderDescriptionPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
-                          order.date +
-                              (order.status == 1
+                          widget.order.date +
+                              (widget.order.status == 1
                                   ? " - новый"
-                                  : order.status == 2
+                                  : widget.order.status == 2
                                       ? " - в обработке"
                                       : " - доставлен"),
                           style: TextStyle(
@@ -66,13 +108,113 @@ class DeliverySalesOrderDescriptionPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
-                          order.counterpartyName,
+                          widget.order.counterpartyName,
                           style: TextStyle(fontSize: 16),
                         ),
                       ),
                       getDivider(),
                       Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Text(
+                          "Статус",
+                          style: TextStyle(
+                              color: AppColors.presentationGray, fontSize: 16),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 0),
+                        child: SizedBox(
+                          height: 50,
+                          child: InputDecorator(
+                              decoration: InputDecoration(
+                                labelStyle: TextStyle(color: Colors.black),
+                              ),
+                              isEmpty: false,
+                              child: DropdownButtonHideUnderline(
+                                  child: DropdownButton(
+                                      value: _value,
+                                      items: [
+                                        DropdownMenuItem(
+                                          child: Text('Доставка'),
+                                          value: 1,
+                                        ),
+                                        DropdownMenuItem(
+                                          child: Text('Возврат'),
+                                          value: 2,
+                                        ),
+                                      ],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _value = value;
+                                        });
+                                      },
+                                      hint: Text("Торговая точка")))),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: Text(
+                          "Дата доставки",
+                          style: TextStyle(
+                              color: AppColors.presentationGray, fontSize: 16),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 0),
+                        child: Container(
+                          child: TextFormField(
+                            readOnly: true,
+                            controller: firstController,
+                            cursorColor: Colors.black,
+                            enableSuggestions: false,
+                            autocorrect: false,
+                            maxLength: 30,
+                            decoration: InputDecoration(
+                              suffixIcon: GestureDetector(
+                                onTap: () async {
+                                  final DateTime? newDate =
+                                      await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime(2020, 11, 17),
+                                    firstDate: DateTime(2017, 1),
+                                    lastDate: DateTime(2022, 7),
+                                    helpText: 'Выберите дату',
+                                  );
+                                  firstController.text =
+                                      newDate.toString().substring(0, 10);
+                                },
+                                child: Icon(
+                                  Icons.calendar_today,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              labelStyle: TextStyle(
+                                  color: firstFocusNode.hasFocus
+                                      ? AppColors.gold
+                                      : Colors.grey),
+                              focusColor: Colors.grey,
+                              fillColor: Colors.grey,
+                              counterText: "",
+                              // labelText: "Дата заказа",
+                              // enabledBorder: OutlineInputBorder(
+                              //     borderRadius: BorderRadius.circular(5),
+                              //     borderSide: BorderSide(
+                              //         color: Colors.grey, width: 1)),
+                              // focusedBorder: OutlineInputBorder(
+                              //     borderSide: BorderSide(
+                              //         color: AppColors.gold, width: 1))
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Заполните это поле';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
                         child: Text(
                           "Сумма",
                           style: TextStyle(
@@ -82,7 +224,23 @@ class DeliverySalesOrderDescriptionPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 6.0),
                         child: Text(
-                          order.total.toString() + " ₸",
+                          widget.order.total.toString() + " ₸",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                      getDivider(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Text(
+                          "Комментарии",
+                          style: TextStyle(
+                              color: AppColors.presentationGray, fontSize: 16),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 6.0),
+                        child: Text(
+                          widget.order.counterpartyName,
                           style: TextStyle(fontSize: 16),
                         ),
                       ),
@@ -95,7 +253,7 @@ class DeliverySalesOrderDescriptionPage extends StatelessWidget {
                               color: AppColors.presentationGray, fontSize: 16),
                         ),
                       ),
-                      for (var i in order.productOrder)
+                      for (var i in widget.order.productOrder)
                         Padding(
                           padding: const EdgeInsets.only(top: 18.0),
                           child: Row(
@@ -132,28 +290,6 @@ class DeliverySalesOrderDescriptionPage extends StatelessWidget {
     );
   }
 
-  Widget getMeaningOrder(String text, String price) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 18.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(
-              child: Text(
-            text,
-            style: TextStyle(fontSize: 18),
-            maxLines: 5,
-            softWrap: true,
-          )),
-          Padding(
-            padding: const EdgeInsets.only(left: 6),
-            child: Text(price, style: TextStyle(fontSize: 18)),
-          )
-        ],
-      ),
-    );
-  }
-
   Widget getDivider() {
     return Divider(
       color: AppColors.presentationGray,
@@ -161,22 +297,8 @@ class DeliverySalesOrderDescriptionPage extends StatelessWidget {
       endIndent: 1,
     );
   }
-}
 
-// Row(
-//   children: [
-//     Icon(
-//       Icons.close,
-//       color: AppColors.presentationGray,
-//       size: 26,
-//     ),
-//     Padding(
-//       padding: const EdgeInsets.only(left: 24.0),
-//       child: Text(
-//         "Подробнее",
-//         style: TextStyle(
-//             fontWeight: FontWeight.bold, fontSize: 22),
-//       ),
-//     ),
-//   ],
-// ),
+  void saveOrder() async {
+    print('Save');
+  }
+}
