@@ -89,9 +89,10 @@ class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
         GestureDetector(
           onTap: () {},
           child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              // child: Icon(Icons.search, color: Colors.black,),
-              child: searchBar.getSearchAction(context)),
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Container(),
+            // child: searchBar.getSearchAction(context)
+          ),
         ),
       ],
       // title: new Text('My Home Page'),

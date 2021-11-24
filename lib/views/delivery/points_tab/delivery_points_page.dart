@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/models/point_model.dart';
 import 'package:mobile/services/courier_api_provider.dart';
 import 'package:mobile/views/sales_rep/points_tab/point_item.dart';
 
@@ -12,6 +13,7 @@ class DeliveryPointsMainPage extends StatefulWidget {
 }
 
 class _DeliveryPointsMainPageState extends State<DeliveryPointsMainPage> {
+  List<Point> points = [];
   @override
   void initState() {
     getPoints();
@@ -23,9 +25,9 @@ class _DeliveryPointsMainPageState extends State<DeliveryPointsMainPage> {
     return Container(
       child: ListView.builder(
           padding: const EdgeInsets.all(8),
-          itemCount: 20,
+          itemCount: points.length,
           itemBuilder: (BuildContext context, int index) {
-            return DeliveryPointItem();
+            return DeliveryPointItem(point: points[index]);
           }),
     );
   }
@@ -34,6 +36,13 @@ class _DeliveryPointsMainPageState extends State<DeliveryPointsMainPage> {
     var response = await CourierProvider().getPoints();
     if (response['status'] == 'ok') {
       print(response);
+      List<Point> ordersFromRes = [];
+      for (var i in response['data']) {
+        ordersFromRes.add(Point.fromJson(i));
+      }
+      setState(() {
+        points = ordersFromRes;
+      });
     }
   }
 }

@@ -80,10 +80,13 @@ class _DeliverySalesOrderItemState extends State<DeliverySalesOrderItem> {
                       ],
                     ),
                     widget.order.status == 1
-                        ? getStateButton(AppColors.lightRed, "Новый")
+                        ? getStateButton(
+                            AppColors.lightRed, "Новый", Colors.red[900])
                         : widget.order.status == 2
-                            ? getStateButton(AppColors.yellow, "В обработке")
-                            : getStateButton(AppColors.lightGreen, "Доставлен")
+                            ? getStateButton(AppColors.yellow, "В обработке",
+                                Colors.yellow[900])
+                            : getStateButton(AppColors.lightGreen, "Доставлен",
+                                Colors.green[900])
                   ],
                 ),
               )
@@ -102,11 +105,14 @@ class _DeliverySalesOrderItemState extends State<DeliverySalesOrderItem> {
     );
   }
 
-  Widget getStateButton(Color color, String text) {
+  Widget getStateButton(Color color, String text, Color? textColor) {
     return Container(
         padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
         decoration: BoxDecoration(
             color: color, borderRadius: BorderRadius.all(Radius.circular(20))),
-        child: Text(text));
+        child: Text(
+          text,
+          style: TextStyle(fontWeight: FontWeight.w800, color: textColor),
+        ));
   }
 }

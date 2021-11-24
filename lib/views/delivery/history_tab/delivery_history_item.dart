@@ -5,6 +5,8 @@ import 'package:mobile/views/delivery/order_tab/delivery_saled_order_description
 import 'package:mobile/views/sales_rep/order_page/saled_order_description_page.dart';
 import 'package:mobile/views/utills/const.dart';
 
+import 'delivery_history_order_desc_page.dart';
+
 class DeliveryHistoryItem extends StatefulWidget {
   const DeliveryHistoryItem({Key? key, required this.order}) : super(key: key);
   final OrderSalesRep order;
@@ -27,7 +29,7 @@ class _DeliveryHistoryItemState extends State<DeliveryHistoryItem> {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    DeliverySalesOrderDescriptionPage(order: widget.order)));
+                    DeliveryHistoryOrderDescriptionPage(order: widget.order)));
       },
       child: Card(
         elevation: 3,
@@ -38,13 +40,13 @@ class _DeliveryHistoryItemState extends State<DeliveryHistoryItem> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Заказ №45565",
+                "Заказ №" + widget.order.id.toString(),
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 9.0),
                 child: Text(
-                  'Бегалиев 5, Морошкин магазин',
+                  widget.order.counterpartyName,
                   style: TextStyle(fontSize: 18),
                 ),
               ),
@@ -57,7 +59,8 @@ class _DeliveryHistoryItemState extends State<DeliveryHistoryItem> {
                             fontSize: 18, color: AppColors.presentationGray)),
                     Padding(
                       padding: const EdgeInsets.only(left: 4.0),
-                      child: Text("3 000 ₸", style: TextStyle(fontSize: 18)),
+                      child: Text(widget.order.total.toString() + " ₸",
+                          style: TextStyle(fontSize: 18)),
                     )
                   ],
                 ),
@@ -90,16 +93,26 @@ class _DeliveryHistoryItemState extends State<DeliveryHistoryItem> {
                         Padding(
                           padding: const EdgeInsets.only(left: 6.0),
                           child: Text(
-                            "27.09.2021 14:31",
+                            widget.order.date,
                             style: TextStyle(color: AppColors.presentationGray),
                           ),
                         )
                       ],
                     ),
-                    getStateButton(AppColors.lightRed, "Новый")
+                    widget.order.status == 1
+                        ? getStateButton(
+                            AppColors.lightRed, "Новый", Colors.red[900])
+                        : widget.order.status == 2
+                            ? getStateButton(AppColors.yellow, "В обработке",
+                                Colors.yellow[900])
+                            : widget.order.status == 3
+                                ? getStateButton(AppColors.lightGreen,
+                                    "Доставлен", Colors.green[900])
+                                : getStateButton(AppColors.lightRed, "Возврат",
+                                    Colors.red[900])
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -115,11 +128,12 @@ class _DeliveryHistoryItemState extends State<DeliveryHistoryItem> {
     );
   }
 
-  Widget getStateButton(Color color, String text) {
+  Widget getStateButton(Color color, String text, Color? textColor) {
     return Container(
         padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
         decoration: BoxDecoration(
             color: color, borderRadius: BorderRadius.all(Radius.circular(20))),
-        child: Text(text));
+        child: Text(text,
+            style: TextStyle(color: textColor, fontWeight: FontWeight.w800)));
   }
 }

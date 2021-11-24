@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/models/point_model.dart';
 import 'package:mobile/views/sales_rep/points_tab/point_creating_page.dart';
 import 'package:mobile/views/utills/const.dart';
 
+import 'delivery_point_desc_page.dart';
+
 class DeliveryPointItem extends StatefulWidget {
-  const DeliveryPointItem({Key? key}) : super(key: key);
+  const DeliveryPointItem({Key? key, required this.point}) : super(key: key);
+  final Point point;
 
   @override
   _DeliveryPointItemState createState() => _DeliveryPointItemState();
@@ -14,8 +18,11 @@ class _DeliveryPointItemState extends State<DeliveryPointItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => PointCreatingPage()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    DeliveryPointDescriptionPage(point: widget.point)));
       },
       child: Card(
         elevation: 3,
@@ -30,7 +37,7 @@ class _DeliveryPointItemState extends State<DeliveryPointItem> {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      "Код: 465",
+                      "Код: " + widget.point.binIin,
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
@@ -41,7 +48,7 @@ class _DeliveryPointItemState extends State<DeliveryPointItem> {
                       Padding(
                         padding: const EdgeInsets.only(left: 6.0),
                         child: Text(
-                          "Долг: 50 000 тг",
+                          "Долг: " + widget.point.debt.toString() + " тг",
                           style: TextStyle(
                               color: Colors.black, fontWeight: FontWeight.w600),
                         ),
@@ -62,7 +69,7 @@ class _DeliveryPointItemState extends State<DeliveryPointItem> {
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
-                        'Бегалиев 5, Морошкин магазинa',
+                        widget.point.name,
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
