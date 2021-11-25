@@ -10,19 +10,24 @@ class OrderSalesRep {
   int courier = 0;
   int total = 0;
   String counterpartyName = '';
+  String comment = '';
+  int paymentType = 0;
 
-  OrderSalesRep(
-      {required this.id,
-      required this.productOrder,
-      required this.counterparty,
-      required this.date,
-      required this.typeOrder,
-      required this.status,
-      required this.deliveredDate,
-      required this.typeDelivery,
-      required this.courier,
-      required this.total,
-      required this.counterpartyName});
+  OrderSalesRep({
+    required this.id,
+    required this.productOrder,
+    required this.counterparty,
+    required this.date,
+    required this.typeOrder,
+    required this.status,
+    required this.deliveredDate,
+    required this.typeDelivery,
+    required this.courier,
+    required this.total,
+    required this.counterpartyName,
+    required this.comment,
+    required this.paymentType,
+  });
 
   OrderSalesRep.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -38,6 +43,8 @@ class OrderSalesRep {
     courier = json['courier'];
     total = json['total'];
     counterpartyName = json['counterparty']['name'];
+    comment = json['comment'];
+    paymentType = json['type_payment'];
   }
 
   Map<String, dynamic> toJson() {
@@ -52,6 +59,8 @@ class OrderSalesRep {
     data['type_delivery'] = this.typeDelivery;
     data['courier'] = this.courier;
     data['total'] = this.total;
+    data['comment'] = this.comment;
+    data['type_payment'] = this.paymentType;
     return data;
   }
 }

@@ -35,7 +35,6 @@ class _DeliveryPointsMainPageState extends State<DeliveryPointsMainPage> {
   void getPoints() async {
     var response = await CourierProvider().getPoints();
     if (response['status'] == 'ok') {
-      print(response);
       List<Point> ordersFromRes = [];
       for (var i in response['data']) {
         ordersFromRes.add(Point.fromJson(i));

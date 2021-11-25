@@ -77,7 +77,7 @@ class DeliveryHistoryOrderDescriptionPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
-                          order.counterparty['role'].toString(),
+                          order.counterparty['id'].toString(),
                           style: TextStyle(fontSize: 16),
                         ),
                       ),
@@ -147,7 +147,7 @@ class DeliveryHistoryOrderDescriptionPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
-                          order.deliveredDate,
+                          order.comment,
                           style: TextStyle(fontSize: 16),
                         ),
                       ),

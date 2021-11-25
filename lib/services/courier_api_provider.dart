@@ -6,24 +6,31 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CourierProvider {
   String API_URL = AppConstants.baseUrl;
 
-  Future<dynamic> registration(String phone) async {
+  Future<Map<String, dynamic>> saveOrder(
+      int id, String comment, int status) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
     final response = await http.post(
-      Uri.parse(API_URL + 'users/phone/otp/'),
+      Uri.parse(API_URL + 'order/courier/order/change/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
+        'Authorization': "Token $token"
       },
       body: jsonEncode(<String, dynamic>{
-        "phone": phone,
+        "id": id,
+        "comment": comment,
+        "status": status,
       }),
     );
 
     if (response.statusCode == 200) {
-      Map<String, dynamic> result =
+      Map<String, dynamic> data =
           jsonDecode(utf8.decode(response.body.codeUnits));
+      Map<String, dynamic> result = {'status': 'ok', 'data': data};
       return result;
     } else {
-      return 'Error';
+      return {'status': 'Error'};
     }
   }
 

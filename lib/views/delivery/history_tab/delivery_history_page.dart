@@ -46,7 +46,6 @@ class _DeliveryOrderHistoryPageState extends State<DeliveryOrderHistoryPage>
 
   void getHistoryOrders() async {
     var response = await CourierProvider().getHistoryOrders();
-    // print(response);
     if (response['status'] == 'ok') {
       List<OrderSalesRep> ordersFromRes = [];
       for (var i in response['data']) {

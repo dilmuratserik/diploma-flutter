@@ -10,7 +10,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-
   bool _switchValue1 = false;
   bool _switchValue2 = false;
 
@@ -20,7 +19,7 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-          title: Text( "Настройки",
+          title: Text("Настройки",
               style: TextStyle(color: Colors.black, fontSize: 18)),
           brightness: Brightness.light,
           automaticallyImplyLeading: true,
@@ -41,7 +40,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                  "Включить уведомление?",
+                      "Включить уведомление?",
                       style: TextStyle(fontSize: 18),
                     ),
                     Switch(
@@ -67,9 +66,12 @@ class _SettingsPageState extends State<SettingsPage> {
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Отключить код быстрого доступа?",
-                      style: TextStyle(fontSize: 18),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.72,
+                      child: Text(
+                        "Отключить код быстрого доступа?",
+                        style: TextStyle(fontSize: 18),
+                      ),
                     ),
                     Switch(
                         value: _switchValue2,
@@ -91,17 +93,19 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget getMenuText(String title) {
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 12),
-        child:
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(
-            title,
-            style: TextStyle(fontSize: 18),
+        child: Row(children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.72,
+            child: Text(
+              title,
+              style: TextStyle(fontSize: 18),
+            ),
           ),
+          Spacer(),
           Icon(
             Icons.arrow_forward_ios_outlined,
             size: 16,
           ),
         ]));
   }
-
 }

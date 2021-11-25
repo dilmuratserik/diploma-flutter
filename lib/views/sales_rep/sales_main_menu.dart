@@ -5,7 +5,7 @@ import 'package:mobile/views/delivery/order_tab/delivery_sales_order_page.dart';
 import 'package:mobile/views/delivery/points_tab/delivery_points_page.dart';
 import 'package:mobile/views/map_page.dart';
 import 'package:mobile/views/sales_rep/points_tab/points_main_page.dart';
-import 'package:mobile/views/sales_rep/settings/settings_page,dart.dart';
+import 'package:mobile/views/sales_rep/settings/settings_page.dart';
 import 'package:mobile/views/sales_rep/visits_tab/visits_main_page.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'home_page/sales_home_page.dart';

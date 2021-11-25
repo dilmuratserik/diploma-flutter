@@ -74,7 +74,16 @@ class _DeliveryHistoryItemState extends State<DeliveryHistoryItem> {
                             fontSize: 18, color: AppColors.presentationGray)),
                     Padding(
                       padding: const EdgeInsets.only(left: 4.0),
-                      child: Text("Наличные", style: TextStyle(fontSize: 18)),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.53,
+                        child: Text(
+                            widget.order.paymentType == 1
+                                ? 'Наличными'
+                                : widget.order.paymentType == 2
+                                    ? 'Картой Visa/MasterCard'
+                                    : 'Оплата в системе Kaspi.kz',
+                            style: TextStyle(fontSize: 18)),
+                      ),
                     )
                   ],
                 ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mobile/models/order_sales_rep_model.dart';
 import 'package:mobile/services/courier_api_provider.dart';
@@ -19,15 +21,17 @@ class DeliverySalesOrderPage extends StatefulWidget {
 class _DeliverySalesOrderPageState extends State<DeliverySalesOrderPage>
     with TickerProviderStateMixin {
   List<OrderSalesRep> orders = [];
+  Timer? timer;
 
   @override
   void initState() {
-    getOrders();
+    timer = Timer.periodic(const Duration(seconds: 2), (timer) => getOrders());
     super.initState();
   }
 
   @override
   void dispose() {
+    timer?.cancel();
     super.dispose();
   }
 
