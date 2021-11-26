@@ -6,6 +6,7 @@ import 'package:mobile/services/profile_api_provider.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mobile/views/utills/utill.dart' as utill;
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class AddNewAddressPage extends StatefulWidget {
   const AddNewAddressPage({Key? key, required this.address}) : super(key: key);
@@ -29,6 +30,42 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
   FocusNode fifthFocusNode = FocusNode();
 
   GlobalKey<FormState> _globalKey = GlobalKey();
+  late String _selectedCity;
+
+  List<String> suggestions = [
+    "Apple",
+    "Armidillo",
+    "Actual",
+    "Actuary",
+    "America",
+    "Argentina",
+    "Australia",
+    "Antarctica",
+    "Blueberry",
+    "Cheese",
+    "Danish",
+    "Eclair",
+    "Fudge",
+    "Granola",
+    "Hazelnut",
+    "Ice Cream",
+    "Jely",
+    "Kiwi Fruit",
+    "Lamb",
+    "Macadamia",
+    "Nachos",
+    "Oatmeal",
+    "Palm Oil",
+    "Quail",
+    "Rabbit",
+    "Salad",
+    "T-Bone Steak",
+    "Urid Dal",
+    "Vanilla",
+    "Waffles",
+    "Yam",
+    "Zest"
+  ];
 
   @override
   void initState() {
@@ -68,42 +105,108 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
             child: Column(children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                child: Container(
-                  child: TextFormField(
-                    onTap: () {
-                      firstFocusNode.requestFocus();
-                      secondFocusNode.unfocus();
-                      thirdFocusNode.unfocus();
-                      fourthFocusNode.unfocus();
-                      fifthFocusNode.unfocus();
-                      setState(() {});
-                    },
-                    focusNode: firstFocusNode,
-                    controller: firstController,
-                    cursorColor: Colors.black,
-                    maxLength: 30,
-                    decoration: InputDecoration(
-                        labelStyle: TextStyle(
-                            color: firstFocusNode.hasFocus
-                                ? AppColors.gold
-                                : Colors.grey),
-                        focusColor: Colors.grey,
-                        fillColor: Colors.grey,
-                        counterText: "",
-                        labelText: "Улица",
-                        focusedErrorBorder: utill.errorBorder,
-                        errorBorder: utill.errorBorder,
-                        enabledBorder: utill.enabledBorder,
-                        focusedBorder: utill.enabledBorder),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Заполните это поле';
-                      }
-                      return null;
-                    },
-                  ),
+                child: Column(
+                  children: <Widget>[
+                    TypeAheadFormField(
+                      textFieldConfiguration: TextFieldConfiguration(
+                        controller: this.firstController,
+                        onTap: () {
+                          firstFocusNode.requestFocus();
+                          secondFocusNode.unfocus();
+                          thirdFocusNode.unfocus();
+                          fourthFocusNode.unfocus();
+                          fifthFocusNode.unfocus();
+                          setState(() {});
+                        },
+                        focusNode: firstFocusNode,
+                        cursorColor: Colors.black,
+                        maxLength: 30,
+                        decoration: InputDecoration(
+                            labelStyle: TextStyle(
+                                color: firstFocusNode.hasFocus
+                                    ? AppColors.gold
+                                    : Colors.grey),
+                            focusColor: Colors.grey,
+                            fillColor: Colors.grey,
+                            counterText: "",
+                            labelText: "Улица",
+                            focusedErrorBorder: utill.errorBorder,
+                            errorBorder: utill.errorBorder,
+                            enabledBorder: utill.enabledBorder,
+                            focusedBorder: utill.enabledBorder),
+                      ),
+                      suggestionsCallback: (pattern) {
+                        List<String> list = [];
+                        for (var i in suggestions) {
+                          if (i.contains(pattern)) {
+                            list.add(i);
+                          }
+                        }
+                        return list;
+                      },
+                      itemBuilder: (context, suggestion) {
+                        return ListTile(
+                          title: Text(suggestion.toString()),
+                        );
+                      },
+                      transitionBuilder: (context, suggestionsBox, controller) {
+                        return suggestionsBox;
+                      },
+                      onSuggestionSelected: (suggestion) {
+                        print(suggestion);
+                        this.firstController.text = suggestion.toString();
+                      },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Заполните это поле';
+                        }
+                      },
+                      onSaved: (value) => this._selectedCity = value!,
+                      noItemsFoundBuilder: (BuildContext context) {
+                        return Text("");
+                      },
+                    ),
+                  ],
                 ),
               ),
+              // Padding(
+              //   padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+              //   child: Container(
+              //     child: TextFormField(
+              //       onTap: () {
+              //         firstFocusNode.requestFocus();
+              //         secondFocusNode.unfocus();
+              //         thirdFocusNode.unfocus();
+              //         fourthFocusNode.unfocus();
+              //         fifthFocusNode.unfocus();
+              //         setState(() {});
+              //       },
+              //       focusNode: firstFocusNode,
+              //       controller: firstController,
+              //       cursorColor: Colors.black,
+              //       maxLength: 30,
+              //       decoration: InputDecoration(
+              //           labelStyle: TextStyle(
+              //               color: firstFocusNode.hasFocus
+              //                   ? AppColors.gold
+              //                   : Colors.grey),
+              //           focusColor: Colors.grey,
+              //           fillColor: Colors.grey,
+              //           counterText: "",
+              //           labelText: "Улица",
+              //           focusedErrorBorder: utill.errorBorder,
+              //           errorBorder: utill.errorBorder,
+              //           enabledBorder: utill.enabledBorder,
+              //           focusedBorder: utill.enabledBorder),
+              //       validator: (value) {
+              //         if (value!.isEmpty) {
+              //           return 'Заполните это поле';
+              //         }
+              //         return null;
+              //       },
+              //     ),
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                 child: Container(
@@ -257,39 +360,47 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
                 ),
               ),
               Spacer(),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  right: 10,
-                  top: 10,
+              Visibility(
+                visible: widget.address != null ? true : false,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 10,
+                    right: 10,
+                    top: 10,
+                  ),
+                  child: getButton('УДАЛИТЬ', () {
+                    deleteAddress(widget.address!.id);
+                  }),
                 ),
-                child: getButton('УДАЛИТЬ', () {
-                  deleteAddress(widget.address!.id);
-                }),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
-                child: getButton('СОХРАНИТЬ', () {
-                  validate();
+                child: widget.address == null
+                    ? getButton('СОХРАНИТЬ', () {
+                        if (_globalKey.currentState!.validate()) {
+                          addNewAddress(
+                              firstController.text,
+                              secondController.text,
+                              int.parse(thirdController.text),
+                              int.parse(fourthController.text),
+                              int.parse(fifthController.text));
+                        }
+                      })
+                    : getButton("ИЗМЕНИТЬ", () {
+                  if (_globalKey.currentState!.validate()) {
+                    changeAddress(
+                        widget.address!.id,
+                        firstController.text,
+                        int.parse(secondController.text),
+                        int.parse(thirdController.text),
+                        int.parse(fourthController.text),
+                        int.parse(fifthController.text));
+                  }
                 }),
               ),
             ]),
           ),
         ));
-  }
-
-  void validate() {
-    if (_globalKey.currentState!.validate()) {
-      print("validated");
-      // addNewAddress(
-      //     firstController.text,
-      //     int.parse(secondController.text),
-      //     int.parse(thirdController.text),
-      //     int.parse(fourthController.text),
-      //     int.parse(fifthController.text));
-    } else {
-      print("not validate");
-    }
   }
 
   void deleteAddress(int id) async {
@@ -308,11 +419,30 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
   }
 
   void addNewAddress(
-      String street, int house, int floor, int apartment, int entrance) async {
+      String street, String house, int floor, int apartment, int entrance) async {
     Map<String, dynamic> response = await ProfileProvider()
         .addNewAddress(street, house, floor, apartment, entrance);
+    print(street);
 
     if (response['status'] != 'Error') {
+      print("resposnse " + response.toString());
+      final snackBar = SnackBar(content: Text('Данные изменены'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else {
+      final snackBar = SnackBar(
+          content:
+              Text('Проверьте соединение с интернетом, или повторите позже!'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
+  void changeAddress(
+      int id,
+      String street, int house, int floor, int apartment, int entrance) async {
+    String response = await ProfileProvider().changeAddress(
+        id, street, house, floor, apartment, entrance);
+
+    if (response != 'Error') {
       print("resposnse " + response.toString());
       final snackBar = SnackBar(content: Text('Данные изменены'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);

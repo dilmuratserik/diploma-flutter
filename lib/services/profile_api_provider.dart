@@ -144,13 +144,13 @@ class ProfileProvider {
       },
     );
 
-    print(response);
-    print(response.body);
-    print("response code" + response.statusCode.toString());
+    // print(response);
+    // print(response.body);
+    // print("response code" + response.statusCode.toString());
 
     if (response.statusCode == 200) {
       List<dynamic> result = jsonDecode(response.body);
-      print(result);
+      // print(result);
       return result;
     } else {
       return [{'status': 'Error'}];
@@ -158,7 +158,7 @@ class ProfileProvider {
   }
 
 
-  Future<Map<String,dynamic>> addNewAddress(String street, int house, int floor, int apartment, int entrance) async {
+  Future<Map<String,dynamic>> addNewAddress(String street, String house, int floor, int apartment, int entrance) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
     print(token);
@@ -234,8 +234,12 @@ class ProfileProvider {
       "entrance": entrance,
     };
 
+    // if (floor != null) bodyDic["floor"] = floor;
+    // if (apartment != null) bodyDic["apartment"] = apartment;
+    // if (entrance != null) bodyDic["entrance"] = entrance;
+    print(id);
     final response = await http.put(
-      Uri.parse(API_URL + 'location/my/address/' + id.toString()+"/"),
+      Uri.parse(API_URL + 'location/my/address/change/' + id.toString()),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',

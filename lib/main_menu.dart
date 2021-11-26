@@ -8,12 +8,7 @@ import 'package:mobile/views/home/home_page.dart';
 import 'package:mobile/views/home/search_page.dart';
 import 'package:mobile/views/map_page.dart';
 import 'package:mobile/views/profile/profile_page.dart';
-import 'package:mobile/views/sales_rep/list_of_payments_page.dart/list_of_payments_page.dart';
-import 'package:mobile/views/sales_rep/order_page/sales_order_page.dart';
-import 'package:mobile/views/sales_rep/points_tab/points_main_page.dart';
-import 'package:mobile/views/sales_rep/home_page/sales_home_page.dart';
 import 'package:mobile/views/sales_rep/settings/settings_page.dart';
-import 'package:mobile/views/sales_rep/visits_tab/visits_main_page.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -96,14 +91,14 @@ class _MainMenuPageState extends State<MainMenuPage> {
         _pageNames[_selectedIndex],
         style: TextStyle(color: AppColors.green),
       ),
-      leading: GestureDetector(
-          onTap: () {
-            _key.currentState!.openDrawer();
-          },
-          child: Icon(
-            Icons.menu,
-            color: Colors.black45,
-          )),
+      // leading: GestureDetector(
+      //     onTap: () {
+      //       _key.currentState!.openDrawer();
+      //     },
+      //     child: Icon(
+      //       Icons.menu,
+      //       color: Colors.black45,
+      //     )),
       actions: [
         GestureDetector(
           onTap: () {},
@@ -144,107 +139,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
       key: _key,
       appBar: searchBar.build(context),
       body: _widgetOptions.elementAt(_selectedIndex),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            Container(
-              height: 125,
-              padding: EdgeInsets.only(top: 60, left: 20, bottom: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 4),
-                    child: Text(
-                      name,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Text("+" + phone,
-                      style: TextStyle(
-                          color: AppColors.presentationGray, fontSize: 15))
-                ],
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.payments),
-              title: const Text(
-                "Список оплат",
-                style: TextStyle(fontSize: 16),
-              ),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.my_location),
-              title:
-                  const Text("Карта объектов", style: TextStyle(fontSize: 16)),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MapPage()));
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: const Text("Настройки", style: TextStyle(fontSize: 16)),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SettingsPage()));
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: const Text("Выйти", style: TextStyle(fontSize: 16)),
-              onTap: () {
-                Navigator.pop(context);
-                Alert(
-                  context: context,
-                  type: AlertType.warning,
-                  title: "Внимание",
-                  desc: "Вы точно хотите выйти?",
-                  buttons: [
-                    DialogButton(
-                      child: Text(
-                        "Да",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                      onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignInPage()),
-                            (Route<dynamic> route) => false);
-                        AppConstants.isSignIn = false;
-                      },
-                      color: Colors.red,
-                    ),
-                    DialogButton(
-                      child: Text(
-                        "Нет",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      color: Colors.grey,
-                    ),
-                  ],
-                ).show();
-              },
-            ),
-          ],
-        ),
-      ),
+
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[

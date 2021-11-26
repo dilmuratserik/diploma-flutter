@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile/components/address_item.dart';
 import 'package:mobile/models/Address.dart';
+import 'package:mobile/services/place_services.dart';
 import 'package:mobile/services/profile_api_provider.dart';
 import 'package:mobile/views/utills/const.dart';
+import 'package:uuid/uuid.dart';
 
 import 'add_new_address.dart';
 
@@ -68,6 +70,15 @@ class _AddressesPageState extends State<AddressesPage> {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 40),
                 child: Center(child: getButton('ДОБАВИТЬ АДРЕС')),
               ),
+              GestureDetector(
+                  onTap: ()async {
+                    final sessionToken = Uuid().v4();
+                    final List<Suggestion> result =
+                    await PlaceApiProvider(sessionToken)
+                        .fetchSuggestions("al", "en");
+                    print(result);
+                  },
+                  child: Text("asdasd"))
             ],
           ),
         ));
@@ -96,8 +107,7 @@ class _AddressesPageState extends State<AddressesPage> {
 
 
   void getAddresses() async {
-    // Map<String, dynamic> response =
-    List<dynamic> response =await ProfileProvider().getAddresses();
+     List<dynamic> response =await ProfileProvider().getAddresses();
 
     if (response[0]["status"] != 'Error') {
       setState(() {
