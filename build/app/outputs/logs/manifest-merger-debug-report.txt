@@ -10,6 +10,7 @@ MERGED from [:image_picker] D:\projects\flutter\galleon\mobile\build\image_picke
 MERGED from [:flutter_plugin_android_lifecycle] D:\projects\flutter\galleon\mobile\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:connectivity] D:\projects\flutter\galleon\mobile\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:shared_preferences] D:\projects\flutter\galleon\mobile\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:flutter_keyboard_visibility] D:\projects\flutter\galleon\mobile\build\flutter_keyboard_visibility\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.exifinterface:exifinterface:1.3.0] C:\Users\Sultan\.gradle\caches\transforms-2\files-2.1\699f67f2d72ad9902250b3e1c41f0647\exifinterface-1.3.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\Sultan\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:17:1-38:12
 MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Sultan\.gradle\caches\transforms-2\files-2.1\7c879cb157fab2c9a5d74c3d70fd64e3\jetified-play-services-base-17.0.0\AndroidManifest.xml:17:1-29:12
@@ -131,6 +132,8 @@ MERGED from [:connectivity] D:\projects\flutter\galleon\mobile\build\connectivit
 MERGED from [:connectivity] D:\projects\flutter\galleon\mobile\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:shared_preferences] D:\projects\flutter\galleon\mobile\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:shared_preferences] D:\projects\flutter\galleon\mobile\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_keyboard_visibility] D:\projects\flutter\galleon\mobile\build\flutter_keyboard_visibility\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_keyboard_visibility] D:\projects\flutter\galleon\mobile\build\flutter_keyboard_visibility\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [androidx.exifinterface:exifinterface:1.3.0] C:\Users\Sultan\.gradle\caches\transforms-2\files-2.1\699f67f2d72ad9902250b3e1c41f0647\exifinterface-1.3.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.exifinterface:exifinterface:1.3.0] C:\Users\Sultan\.gradle\caches\transforms-2\files-2.1\699f67f2d72ad9902250b3e1c41f0647\exifinterface-1.3.0\AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\Sultan\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:20:5-44

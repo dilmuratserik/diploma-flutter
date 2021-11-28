@@ -36,7 +36,7 @@ createAlertDialog(BuildContext context) {
                 width: MediaQuery.of(context).size.width - 40,
                 height: MediaQuery.of(context).size.height / 6,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text("Загрузка"),
@@ -50,6 +50,26 @@ createAlertDialog(BuildContext context) {
                   ],
                 )));
       });
+}
+
+String? validatePassword(String password) {
+  RegExp regexDigit = RegExp(r'[0-9]$');
+  RegExp regexLetter = RegExp("");
+  if (password.isEmpty) {
+    return 'Введите пароль';
+  } else {
+    if (password.length <8) {
+      return 'Пароль должен содержать не менее 8 символов';
+    }
+    else if (!regexLetter.hasMatch(password)) {
+      return 'Пароль должен содержать как минимум одну букву';
+    }
+    else if (!regexDigit.hasMatch(password)) {
+      return 'Пароль должен содержать как минимум одну цифру';
+    }else {
+      return null;
+    }
+  }
 }
 
 var errorBorder = OutlineInputBorder(
