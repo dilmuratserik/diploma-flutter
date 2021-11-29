@@ -10,6 +10,7 @@ import 'package:mobile/views/authorization/presentation_view_pager.dart';
 import 'package:mobile/views/sales_rep/sales_main_menu.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/authorization/verification_page.dart';
+import 'package:flutter_paybox/paybox.dart';
 
 void main() {
   if (defaultTargetPlatform == TargetPlatform.android) {
@@ -51,6 +52,6 @@ class MyApp extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.black),
         ),
         home: AppConstants.isSignIn ? MainMenuPage() : SignInPage());
-     // home :  SalesMainMenuPage(role: 3,));
+    // home: MyHomePage());
   }
 }

@@ -69,7 +69,15 @@ class _BasketPageState extends State<BasketPage> {
                   BasketProductItem(products[index],
                       categoryTitles[products[index].product.category])),
         ),
-        Divider(),
+        products.length == 0
+            ? Center(
+                child: Text('Корзина пуста.',
+                    style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500)))
+            : Container(),
+        products.length != 0 ? Divider() : Container(),
         products.length != 0
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),

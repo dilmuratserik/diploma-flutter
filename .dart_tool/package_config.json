@@ -98,6 +98,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "dio",
+      "rootUri": "file:///Users/IMac/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/dio-4.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "dots_indicator",
       "rootUri": "file:///Users/IMac/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/dots_indicator-2.0.0",
       "packageUri": "lib/",
@@ -150,6 +156,12 @@
       "rootUri": "file:///Users/IMac/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_keyboard_visibility_web-2.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_paybox",
+      "rootUri": "file:///Users/IMac/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_paybox-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
     },
     {
       "name": "flutter_plugin_android_lifecycle",
@@ -452,6 +464,30 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "webview_flutter",
+      "rootUri": "file:///Users/IMac/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter-2.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "webview_flutter_android",
+      "rootUri": "file:///Users/IMac/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter_android-2.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "webview_flutter_platform_interface",
+      "rootUri": "file:///Users/IMac/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter_platform_interface-1.5.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "webview_flutter_wkwebview",
+      "rootUri": "file:///Users/IMac/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter_wkwebview-2.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "win32",
       "rootUri": "file:///Users/IMac/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.3.0",
       "packageUri": "lib/",
@@ -476,7 +512,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-11-26T09:26:00.131878Z",
+  "generated": "2021-11-29T03:29:51.662702Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }
