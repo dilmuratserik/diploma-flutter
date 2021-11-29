@@ -70,58 +70,64 @@ class _BasketPageState extends State<BasketPage> {
                       categoryTitles[products[index].product.category])),
         ),
         Divider(),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
-          child: Row(children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-              child: Text(amount.toString() + ' ₸',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-            ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: ElevatedButton(
-                onPressed: () {
-                  if (products.length > 0) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CheckoutPage(products)));
-                  } else {
-                    Alert(
-                      context: context,
-                      type: AlertType.error,
-                      title: "Извините",
-                      desc: "Корзина пуста!",
-                      buttons: [
-                        DialogButton(
-                          child: Text(
-                            "Понятно",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                          onPressed: () => Navigator.pop(context),
-                          color: Colors.red,
-                        ),
-                      ],
-                    ).show();
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                    primary: AppColors.green,
-                    padding: EdgeInsets.only(left: 18, right: 18),
-                    textStyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Roboto",
-                    )),
-                child: Text(
-                  "ОФОРМИТЬ ЗАКАЗ",
-                ),
-              ),
-            ),
-          ]),
-        )
+        products.length != 0
+            ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                child: Row(children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                    child: Text(amount.toString() + ' ₸',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w600)),
+                  ),
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (products.length > 0) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      CheckoutPage(products)));
+                        } else {
+                          Alert(
+                            context: context,
+                            type: AlertType.error,
+                            title: "Извините",
+                            desc: "Корзина пуста!",
+                            buttons: [
+                              DialogButton(
+                                child: Text(
+                                  "Понятно",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
+                                onPressed: () => Navigator.pop(context),
+                                color: Colors.red,
+                              ),
+                            ],
+                          ).show();
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                          primary: AppColors.green,
+                          padding: EdgeInsets.only(left: 18, right: 18),
+                          textStyle: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Roboto",
+                          )),
+                      child: Text(
+                        "ОФОРМИТЬ ЗАКАЗ",
+                      ),
+                    ),
+                  ),
+                ]),
+              )
+            : Container()
       ]),
     );
   }
