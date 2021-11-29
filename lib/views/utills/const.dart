@@ -26,6 +26,7 @@ class AppConstants {
   static String region = '';
   static String priceType = '';
   static String orderSector = '';
+  static int role = 1;
 
   static bool isSignIn = false;
   static bool isHaveLockScreen = false;

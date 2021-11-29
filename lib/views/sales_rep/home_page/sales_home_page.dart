@@ -32,7 +32,7 @@ class _SalesHomePageState extends State<SalesHomePage> {
   String region = AppConstants.region;
   String priceType = AppConstants.priceType;
   String orderSector = AppConstants.orderSector;
-  int role = 1;
+  int role = AppConstants.role;
 
   void getProfileInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -64,7 +64,7 @@ class _SalesHomePageState extends State<SalesHomePage> {
       } else {
         AppConstants.orderSector = 'Супермаркет';
       }
-      role = response["role"];
+      AppConstants.role = response["role"];
       prefs.setInt('role', role);
       if (role == 2) {
         prefs.setString("bin_iin", response["bin_iin"].toString());
@@ -74,6 +74,7 @@ class _SalesHomePageState extends State<SalesHomePage> {
         phone = response['phone'];
         ava = response['avatar'];
         region = response['locations'].toString();
+        role = response["role"];
 
         if (response['type_price'] == 1) {
           priceType = 'Розница';
