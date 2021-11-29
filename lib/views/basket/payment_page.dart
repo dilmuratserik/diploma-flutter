@@ -11,7 +11,7 @@ class PaymentPage extends StatefulWidget {
 class _PaymentPageState extends State<PaymentPage> {
   var paybox = Paybox(
     merchantId: 37292,
-    secretKey: 'pzuQqssWpoKjVh2a',
+    secretKey: 'RANoGIbcsDoPYxHY',
   );
 
   int? paymentId;
@@ -21,17 +21,22 @@ class _PaymentPageState extends State<PaymentPage> {
     paybox.configuration.testMode = true;
     paybox.configuration.currencyCode = 'KZT';
     paybox.configuration.language = Language.ru;
-    onCreatePayment();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return PaymentWidget(
-      controller: paybox.controller,
-      onPaymentDone: (success) {
-        print("Payment success");
-      },
+    return Scaffold(
+      body: PaymentWidget(
+        controller: paybox.controller,
+        onPaymentDone: (success) {
+          print("Payment success");
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: onCreatePayment,
+      ),
     );
   }
 
@@ -39,17 +44,17 @@ class _PaymentPageState extends State<PaymentPage> {
     print('Create!');
     paybox
         .createPayment(
-      amount: 1,
+      amount: 120,
       userId: "001",
-      orderId: "1",
+      orderId: "3",
       description: "Just test payment",
     )
         .then((payment) {
       if (payment != null) {
         paymentId = payment.paymentId;
       }
-    }).onError((error, stackTrace) {
-      // Handle PayboxError
+    }).onError((PayboxError error, stackTrace) {
+      print(error.description);
     });
   }
 
