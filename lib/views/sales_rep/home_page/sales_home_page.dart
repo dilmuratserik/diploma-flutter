@@ -29,9 +29,9 @@ class _SalesHomePageState extends State<SalesHomePage> {
   String name = AppConstants.name;
   String phone = AppConstants.phone;
   String ava = AppConstants.ava;
-  String region = '';
-  String priceType = '';
-  String orderSector = '';
+  String region = AppConstants.region;
+  String priceType = AppConstants.priceType;
+  String orderSector = AppConstants.orderSector;
   int role = 1;
 
   void getProfileInfo() async {
@@ -48,6 +48,22 @@ class _SalesHomePageState extends State<SalesHomePage> {
       AppConstants.name = response['name'];
       AppConstants.phone = response['phone'];
       AppConstants.ava = response['avatar'];
+      AppConstants.region = response['locations'].toString();
+      if (response['type_price'] == 1) {
+        AppConstants.priceType = 'Розница';
+      } else if (response['type_price'] == 2) {
+        AppConstants.priceType = 'Оптовый';
+      } else {
+        AppConstants.priceType = 'Спец. цена';
+      }
+
+      if (response['order_sector'] == 1) {
+        AppConstants.orderSector = 'Пивнушка';
+      } else if (response['order_sector'] == 2) {
+        AppConstants.orderSector = 'Магазин';
+      } else {
+        AppConstants.orderSector = 'Супермаркет';
+      }
       role = response["role"];
       prefs.setInt('role', role);
       if (role == 2) {

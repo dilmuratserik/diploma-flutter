@@ -25,6 +25,7 @@ class _DeliverySalesOrderPageState extends State<DeliverySalesOrderPage>
 
   @override
   void initState() {
+    getOrders();
     timer = Timer.periodic(const Duration(seconds: 2), (timer) => getOrders());
     super.initState();
   }
