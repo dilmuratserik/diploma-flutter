@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mobile/views/utills/const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:path/path.dart';
+import 'package:async/async.dart';
+import 'dart:io';
 
 class ProfileProvider {
   String API_URL = AppConstants.baseUrl;
@@ -90,6 +93,35 @@ class ProfileProvider {
       return 'Success';
     } else {
       return 'Error';
+    }
+  }
+
+  Future<Map<String,dynamic>> changeAvatar(String filepath) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+
+    var request = http.MultipartRequest('POST', Uri.parse(API_URL + 'users/change/ava/'));
+    request.files.add(
+        http.MultipartFile.fromBytes(
+            'avatar',
+            File(filepath).readAsBytesSync(),
+            filename: filepath.split("/").last
+        )
+    );
+    request.headers["Authorization"]= "Token $token";
+    var response = await request.send();
+
+    print("response code" + response.statusCode.toString());
+    if (response.statusCode == 200) {
+      var sum = 0;
+      await for (final value in response.stream) {
+        sum += value as int;
+      }
+
+      print(sum);
+      return {'status': 'Succes'};
+    } else {
+      return {'status': 'Error'};
     }
   }
 

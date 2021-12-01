@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
+import 'package:mobile/views/authorization/signin_page.dart';
 import 'package:mobile/views/delivery/history_tab/delivery_history_page.dart';
 import 'package:mobile/views/delivery/order_tab/delivery_sales_order_page.dart';
 import 'package:mobile/views/delivery/points_tab/delivery_points_page.dart';
@@ -8,6 +9,8 @@ import 'package:mobile/views/sales_rep/points_tab/points_main_page.dart';
 import 'package:mobile/views/sales_rep/settings/settings_page.dart';
 import 'package:mobile/views/sales_rep/visits_tab/visits_main_page.dart';
 import 'package:mobile/views/utills/const.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'home_page/sales_home_page.dart';
 import 'list_of_payments_page.dart/list_of_payments_page.dart';
 import 'order_page/sales_order_page.dart';
@@ -195,6 +198,41 @@ class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
             title: const Text("Выйти", style: TextStyle(fontSize: 16)),
             onTap: () {
               Navigator.pop(context);
+              Alert(
+                context: context,
+                type: AlertType.warning,
+                title: "Внимание",
+                desc: "Вы точно хотите выйти?",
+                buttons: [
+                  DialogButton(
+                    child: Text(
+                      "Да",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    onPressed: () async{
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignInPage()),
+                              (Route<dynamic> route) => false);
+                      AppConstants.isSignIn = false;
+                      SharedPreferences prefs =await SharedPreferences.getInstance();
+                      prefs.clear();
+                    },
+                    color: Colors.red,
+                  ),
+                  DialogButton(
+                    child: Text(
+                      "Нет",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    color: Colors.grey,
+                  ),
+                ],
+              ).show();
             },
           ),
         ],
@@ -264,6 +302,41 @@ class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
             title: const Text("Выйти", style: TextStyle(fontSize: 16)),
             onTap: () {
               Navigator.pop(context);
+              Alert(
+                context: context,
+                type: AlertType.warning,
+                title: "Внимание",
+                desc: "Вы точно хотите выйти?",
+                buttons: [
+                  DialogButton(
+                    child: Text(
+                      "Да",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    onPressed: () async  {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignInPage()),
+                              (Route<dynamic> route) => false);
+                      AppConstants.isSignIn = false;
+                      SharedPreferences prefs =await SharedPreferences.getInstance();
+                      prefs.clear();
+                    },
+                    color: Colors.red,
+                  ),
+                  DialogButton(
+                    child: Text(
+                      "Нет",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    color: Colors.grey,
+                  ),
+                ],
+              ).show();
             },
           ),
         ],

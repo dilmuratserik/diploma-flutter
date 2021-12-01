@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobile/services/profile_api_provider.dart';
-import 'package:mobile/views/authorization/signin_page.dart';
 import 'package:mobile/views/basket/basket_page.dart';
 import 'package:mobile/views/categories/categories_page.dart';
 import 'package:mobile/views/home/home_page.dart';
 import 'package:mobile/views/home/search_page.dart';
-import 'package:mobile/views/map_page.dart';
 import 'package:mobile/views/profile/profile_page.dart';
-import 'package:mobile/views/sales_rep/settings/settings_page.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MainMenuPage extends StatefulWidget {
@@ -21,7 +17,6 @@ class MainMenuPage extends StatefulWidget {
   State<MainMenuPage> createState() => _MainMenuPageState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MainMenuPageState extends State<MainMenuPage> {
   int _selectedIndex = 0;
   final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key

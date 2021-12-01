@@ -107,7 +107,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
               ]),
               Divider(color: Colors.grey),
               Container(
-                height: MediaQuery.of(context).size.height * 0.79,
+                height: MediaQuery.of(context).size.height * 0.78,
                 child: ListView.builder(
                   itemCount: products.length,
                   itemBuilder: (BuildContext context, int index) => ProductItem(

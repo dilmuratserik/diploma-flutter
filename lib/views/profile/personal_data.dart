@@ -63,7 +63,8 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
       _value3 = listOfCities[(prefs.getInt("city")! - 1)]["id"];
       _value2 =  listOfCountries[prefs.getInt("country")!-1]["id"]-1;
       if (role == 2) {
-        binController.text = prefs.getString("bin_iin")!;
+        String binIin = "";
+        if (prefs.getString("bin_iin")!= null) binIin = prefs.getString("bin_iin")!;
       }
     });
   }
@@ -146,7 +147,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                         focusColor: Colors.grey,
                         fillColor: Colors.grey,
                         counterText: "",
-                        labelText: "ФИО",
+                        labelText: role == 1 ? "ФИО": "Название",
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide:

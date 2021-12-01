@@ -79,7 +79,7 @@ class OrdersProvider {
 
     // print(bodyDic);
 
-    // print(response.body);
+    print(response.body);
 
     if (response.statusCode == 200) {
       Map<String, dynamic> data = jsonDecode(response.body);

@@ -1,6 +1,4 @@
-import 'dart:convert';
-import 'dart:io';
-
+  import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,10 +10,9 @@ import 'package:mobile/views/profile/change_password_page.dart';
 import 'package:mobile/views/profile/orders_page.dart';
 import 'package:mobile/views/profile/personal_data.dart';
 import 'package:mobile/views/utills/const.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'addresses_page.dart';
-import 'cards_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -27,12 +24,13 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final ImagePicker _picker = ImagePicker();
 
-  bool _switchValue1 = false;
-  bool _switchValue2 = false;
+  // bool _switchValue1 = false;
+  // bool _switchValue2 = false;
 
   String name = 'Name';
   String ava = "";
   int uid = 0;
+  late SharedPreferences prefs;
 
   @override
   void initState() {
@@ -41,14 +39,17 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void getInfo() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs = await SharedPreferences.getInstance();
     uid = prefs.getInt("user_id")!;
 
     setState(() {
       name = prefs.getString('name')!;
       ava = prefs.getString('ava')!;
+      print(ava);
     });
   }
+
+  void getAva() {}
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +81,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                   XFile? avatar = await _picker.pickImage(
                                       source: ImageSource.gallery);
                                   setState(() {
-                                    if (avatar != null) ava = avatar.path;
+                                    if (avatar != null) {
+                                      ava = avatar.path;
+                                      ProfileProvider().changeAvatar(avatar.path);
+                                    };
                                   });
                                 },
                               ),
@@ -94,12 +98,15 @@ class _ProfilePageState extends State<ProfilePage> {
                                       source: ImageSource.camera,
                                       imageQuality: 40);
                                   setState(() {
-                                    if (avatar != null) ava = avatar.path;
+                                    if (avatar != null) {
+                                      ava = avatar.path;
+                                      ProfileProvider().changeAvatar(avatar.path);
+                                    }
                                   });
 
-                                  List<int> imageBytes =
-                                      File(ava).readAsBytesSync();
-                                  String base64Image = base64Encode(imageBytes);
+                                  // List<int> imageBytes =
+                                  // File(ava).readAsBytesSync();
+                                  // String base64Image = base64Encode(imageBytes);
                                   // changeAvater(base64Image);
                                 },
                               ),
@@ -108,7 +115,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         });
                   },
                   child: CircleAvatar(
-                      minRadius: MediaQuery.of(context).size.width / 11,
+                      minRadius: MediaQuery
+                          .of(context)
+                          .size
+                          .width / 11,
                       backgroundImage: getImage()),
                 ),
                 Padding(
@@ -129,7 +139,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Text(
                           "Бонусы: 0 тг",
                           style:
-                              TextStyle(fontSize: 18, color: AppColors.green),
+                          TextStyle(fontSize: 18, color: AppColors.green),
                         ),
                       )
                     ],
@@ -156,52 +166,52 @@ class _ProfilePageState extends State<ProfilePage> {
                       MaterialPageRoute(builder: (context) => AddressesPage()));
                 },
                 child: getMenuText("Адреса")),
-            InkWell(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CardsPage()));
-                },
-                child: getMenuText("Привязанные карты")),
-            Padding(
-              padding: const EdgeInsets.only(top: 0),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Данные о местоположении",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Switch(
-                        value: _switchValue1,
-                        activeColor: AppColors.gold,
-                        onChanged: (value) {
-                          setState(() {
-                            _switchValue1 = value;
-                          });
-                          print("value ${value}");
-                        })
-                  ]),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 0),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Уведомление",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Switch(
-                        value: _switchValue2,
-                        activeColor: AppColors.gold,
-                        onChanged: (value) {
-                          setState(() {
-                            _switchValue2 = value;
-                          });
-                          print("value ${value}");
-                        })
-                  ]),
-            ),
+            // InkWell(
+            //     onTap: () {
+            //       Navigator.push(context,
+            //           MaterialPageRoute(builder: (context) => CardsPage()));
+            //     },
+            //     child: getMenuText("Привязанные карты")),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 0),
+            //   child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //       children: [
+            //         Text(
+            //           "Данные о местоположении",
+            //           style: TextStyle(fontSize: 18),
+            //         ),
+            //         Switch(
+            //             value: _switchValue1,
+            //             activeColor: AppColors.gold,
+            //             onChanged: (value) {
+            //               setState(() {
+            //                 _switchValue1 = value;
+            //               });
+            //               print("value ${value}");
+            //             })
+            //       ]),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 0),
+            //   child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //       children: [
+            //         Text(
+            //           "Уведомление",
+            //           style: TextStyle(fontSize: 18),
+            //         ),
+            //         Switch(
+            //             value: _switchValue2,
+            //             activeColor: AppColors.gold,
+            //             onChanged: (value) {
+            //               setState(() {
+            //                 _switchValue2 = value;
+            //               });
+            //               print("value ${value}");
+            //             })
+            //       ]),
+            // ),
             InkWell(
               onTap: () {
                 Navigator.push(
@@ -257,7 +267,10 @@ class _ProfilePageState extends State<ProfilePage> {
                               topRight: const Radius.circular(15.0))),
                       builder: (context) {
                         return Container(
-                          height: MediaQuery.of(context).size.height / 3.2,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height / 3.2,
                           color: Colors.transparent,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -270,7 +283,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Column(
                                     children: [
@@ -318,6 +331,45 @@ class _ProfilePageState extends State<ProfilePage> {
                           builder: (context) => AboutApplicationPage()));
                 },
                 child: getMenuText("О приложении")),
+            InkWell(
+                onTap: () {
+                   Alert(
+                    context: context,
+                    type: AlertType.warning,
+                    title: "Внимание",
+                    desc: "Вы точно хотите выйти?",
+                    buttons: [
+                      DialogButton(
+                        child: Text(
+                          "Да",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        onPressed: () {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignInPage()),
+                                  (Route<dynamic> route) => false);
+                          AppConstants.isSignIn = false;
+                          prefs.clear();
+
+                        },
+                        color: Colors.red,
+                      ),
+                      DialogButton(
+                        child: Text(
+                          "Нет",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        color: Colors.grey,
+                      ),
+                    ],
+                  ).show();
+                },
+                child: getMenuText("Выход")),
             // InkWell(
             //   onTap: () {},
             //   child: Container(
@@ -358,7 +410,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
             title,
             style: TextStyle(fontSize: 18),
