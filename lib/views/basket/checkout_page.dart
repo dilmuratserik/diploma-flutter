@@ -1,9 +1,11 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_paybox/paybox.dart';
 import 'package:mobile/components/buttonGreen.dart';
 import 'package:mobile/models/basket_order_model.dart';
 import 'package:mobile/services/orders_api_provider.dart';
+import 'package:mobile/views/basket/payment_page.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:mobile/views/utills/hex_color.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -516,7 +518,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             const EdgeInsets.only(top: 30, left: 20, right: 20),
                         child: ElevatedButton(
                           onPressed: () {
-                            createOrder();
+                            // createOrder();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PaymentPage()));
                           },
                           style: ElevatedButton.styleFrom(
                               minimumSize: Size(double.infinity,

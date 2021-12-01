@@ -471,6 +471,31 @@ class _SalesCreateOrderPageState extends State<SalesCreateOrderPage> {
       if (response['status'] == 'ok') {
         AppConstants.basketSalesRep = [];
         AppConstants.basketIDsSalesRep = [];
+        Alert(
+          context: context,
+          type: AlertType.success,
+          title: "Заказ принят!",
+          desc: "Оплата успешно прошла.",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "Перейти в главную",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              color: AppColors.green,
+            ),
+          ],
+        ).show().whenComplete(() {
+          setState(() {
+            products = [];
+            secondController.text = '';
+            thirdController.text = '';
+            fourthController.text = '';
+          });
+        });
       } else {
         Alert(
           context: context,
