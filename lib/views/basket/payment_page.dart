@@ -10,7 +10,7 @@ class PaymentPage extends StatefulWidget {
 
 class _PaymentPageState extends State<PaymentPage> {
   var paybox = Paybox(
-    merchantId: 37292,
+    merchantId: 541682,
     secretKey: 'RANoGIbcsDoPYxHY',
   );
 
