@@ -16,7 +16,7 @@ PODS:
   - image_picker (0.0.1):
     - Flutter
   - Reachability (3.2)
-  - shared_preferences (0.0.1):
+  - shared_preferences_ios (0.0.1):
     - Flutter
   - webview_flutter_wkwebview (0.0.1):
     - Flutter
@@ -27,7 +27,7 @@ DEPENDENCIES:
   - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
-  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
 
 SPEC REPOS:
@@ -46,8 +46,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_maps_flutter/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
-  shared_preferences:
-    :path: ".symlinks/plugins/shared_preferences/ios"
+  shared_preferences_ios:
+    :path: ".symlinks/plugins/shared_preferences_ios/ios"
   webview_flutter_wkwebview:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
@@ -59,7 +59,7 @@ SPEC CHECKSUMS:
   GoogleMaps: 008e2c80e38605b56b560e8deb73d4194ff30bef
   image_picker: 9aa50e1d8cdacdbed739e925b7eea16d014367e6
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  shared_preferences: 5033afbb22d372e15aff8ff766df9021b845f273
+  shared_preferences_ios: aef470a42dc4675a1cdd50e3158b42e3d1232b32
   webview_flutter_wkwebview: 005fbd90c888a42c5690919a1527ecc6649e1162
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
