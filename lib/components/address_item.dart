@@ -12,7 +12,9 @@ class AddressItem extends StatelessWidget{
   }) : super(key: key);
 
   final Address address;
+  void _onChanged() {
 
+  }
   @override
   Widget build(BuildContext context) {
     // return _buildTiles(entry);
@@ -24,7 +26,7 @@ class AddressItem extends StatelessWidget{
       title: Text("Микрорайон ${address.street}, ${address.house}к${address.apartment}"),
       trailing: Icon(Icons.keyboard_arrow_right),
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewAddressPage(address: address,)));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewAddressPage(address: address,onChanged: _onChanged,)));
       },
     );
   }

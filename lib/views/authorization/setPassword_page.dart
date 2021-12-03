@@ -130,7 +130,6 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                       ),
                       validator: (value) {
                         return utill.validatePassword(value!);
-
                       }
                         // if (value!.isEmpty) {
                         //   return 'Пароль';

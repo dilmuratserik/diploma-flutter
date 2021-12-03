@@ -6,7 +6,7 @@ import 'package:mobile/services/place_services.dart';
 import 'package:mobile/services/profile_api_provider.dart';
 import 'package:mobile/views/utills/const.dart';
 import 'package:uuid/uuid.dart';
-
+import 'package:google_place/google_place.dart';
 import 'add_new_address.dart';
 
 class AddressesPage extends StatefulWidget {
@@ -52,7 +52,7 @@ class _AddressesPageState extends State<AddressesPage> {
           body: Column(
             children: [
               Container(
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.73,
                   child: ListView.separated(
                       itemCount: listAddresses.length,
                       itemBuilder: (context, index) {
@@ -67,21 +67,29 @@ class _AddressesPageState extends State<AddressesPage> {
               Spacer(),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 40),
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: Center(child: getButton('ДОБАВИТЬ АДРЕС')),
               ),
-              GestureDetector(
-                  onTap: ()async {
-                    final sessionToken = Uuid().v4();
-                    final List<Suggestion> result =
-                    await PlaceApiProvider(sessionToken)
-                        .fetchSuggestions("al", "en");
-                    print(result);
-                  },
-                  child: Text("asdasd"))
+                // GestureDetector(
+                //     onTap: ()async {
+                //       final sessionToken = Uuid().v4();
+                //       final List<Suggestion> result =
+                //       await PlaceApiProvider(sessionToken)
+                //           .fetchSuggestions("al", "en");
+                //       print(result);
+                //       var googlePlace = GooglePlace("AIzaSyDBEeXLvg0e1GqozypzQHBgZSQWFNHcMvc");
+                //       var risult = await googlePlace.autocomplete.get("1600 Amphitheatre");
+                //       print(risult);
+                //     },
+                //     child: Text(asd))
             ],
           ),
         ));
+  }
+  String asd = "asd";
+  void _onChanged() {
+    listAddresses.clear();
+    getAddresses();
   }
 
   Widget getButton(String text) {
@@ -89,7 +97,7 @@ class _AddressesPageState extends State<AddressesPage> {
       padding: const EdgeInsets.only(top: 30, left: 20,right: 20),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewAddressPage(address: null,)));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewAddressPage(address: null, onChanged: _onChanged,)));
         },
         style: ElevatedButton.styleFrom(
             minimumSize: Size(double.infinity, 30), // double.infinity is the width and 30 is the height

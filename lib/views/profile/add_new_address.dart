@@ -9,8 +9,9 @@ import 'package:mobile/views/utills/utill.dart' as utill;
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class AddNewAddressPage extends StatefulWidget {
-  const AddNewAddressPage({Key? key, required this.address}) : super(key: key);
 
+   AddNewAddressPage({Key? key, required this.address, required this.onChanged}) : super(key: key);
+  final Function onChanged;
   final Address? address;
 
   @override
@@ -46,25 +47,6 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
     "Danish",
     "Eclair",
     "Fudge",
-    "Granola",
-    "Hazelnut",
-    "Ice Cream",
-    "Jely",
-    "Kiwi Fruit",
-    "Lamb",
-    "Macadamia",
-    "Nachos",
-    "Oatmeal",
-    "Palm Oil",
-    "Quail",
-    "Rabbit",
-    "Salad",
-    "T-Bone Steak",
-    "Urid Dal",
-    "Vanilla",
-    "Waffles",
-    "Yam",
-    "Zest"
   ];
 
   @override
@@ -102,303 +84,307 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
               iconTheme: IconThemeData(color: Colors.black)),
           body: Form(
             key: _globalKey,
-            child: Column(children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                child: Column(
-                  children: <Widget>[
-                    TypeAheadFormField(
-                      textFieldConfiguration: TextFieldConfiguration(
-                        controller: this.firstController,
-                        onTap: () {
-                          firstFocusNode.requestFocus();
-                          secondFocusNode.unfocus();
-                          thirdFocusNode.unfocus();
-                          fourthFocusNode.unfocus();
-                          fifthFocusNode.unfocus();
-                          setState(() {});
-                        },
-                        focusNode: firstFocusNode,
-                        cursorColor: Colors.black,
-                        maxLength: 30,
-                        decoration: InputDecoration(
-                            labelStyle: TextStyle(
-                                color: firstFocusNode.hasFocus
-                                    ? AppColors.gold
-                                    : Colors.grey),
-                            focusColor: Colors.grey,
-                            fillColor: Colors.grey,
-                            counterText: "",
-                            labelText: "Улица",
-                            focusedErrorBorder: utill.errorBorder,
-                            errorBorder: utill.errorBorder,
-                            enabledBorder: utill.enabledBorder,
-                            focusedBorder: utill.enabledBorder),
-                      ),
-                      suggestionsCallback: (pattern) {
-                        List<String> list = [];
-                        for (var i in suggestions) {
-                          if (i.contains(pattern)) {
-                            list.add(i);
+            child: Container(
+
+              child: Column(children: [
+
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                  child: Column(
+                    children: <Widget>[
+                      TypeAheadFormField(
+                        textFieldConfiguration: TextFieldConfiguration(
+                          controller: this.firstController,
+                          onTap: () {
+                            firstFocusNode.requestFocus();
+                            secondFocusNode.unfocus();
+                            thirdFocusNode.unfocus();
+                            fourthFocusNode.unfocus();
+                            fifthFocusNode.unfocus();
+                            setState(() {});
+                          },
+                          focusNode: firstFocusNode,
+                          cursorColor: Colors.black,
+                          maxLength: 30,
+                          decoration: InputDecoration(
+                              labelStyle: TextStyle(
+                                  color: firstFocusNode.hasFocus
+                                      ? AppColors.gold
+                                      : Colors.grey),
+                              focusColor: Colors.grey,
+                              fillColor: Colors.grey,
+                              counterText: "",
+                              labelText: "Улица",
+                              focusedErrorBorder: utill.errorBorder,
+                              errorBorder: utill.errorBorder,
+                              enabledBorder: utill.enabledBorder,
+                              focusedBorder: utill.enabledBorder),
+                        ),
+                        suggestionsCallback: (pattern) {
+                          List<String> list = [];
+                          for (var i in suggestions) {
+                            if (i.contains(pattern)) {
+                              list.add(i);
+                            }
                           }
-                        }
-                        return list;
+                          return list;
+                        },
+                        itemBuilder: (context, suggestion) {
+                          return ListTile(
+                            title: Text(suggestion.toString()),
+                          );
+                        },
+                        transitionBuilder: (context, suggestionsBox, controller) {
+                          return suggestionsBox;
+                        },
+                        onSuggestionSelected: (suggestion) {
+                          print(suggestion);
+                          this.firstController.text = suggestion.toString();
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Заполните это поле';
+                          }
+                        },
+                        onSaved: (value) => this._selectedCity = value!,
+                        noItemsFoundBuilder: (BuildContext context) {
+                          return Text("");
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                // Padding(
+                //   padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                //   child: Container(
+                //     child: TextFormField(
+                //       onTap: () {
+                //         firstFocusNode.requestFocus();
+                //         secondFocusNode.unfocus();
+                //         thirdFocusNode.unfocus();
+                //         fourthFocusNode.unfocus();
+                //         fifthFocusNode.unfocus();
+                //         setState(() {});
+                //       },
+                //       focusNode: firstFocusNode,
+                //       controller: firstController,
+                //       cursorColor: Colors.black,
+                //       maxLength: 30,
+                //       decoration: InputDecoration(
+                //           labelStyle: TextStyle(
+                //               color: firstFocusNode.hasFocus
+                //                   ? AppColors.gold
+                //                   : Colors.grey),
+                //           focusColor: Colors.grey,
+                //           fillColor: Colors.grey,
+                //           counterText: "",
+                //           labelText: "Улица",
+                //           focusedErrorBorder: utill.errorBorder,
+                //           errorBorder: utill.errorBorder,
+                //           enabledBorder: utill.enabledBorder,
+                //           focusedBorder: utill.enabledBorder),
+                //       validator: (value) {
+                //         if (value!.isEmpty) {
+                //           return 'Заполните это поле';
+                //         }
+                //         return null;
+                //       },
+                //     ),
+                //   ),
+                // ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                  child: Container(
+                    child: TextFormField(
+                      onTap: () {
+                        firstFocusNode.unfocus();
+                        secondFocusNode.requestFocus();
+                        thirdFocusNode.unfocus();
+                        fourthFocusNode.unfocus();
+                        fifthFocusNode.unfocus();
+                        setState(() {});
                       },
-                      itemBuilder: (context, suggestion) {
-                        return ListTile(
-                          title: Text(suggestion.toString()),
-                        );
-                      },
-                      transitionBuilder: (context, suggestionsBox, controller) {
-                        return suggestionsBox;
-                      },
-                      onSuggestionSelected: (suggestion) {
-                        print(suggestion);
-                        this.firstController.text = suggestion.toString();
-                      },
+                      focusNode: secondFocusNode,
+                      controller: secondController,
+                      cursorColor: Colors.black,
+                      maxLength: 30,
+                      decoration: InputDecoration(
+                          labelStyle: TextStyle(
+                              color: secondFocusNode.hasFocus
+                                  ? AppColors.gold
+                                  : Colors.grey),
+                          focusColor: Colors.grey,
+                          fillColor: Colors.grey,
+                          counterText: "",
+                          labelText: "Дом",
+                          focusedErrorBorder: utill.errorBorder,
+                          errorBorder: utill.errorBorder,
+                          enabledBorder: utill.enabledBorder,
+                          focusedBorder: utill.enabledBorder),
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Заполните это поле';
                         }
-                      },
-                      onSaved: (value) => this._selectedCity = value!,
-                      noItemsFoundBuilder: (BuildContext context) {
-                        return Text("");
+                        return null;
                       },
                     ),
-                  ],
-                ),
-              ),
-              // Padding(
-              //   padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-              //   child: Container(
-              //     child: TextFormField(
-              //       onTap: () {
-              //         firstFocusNode.requestFocus();
-              //         secondFocusNode.unfocus();
-              //         thirdFocusNode.unfocus();
-              //         fourthFocusNode.unfocus();
-              //         fifthFocusNode.unfocus();
-              //         setState(() {});
-              //       },
-              //       focusNode: firstFocusNode,
-              //       controller: firstController,
-              //       cursorColor: Colors.black,
-              //       maxLength: 30,
-              //       decoration: InputDecoration(
-              //           labelStyle: TextStyle(
-              //               color: firstFocusNode.hasFocus
-              //                   ? AppColors.gold
-              //                   : Colors.grey),
-              //           focusColor: Colors.grey,
-              //           fillColor: Colors.grey,
-              //           counterText: "",
-              //           labelText: "Улица",
-              //           focusedErrorBorder: utill.errorBorder,
-              //           errorBorder: utill.errorBorder,
-              //           enabledBorder: utill.enabledBorder,
-              //           focusedBorder: utill.enabledBorder),
-              //       validator: (value) {
-              //         if (value!.isEmpty) {
-              //           return 'Заполните это поле';
-              //         }
-              //         return null;
-              //       },
-              //     ),
-              //   ),
-              // ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-                child: Container(
-                  child: TextFormField(
-                    onTap: () {
-                      firstFocusNode.unfocus();
-                      secondFocusNode.requestFocus();
-                      thirdFocusNode.unfocus();
-                      fourthFocusNode.unfocus();
-                      fifthFocusNode.unfocus();
-                      setState(() {});
-                    },
-                    focusNode: secondFocusNode,
-                    controller: secondController,
-                    cursorColor: Colors.black,
-                    maxLength: 30,
-                    decoration: InputDecoration(
-                        labelStyle: TextStyle(
-                            color: secondFocusNode.hasFocus
-                                ? AppColors.gold
-                                : Colors.grey),
-                        focusColor: Colors.grey,
-                        fillColor: Colors.grey,
-                        counterText: "",
-                        labelText: "Дом",
-                        focusedErrorBorder: utill.errorBorder,
-                        errorBorder: utill.errorBorder,
-                        enabledBorder: utill.enabledBorder,
-                        focusedBorder: utill.enabledBorder),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Заполните это поле';
-                      }
-                      return null;
-                    },
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                child: Container(
-                  child: TextFormField(
-                    onTap: () {
-                      firstFocusNode.unfocus();
-                      secondFocusNode.unfocus();
-                      thirdFocusNode.requestFocus();
-                      fourthFocusNode.unfocus();
-                      fifthFocusNode.unfocus();
-                      setState(() {});
-                    },
-                    focusNode: thirdFocusNode,
-                    controller: thirdController,
-                    cursorColor: Colors.black,
-                    maxLength: 30,
-                    decoration: InputDecoration(
-                        labelStyle: TextStyle(
-                            color: thirdFocusNode.hasFocus
-                                ? AppColors.gold
-                                : Colors.grey),
-                        focusColor: Colors.grey,
-                        fillColor: Colors.grey,
-                        counterText: "",
-                        labelText: "Квартира",
-                        focusedErrorBorder: utill.errorBorder,
-                        errorBorder: utill.errorBorder,
-                        enabledBorder: utill.enabledBorder,
-                        focusedBorder: utill.enabledBorder),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Заполните это поле';
-                      }
-                      return null;
-                    },
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  child: Container(
+                    child: TextFormField(
+                      onTap: () {
+                        firstFocusNode.unfocus();
+                        secondFocusNode.unfocus();
+                        thirdFocusNode.requestFocus();
+                        fourthFocusNode.unfocus();
+                        fifthFocusNode.unfocus();
+                        setState(() {});
+                      },
+                      focusNode: thirdFocusNode,
+                      controller: thirdController,
+                      cursorColor: Colors.black,
+                      maxLength: 30,
+                      decoration: InputDecoration(
+                          labelStyle: TextStyle(
+                              color: thirdFocusNode.hasFocus
+                                  ? AppColors.gold
+                                  : Colors.grey),
+                          focusColor: Colors.grey,
+                          fillColor: Colors.grey,
+                          counterText: "",
+                          labelText: "Квартира",
+                          focusedErrorBorder: utill.errorBorder,
+                          errorBorder: utill.errorBorder,
+                          enabledBorder: utill.enabledBorder,
+                          focusedBorder: utill.enabledBorder),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Заполните это поле';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                child: Container(
-                  child: TextFormField(
-                    onTap: () {
-                      firstFocusNode.unfocus();
-                      secondFocusNode.unfocus();
-                      thirdFocusNode.unfocus();
-                      fourthFocusNode.requestFocus();
-                      fifthFocusNode.unfocus();
-                      setState(() {});
-                    },
-                    focusNode: fourthFocusNode,
-                    controller: fourthController,
-                    cursorColor: Colors.black,
-                    maxLength: 30,
-                    decoration: InputDecoration(
-                        labelStyle: TextStyle(
-                            color: fourthFocusNode.hasFocus
-                                ? AppColors.gold
-                                : Colors.grey),
-                        focusColor: Colors.grey,
-                        fillColor: Colors.grey,
-                        counterText: "",
-                        labelText: "Этаж",
-                        focusedErrorBorder: utill.errorBorder,
-                        errorBorder: utill.errorBorder,
-                        enabledBorder: utill.enabledBorder,
-                        focusedBorder: utill.enabledBorder),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Заполните это поле';
-                      }
-                      return null;
-                    },
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  child: Container(
+                    child: TextFormField(
+                      onTap: () {
+                        firstFocusNode.unfocus();
+                        secondFocusNode.unfocus();
+                        thirdFocusNode.unfocus();
+                        fourthFocusNode.requestFocus();
+                        fifthFocusNode.unfocus();
+                        setState(() {});
+                      },
+                      focusNode: fourthFocusNode,
+                      controller: fourthController,
+                      cursorColor: Colors.black,
+                      maxLength: 30,
+                      decoration: InputDecoration(
+                          labelStyle: TextStyle(
+                              color: fourthFocusNode.hasFocus
+                                  ? AppColors.gold
+                                  : Colors.grey),
+                          focusColor: Colors.grey,
+                          fillColor: Colors.grey,
+                          counterText: "",
+                          labelText: "Этаж",
+                          focusedErrorBorder: utill.errorBorder,
+                          errorBorder: utill.errorBorder,
+                          enabledBorder: utill.enabledBorder,
+                          focusedBorder: utill.enabledBorder),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Заполните это поле';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                child: Container(
-                  child: TextFormField(
-                    onTap: () {
-                      firstFocusNode.unfocus();
-                      secondFocusNode.unfocus();
-                      thirdFocusNode.unfocus();
-                      fourthFocusNode.unfocus();
-                      fifthFocusNode.requestFocus();
-                      setState(() {});
-                    },
-                    focusNode: fifthFocusNode,
-                    controller: fifthController,
-                    cursorColor: Colors.black,
-                    maxLength: 30,
-                    decoration: InputDecoration(
-                        labelStyle: TextStyle(
-                            color: fifthFocusNode.hasFocus
-                                ? AppColors.gold
-                                : Colors.grey),
-                        focusColor: Colors.grey,
-                        fillColor: Colors.grey,
-                        counterText: "",
-                        labelText: "Подъезд",
-                        focusedErrorBorder: utill.errorBorder,
-                        errorBorder: utill.errorBorder,
-                        enabledBorder: utill.enabledBorder,
-                        focusedBorder: utill.enabledBorder),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Заполните это поле';
-                      }
-                      return null;
-                    },
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  child: Container(
+                    child: TextFormField(
+                      onTap: () {
+                        firstFocusNode.unfocus();
+                        secondFocusNode.unfocus();
+                        thirdFocusNode.unfocus();
+                        fourthFocusNode.unfocus();
+                        fifthFocusNode.requestFocus();
+                        setState(() {});
+                      },
+                      focusNode: fifthFocusNode,
+                      controller: fifthController,
+                      cursorColor: Colors.black,
+                      maxLength: 30,
+                      decoration: InputDecoration(
+                          labelStyle: TextStyle(
+                              color: fifthFocusNode.hasFocus
+                                  ? AppColors.gold
+                                  : Colors.grey),
+                          focusColor: Colors.grey,
+                          fillColor: Colors.grey,
+                          counterText: "",
+                          labelText: "Подъезд",
+                          focusedErrorBorder: utill.errorBorder,
+                          errorBorder: utill.errorBorder,
+                          enabledBorder: utill.enabledBorder,
+                          focusedBorder: utill.enabledBorder),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Заполните это поле';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                 ),
-              ),
-              Spacer(),
-              Visibility(
-                visible: widget.address != null ? true : false,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 10,
-                    right: 10,
-                    top: 10,
+                Spacer(),
+                Visibility(
+                  visible: widget.address != null ? true : false,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 10,
+                      right: 10,
+                      top: 10,
+                    ),
+                    child: getButton('УДАЛИТЬ', () {
+                      deleteAddress(widget.address!.id);
+                    }),
                   ),
-                  child: getButton('УДАЛИТЬ', () {
-                    deleteAddress(widget.address!.id);
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
+                  child: widget.address == null
+                      ? getButton('СОХРАНИТЬ', () {
+                          if (_globalKey.currentState!.validate()) {
+                            addNewAddress(
+                                firstController.text,
+                                secondController.text,
+                                int.parse(thirdController.text),
+                                int.parse(fourthController.text),
+                                int.parse(fifthController.text));
+                          }
+                        })
+                      : getButton("ИЗМЕНИТЬ", () {
+                    if (_globalKey.currentState!.validate()) {
+                      changeAddress(
+                          widget.address!.id,
+                          firstController.text,
+                          int.parse(secondController.text),
+                          int.parse(thirdController.text),
+                          int.parse(fourthController.text),
+                          int.parse(fifthController.text));
+                    }
                   }),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
-                child: widget.address == null
-                    ? getButton('СОХРАНИТЬ', () {
-                        if (_globalKey.currentState!.validate()) {
-                          addNewAddress(
-                              firstController.text,
-                              secondController.text,
-                              int.parse(thirdController.text),
-                              int.parse(fourthController.text),
-                              int.parse(fifthController.text));
-                        }
-                      })
-                    : getButton("ИЗМЕНИТЬ", () {
-                  if (_globalKey.currentState!.validate()) {
-                    changeAddress(
-                        widget.address!.id,
-                        firstController.text,
-                        int.parse(secondController.text),
-                        int.parse(thirdController.text),
-                        int.parse(fourthController.text),
-                        int.parse(fifthController.text));
-                  }
-                }),
-              ),
-            ]),
+              ]),
+            ),
           ),
         ));
   }
@@ -422,12 +408,13 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
       String street, String house, int floor, int apartment, int entrance) async {
     Map<String, dynamic> response = await ProfileProvider()
         .addNewAddress(street, house, floor, apartment, entrance);
-    print(street);
 
-    if (response['status'] != 'Error') {
+    if (response[' '] != 'Error') {
       print("resposnse " + response.toString());
       final snackBar = SnackBar(content: Text('Данные изменены'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      widget.onChanged();
+
     } else {
       final snackBar = SnackBar(
           content:

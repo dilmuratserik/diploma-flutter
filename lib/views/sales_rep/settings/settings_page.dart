@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/views/lock/lock_page.dart';
+import 'package:mobile/views/sales_rep/tech_support/tech_support.dart';
 import 'package:mobile/views/utills/const.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -54,7 +55,12 @@ class _SettingsPageState extends State<SettingsPage> {
             //             })
             //       ]),
             // ),
-            getMenuText("Написать техподдержку"),
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => TechSupportPage()));
+                },
+                child: getMenuText("Написать техподдержку")),
             GestureDetector(
                 onTap: () {
                   Navigator.push(context,

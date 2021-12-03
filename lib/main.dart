@@ -49,7 +49,6 @@ class MyApp extends StatelessWidget {
           shadowColor: Colors.black,
           iconTheme: IconThemeData(color: Colors.black),
         ),
-        // home: _role >=1 ? _role == 1 ? MainMenuPage() : MainMenuPage() : SignInPage());
     home: role >= 1 ? role > 2 ? SalesMainMenuPage(role: role): MainMenuPage() : SignInPage()
     );
   }
