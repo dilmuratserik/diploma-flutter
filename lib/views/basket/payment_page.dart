@@ -45,13 +45,15 @@ class _PaymentPageState extends State<PaymentPage> {
     paybox
         .createPayment(
       amount: 120,
-      userId: "001",
-      orderId: "3",
+      userId: "1",
+      orderId: "1",
       description: "Just test payment",
     )
         .then((payment) {
+      print(payment);
       if (payment != null) {
         paymentId = payment.paymentId;
+        print(paymentId);
       }
     }).onError((PayboxError error, stackTrace) {
       print(error.description);
