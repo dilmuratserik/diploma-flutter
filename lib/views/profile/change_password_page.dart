@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/components/buttonGreen.dart';
 import 'package:mobile/services/profile_api_provider.dart';
 import 'package:mobile/views/utills/const.dart';
-import 'package:mobile/views/utills/utill.dart' as utill;
+  import 'package:mobile/views/utills/utill.dart' as utill;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ChangePasswordPage extends StatefulWidget {

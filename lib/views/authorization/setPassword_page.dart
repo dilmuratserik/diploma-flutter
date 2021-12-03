@@ -2,17 +2,12 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:mobile/components/bitTextOnBottom.dart';
-import 'package:mobile/components/buttonGreen.dart';
 import 'package:mobile/services/auth_api_provider.dart';
-import 'package:mobile/views/sales_rep/sales_main_menu.dart';
 import 'package:mobile/views/utills/const.dart';
-import 'package:mobile/views/utills/hex_color.dart';
 import 'package:mobile/views/utills/utill.dart';
-import 'package:mobile/views/authorization/verification_page.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:mobile/views/utills/utill.dart' as utill;
 import '../../main_menu.dart';
 
 class SetPasswordPage extends StatefulWidget {
@@ -40,6 +35,11 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
   final _mobileFormatter = NumberTextInputFormatter();
   FocusNode newPasswordFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
+  final _formKey = GlobalKey<FormState>();
+
+
+  bool firstObsure = true;
+  bool secondObsure = true;
 
   @override
   void initState() {
@@ -70,141 +70,180 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                 bottomOpacity: 1,
                 iconTheme: IconThemeData(color: Colors.black)),
             body:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Form(
+                  key: _formKey,
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Padding(
-                padding: const EdgeInsets.only(left: 20, top: 20),
-                child: Text('Установите пароль',
-                    style: TextStyle(
-                        color: AppColors.green,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600)),
+                  padding: const EdgeInsets.only(left: 20, top: 20),
+                  child: Text('Установите пароль',
+                      style: TextStyle(
+                          color: AppColors.green,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600)),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Text('Придумайте пароль и заполните пустые поля',
-                    style: TextStyle(fontSize: 14)),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Text('Придумайте пароль и заполните пустые поля',
+                      style: TextStyle(fontSize: 14)),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                child: Container(
-                  child: TextFormField(
-                    onTap: () {
-                      newPasswordFocusNode.requestFocus();
-                      passwordFocusNode.unfocus();
-                      setState(() {});
-                    },
-                    focusNode: newPasswordFocusNode,
-                    controller: newPasswordController,
-                    cursorColor: Colors.black,
-                    obscureText: true,
-                    maxLength: 12,
-                    decoration: InputDecoration(
-                        labelStyle: TextStyle(
-                            color: newPasswordFocusNode.hasFocus
-                                ? AppColors.gold
-                                : Colors.grey),
-                        focusColor: Colors.grey,
-                        fillColor: Colors.grey,
-                        counterText: "",
-                        labelText: "Новый пароль",
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide:
-                                BorderSide(color: Colors.grey, width: 1)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: AppColors.gold, width: 1))),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Пароль';
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                  child: Container(
+                    child: TextFormField(
+                      onTap: () {
+                        newPasswordFocusNode.requestFocus();
+                        passwordFocusNode.unfocus();
+                        setState(() {});
+                      },
+                      focusNode: newPasswordFocusNode,
+                      controller: newPasswordController,
+                      cursorColor: Colors.black,
+                      obscureText: secondObsure,
+                      maxLength: 12,
+                      decoration: InputDecoration(
+                          suffixIcon: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  secondObsure = !secondObsure;
+                                });
+                              },
+                              child: (secondObsure)
+                                  ? Icon(
+                                Icons.visibility_off,
+                                color: AppColors.presentationGray,
+                              )
+                                  : Icon(Icons.visibility,
+                                  color: AppColors.presentationGray)),
+                          labelStyle: TextStyle(
+                              color: newPasswordFocusNode.hasFocus
+                                  ? AppColors.gold
+                                  : Colors.grey),
+                          focusColor: Colors.grey,
+                          fillColor: Colors.grey,
+                          counterText: "",
+                          labelText: "Новый пароль",
+                          errorBorder: utill.errorBorder,
+                          focusedErrorBorder: utill.errorBorder,
+                          enabledBorder: utill.enabledBorder,
+                          focusedBorder: utill.focusedBorder
+                      ),
+                      validator: (value) {
+                        return utill.validatePassword(value!);
+
                       }
-                      return null;
-                    },
+                        // if (value!.isEmpty) {
+                        //   return 'Пароль';
+                        // }
+                        // return null;
+                      // },
+                    ),
                   ),
-                ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: Container(
-                  child: TextFormField(
-                    onTap: () {
-                      newPasswordFocusNode.unfocus();
-                      passwordFocusNode.requestFocus();
-                      setState(() {});
-                    },
-                    focusNode: passwordFocusNode,
-                    controller: passwordController,
-                    cursorColor: Colors.black,
-                    obscureText: true,
-                    maxLength: 12,
-                    decoration: InputDecoration(
-                        labelStyle: TextStyle(
-                            color: passwordFocusNode.hasFocus
-                                ? AppColors.gold
-                                : Colors.grey),
-                        focusColor: Colors.grey,
-                        fillColor: Colors.grey,
-                        counterText: "",
-                        labelText: "Повторите пароль",
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide:
-                                BorderSide(color: Colors.grey, width: 1)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: AppColors.gold, width: 1))),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Пароль';
-                      }
-                      return null;
-                    },
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: Container(
+                    child: TextFormField(
+                      onTap: () { 
+                        newPasswordFocusNode.unfocus();
+                        passwordFocusNode.requestFocus();
+                        setState(() {});
+                      },
+                      focusNode: passwordFocusNode,
+                      controller: passwordController,
+                      cursorColor: Colors.black,
+                      obscureText: firstObsure,
+                      maxLength: 12,
+                      decoration: InputDecoration(
+                          suffixIcon: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  firstObsure = !firstObsure;
+                                });
+                              },
+                              child: (firstObsure)
+                                  ? Icon(
+                                Icons.visibility_off,
+                                color: AppColors.presentationGray,
+                              )
+                                  : Icon(Icons.visibility,
+                                  color: AppColors.presentationGray)),
+                          labelStyle: TextStyle(
+                              color: passwordFocusNode.hasFocus
+                                  ? AppColors.gold
+                                  : Colors.grey),
+                          focusColor: Colors.grey,
+                          fillColor: Colors.grey,
+                          counterText: "",
+                          labelText: "Повторите пароль",
+                          errorBorder: utill.errorBorder,
+                          focusedErrorBorder: utill.errorBorder,
+                          enabledBorder: utill.enabledBorder,
+                          focusedBorder: utill.focusedBorder
+                          // enabledBorder: OutlineInputBorder(
+                          //     borderRadius: BorderRadius.circular(10.0),
+                          //     borderSide:
+                          //         BorderSide(color: Colors.grey, width: 1)),
+                          // focusedBorder: OutlineInputBorder(
+                          //     borderSide:
+                          //         BorderSide(color: AppColors.gold, width: 1))
+                      ),
+                      validator: (value) {
+                        return utill.validatePassword(value!);
+                        // if (value!.isEmpty) {
+                        //   return 'Пароль';
+                        // }
+                        // return null;
+                      },
+                    ),
                   ),
-                ),
               ),
               Center(
-                  child: Padding(
-                padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
-                child: ElevatedButton(
-                  onPressed: () async {
-                    var connectivityResult =
+                    child: Padding(
+                  padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
+                  child: ElevatedButton(
+                    onPressed: () async {
+
+                      if (_formKey.currentState!.validate()) {
+                        var connectivityResult =
                         await (Connectivity().checkConnectivity());
-                    if (connectivityResult == ConnectivityResult.none) {
-                      Alert(
-                        context: context,
-                        type: AlertType.error,
-                        title: "Внимание",
-                        desc: "Соединение с интернетом отсутствует.",
-                        buttons: [
-                          DialogButton(
-                            child: Text(
-                              "Ok",
-                              style:
+                        if (connectivityResult == ConnectivityResult.none) {
+                          Alert(
+                            context: context,
+                            type: AlertType.error,
+                            title: "Внимание",
+                            desc: "Соединение с интернетом отсутствует.",
+                            buttons: [
+                              DialogButton(
+                                child: Text(
+                                  "Ok",
+                                  style:
                                   TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                            onPressed: () => Navigator.pop(context),
-                            color: Colors.red,
-                          ),
-                        ],
-                      ).show();
-                    } else {
-                      sendData();
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: Size(double.infinity,
-                          30), // double.infinity is the width and 30 is the height
-                      primary: AppColors.green,
-                      padding: EdgeInsets.symmetric(vertical: 17),
-                      textStyle: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Roboto")),
-                  child: Text('УСТАНОВИТЬ ПАРОЛЬ'),
-                ),
+                                ),
+                                onPressed: () => Navigator.pop(context),
+                                color: Colors.red,
+                              ),
+                            ],
+                          ).show();
+                        } else {
+                          sendData();
+                        }
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: Size(double.infinity,
+                            30), // double.infinity is the width and 30 is the height
+                        primary: AppColors.green,
+                        padding: EdgeInsets.symmetric(vertical: 17),
+                        textStyle: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Roboto")),
+                    child: Text('УСТАНОВИТЬ ПАРОЛЬ'),
+                  ),
               )),
-            ])));
+            ]),
+                )));
   }
 
   void sendData() async {
@@ -264,7 +303,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
         context: context,
         type: AlertType.error,
         title: "Внимание",
-        desc: "Пороли не совпадают.",
+        desc: "Пароли не совпадают.",
         buttons: [
           DialogButton(
             child: Text(

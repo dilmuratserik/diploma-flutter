@@ -182,6 +182,8 @@ class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
             ),
             onTap: () {
               Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ListOfPaymentsPage()));
             },
           ),
           ListTile(
@@ -274,8 +276,8 @@ class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
               style: TextStyle(fontSize: 16),
             ),
             onTap: () {
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => AboutApplicationPage()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ListOfPaymentsPage()));
               Navigator.pop(context);
             },
           ),

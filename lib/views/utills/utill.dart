@@ -53,8 +53,8 @@ createAlertDialog(BuildContext context) {
 }
 
 String? validatePassword(String password) {
-  RegExp regexDigit = RegExp(r'[0-9]$');
-  RegExp regexLetter = RegExp("");
+  RegExp regexDigit = RegExp('[0-9]');
+  RegExp regexLetter = RegExp("[a-z]");
   if (password.isEmpty) {
     return 'Введите пароль';
   } else {

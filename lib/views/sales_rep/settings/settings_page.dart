@@ -34,26 +34,26 @@ class _SettingsPageState extends State<SettingsPage> {
           children: [
             getMenuText("О приложении"),
             getMenuText("Инструкция по использованию про.."),
-            Padding(
-              padding: const EdgeInsets.only(top: 0),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Включить уведомление?",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Switch(
-                        value: _switchValue1,
-                        activeColor: AppColors.gold,
-                        onChanged: (value) {
-                          setState(() {
-                            _switchValue1 = value;
-                          });
-                          print("value ${value}");
-                        })
-                  ]),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 0),
+            //   child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //       children: [
+            //         Text(
+            //           "Включить уведомление?",
+            //           style: TextStyle(fontSize: 18),
+            //         ),
+            //         Switch(
+            //             value: _switchValue1,
+            //             activeColor: AppColors.gold,
+            //             onChanged: (value) {
+            //               setState(() {
+            //                 _switchValue1 = value;
+            //               });
+            //               print("value ${value}");
+            //             })
+            //       ]),
+            // ),
             getMenuText("Написать техподдержку"),
             GestureDetector(
                 onTap: () {

@@ -147,15 +147,12 @@ class _SalesHomePageState extends State<SalesHomePage> {
                                               await _picker.pickImage(
                                                   source: ImageSource.gallery);
                                           setState(() {
-                                            if (avatar != null)
-                                              ava = avatar.path;
+                                            if (avatar != null) {
+                                              // ava = avatar.path;
+                                              changeAvatar(avatar.path);
+                                            };
                                           });
 
-                                          List<int> imageBytes =
-                                              File(ava).readAsBytesSync();
-                                          String base64Image =
-                                              base64Encode(imageBytes);
-                                          changeAvater(base64Image);
                                         },
                                       ),
                                       ListTile(
@@ -169,15 +166,13 @@ class _SalesHomePageState extends State<SalesHomePage> {
                                                   source: ImageSource.camera);
 
                                           setState(() {
-                                            if (avatar != null)
-                                              ava = avatar.path;
+                                            if (avatar != null) {
+                                              // ava = avatar.path;
+                                              changeAvatar(avatar.path);
+                                            };
                                           });
 
-                                          List<int> imageBytes =
-                                              File(ava).readAsBytesSync();
-                                          String base64Image =
-                                              base64Encode(imageBytes);
-                                          changeAvater(base64Image);
+
                                         },
                                       ),
                                     ],
@@ -403,28 +398,48 @@ class _SalesHomePageState extends State<SalesHomePage> {
   getImage() {
     if (ava.startsWith("http")) {
       return NetworkImage(ava);
-    } else {
+    } else if (ava.isNotEmpty) {
       var file = FileImage(File(ava));
       return file;
     }
   }
 
-  void changeAvater(String ava) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var id = prefs.get('user_id')!;
-    int country = prefs.getInt('country')!;
-    int city = prefs.getInt("city")!;
-    String role = prefs.getString("role")!;
-    print(country);
-    print(city);
 
-    Map<String, dynamic> response = await ProfileProvider()
-        .changeUserInfo(ava, name, country, city, role, id.toString());
 
-    if (response['status'] == 'ok') {
-      print("response " + response.toString());
+  void changeAvatar(String path) async {
+    Map<String,dynamic> result = await ProfileProvider().changeAvatar(path);
+
+    if (result["status"] == "ok") {
+      print("result " + result.toString());
+      String avaUrl = "${AppConstants.baseUrl}${result["avatar"]}";
+      setState(() {
+        ava = avaUrl;
+      });
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('ava', avaUrl);
+    }
+    else {
+      print("result " + "error");
     }
   }
+
+
+  // void changeAvater(String ava) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   var id = prefs.get('user_id')!;
+  //   int country = prefs.getInt('country')!;
+  //   int city = prefs.getInt("city")!;
+  //   String role = prefs.getString("role")!;
+  //   print(country);
+  //   print(city);
+  //
+  //   Map<String, dynamic> response = await ProfileProvider()
+  //       .changeUserInfo(ava, name, country, city, role, id.toString());
+  //
+  //   if (response['status'] == 'ok') {
+  //     print("response " + response.toString());
+  //   }
+  // }
 
   Widget getDivider() {
     return Divider(

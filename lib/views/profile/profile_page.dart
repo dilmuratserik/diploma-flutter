@@ -49,7 +49,22 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
-  void getAva() {}
+  void changeAvatar(String path) async {
+   Map<String,dynamic> result = await ProfileProvider().changeAvatar(path);
+
+   if (result["status"] == "ok") {
+     print("result " + result.toString());
+     String avaUrl = "${AppConstants.baseUrl}${result["avatar"]}";
+     setState(() {
+       ava = avaUrl;
+     });
+     prefs.setString('ava', avaUrl);
+   }
+   else {
+     print("result " + "error");
+   }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +97,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                       source: ImageSource.gallery);
                                   setState(() {
                                     if (avatar != null) {
-                                      ava = avatar.path;
-                                      ProfileProvider().changeAvatar(avatar.path);
+                                      // ava = avatar.path;
+                                      changeAvatar(avatar.path);
                                     };
                                   });
                                 },
@@ -99,15 +114,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                       imageQuality: 40);
                                   setState(() {
                                     if (avatar != null) {
-                                      ava = avatar.path;
-                                      ProfileProvider().changeAvatar(avatar.path);
+                                      // ava = avatar.path;
+                                      changeAvatar(avatar.path);
                                     }
                                   });
-
-                                  // List<int> imageBytes =
-                                  // File(ava).readAsBytesSync();
-                                  // String base64Image = base64Encode(imageBytes);
-                                  // changeAvater(base64Image);
                                 },
                               ),
                             ],

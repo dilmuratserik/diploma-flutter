@@ -113,13 +113,13 @@ class ProfileProvider {
 
     print("response code" + response.statusCode.toString());
     if (response.statusCode == 200) {
-      var sum = 0;
-      await for (final value in response.stream) {
-        sum += value as int;
-      }
 
-      print(sum);
-      return {'status': 'Succes'};
+      var sum = "";
+      await for (final value in response.stream) {
+        sum += utf8.decode(value);
+      }
+      print("response " + sum);
+      return jsonDecode(sum);
     } else {
       return {'status': 'Error'};
     }
