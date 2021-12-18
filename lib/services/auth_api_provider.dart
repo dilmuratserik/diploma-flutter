@@ -18,13 +18,15 @@ class AuthProvider {
         "password": password,
       }),
     );
-
-    // print(response.body);
+    print(phone);
+    print(response.body);
 
     if (response.statusCode == 200) {
       Map<String, dynamic> result = jsonDecode(response.body);
       return result;
     } else {
+      print("status code" + response.statusCode.toString());
+      print("ololk" +response.body);
       return {'status': 'Error'};
     }
   }
@@ -36,10 +38,13 @@ class AuthProvider {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
       },
+
       body: jsonEncode(<String, dynamic>{
         "phone": phone,
       }),
     );
+    print("phone ${phone}");
+
 
     if (response.statusCode == 200) {
       Map<String, dynamic> result = jsonDecode(response.body);

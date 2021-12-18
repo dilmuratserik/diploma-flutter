@@ -32,6 +32,7 @@ class _SalesHomePageState extends State<SalesHomePage> {
   String region = AppConstants.region;
   String priceType = AppConstants.priceType;
   String orderSector = AppConstants.orderSector;
+  String workTime = AppConstants.workTime;
   int role = AppConstants.role;
 
   void getProfileInfo() async {
@@ -41,56 +42,64 @@ class _SalesHomePageState extends State<SalesHomePage> {
         await ProfileProvider().getProfileInfo(id.toString());
 
     if (response['status'] != 'Error') {
+      print(response);
       prefs.setString('name', response['name'].toString());
       prefs.setString('ava', response['avatar']);
-      prefs.setInt('country', response['country']);
-      prefs.setInt("city", response['city']);
+
+      if (response["country"] != null) {
+        prefs.setInt('country', response['country']);
+      }
+      if (response["city"] != null) {
+        prefs.setInt("city", response['city']);
+      }
+      if (response["locations"] != null) {
+        AppConstants.region = response['locations'].toString();
+      }
+
       AppConstants.name = response['name'];
       AppConstants.phone = response['phone'];
       AppConstants.ava = response['avatar'];
-      AppConstants.region = response['locations'].toString();
-      if (response['type_price'] == 1) {
-        AppConstants.priceType = 'Розница';
-      } else if (response['type_price'] == 2) {
-        AppConstants.priceType = 'Оптовый';
-      } else {
-        AppConstants.priceType = 'Спец. цена';
-      }
 
-      if (response['order_sector'] == 1) {
-        AppConstants.orderSector = 'Пивнушка';
-      } else if (response['order_sector'] == 2) {
-        AppConstants.orderSector = 'Магазин';
-      } else {
-        AppConstants.orderSector = 'Супермаркет';
-      }
       AppConstants.role = response["role"];
       prefs.setInt('role', role);
+
       if (role == 2) {
-        prefs.setString("bin_iin", response["bin_iin"].toString());
+        if (response["bin_iin"] != null) {
+          prefs.setString("bin_iin", response["bin_iin"].toString());
+        }
       }
+
       setState(() {
         name = response['name'];
         phone = response['phone'];
         ava = response['avatar'];
-        region = response['locations'].toString();
         role = response["role"];
 
-        if (response['type_price'] == 1) {
-          priceType = 'Розница';
-        } else if (response['type_price'] == 2) {
-          priceType = 'Оптовый';
-        } else {
-          priceType = 'Спец. цена';
+        String locations = "";
+        if (response["locations"] != "") {
+          locations = response["locations"]+", ";
         }
+        region = locations + response["storage"]["name"];
 
-        if (response['order_sector'] == 1) {
-          orderSector = 'Пивнушка';
-        } else if (response['order_sector'] == 2) {
-          orderSector = 'Магазин';
-        } else {
-          orderSector = 'Супермаркет';
-        }
+        priceType = response["price_type"]["name"];
+        orderSector = response["sector_order"]["name"];
+        workTime = "С "+response["working_hour_until"]+ " до " + response["working_hour_with"];
+
+        // if (response['type_price'] == 1) {
+        //   priceType = 'Розница';
+        // } else if (response['type_price'] == 2) {
+        //   priceType = 'Оптовый';
+        // } else {
+        //   priceType = 'Спец. цена';
+        // }
+        //
+        // if (response['order_sector'] == 1) {
+        //   orderSector = 'Пивнушка';
+        // } else if (response['order_sector'] == 2) {
+        //   orderSector = 'Магазин';
+        // } else {
+        //   orderSector = 'Супермаркет';
+        // }
       });
     }
   }
@@ -274,7 +283,7 @@ class _SalesHomePageState extends State<SalesHomePage> {
                                             getSubtitle(orderSector),
                                             getDivider(),
                                             getTitle("Время работы"),
-                                            getSubtitle("С 9:00 до 20:00"),
+                                            getSubtitle(workTime),
                                             getDivider(),
                                             // Padding(
                                             //   padding:
@@ -382,7 +391,7 @@ class _SalesHomePageState extends State<SalesHomePage> {
                                             getSubtitle(orderSector),
                                             getDivider(),
                                             getTitle("Время работы"),
-                                            getSubtitle("С 9:00 до 20:00"),
+                                            getSubtitle(workTime),
                                             getDivider(),
                                           ],
                                         ),

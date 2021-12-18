@@ -82,7 +82,7 @@ class SalesOrderDescriptionPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 6.0),
                         child: Text(
-                          order.total.toString() + " ₸",
+                          order.total.toString() + ' \u{3012}',
                           style: TextStyle(fontSize: 16),
                         ),
                       ),
@@ -115,7 +115,7 @@ class SalesOrderDescriptionPage extends StatelessWidget {
                                 child: Text(
                                     (i['product']['price'] * i['count'])
                                             .toString() +
-                                        ' ₸',
+                                        ' \u{3012}',
                                     style: TextStyle(fontSize: 18)),
                               )
                             ],

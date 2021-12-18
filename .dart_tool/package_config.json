@@ -441,13 +441,13 @@
     },
     {
       "name": "syncfusion_flutter_charts",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_charts-19.3.56",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_charts-19.3.57",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "syncfusion_flutter_core",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-19.3.56",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-19.3.57",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -483,25 +483,25 @@
     },
     {
       "name": "webview_flutter",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter-2.3.1",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter-2.8.0",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "webview_flutter_android",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter_android-2.4.0",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter_android-2.8.0",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "webview_flutter_platform_interface",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter_platform_interface-1.7.0",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter_platform_interface-1.8.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "webview_flutter_wkwebview",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter_wkwebview-2.4.0",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter_wkwebview-2.7.0",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -530,7 +530,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-12-03T08:51:14.488907Z",
+  "generated": "2021-12-09T05:50:57.952466Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }

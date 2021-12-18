@@ -50,7 +50,7 @@ class _SalesOrderItemState extends State<SalesOrderItem> {
                             fontSize: 18, color: AppColors.presentationGray)),
                     Padding(
                       padding: const EdgeInsets.only(left: 4.0),
-                      child: Text(widget.order.total.toString() + " ₸",
+                      child: Text(widget.order.total.toString() + ' \u{3012}',
                           style: TextStyle(fontSize: 18)),
                     )
                   ],

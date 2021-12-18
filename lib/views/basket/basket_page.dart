@@ -85,7 +85,7 @@ class _BasketPageState extends State<BasketPage> {
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                    child: Text(amount.toString() + ' ₸',
+                    child: Text(amount.toString() + ' \u{3012}',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.w600)),
                   ),
