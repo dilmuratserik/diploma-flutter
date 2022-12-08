@@ -18,7 +18,7 @@ class AppColors {
 }
 
 class AppConstants {
-  static final String baseUrl = "http://137.184.52.236/";
+  static final String baseUrl = "http://139.59.135.85/";
   static final String googleAPIKey = 'AIzaSyC3tTXPYDiWDhUqFLs3iby-giqGPHA28ho';
   static String name = 'Name';
   static String phone = '77____________';

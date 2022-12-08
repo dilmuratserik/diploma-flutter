@@ -1,4 +1,0 @@
-com/galleon/app/mobile/BuildConfig.java
- com.galleon.app.mobile.BuildConfig
-io/flutter/plugins/GeneratedPluginRegistrant.java
- io.flutter.plugins.GeneratedPluginRegistrant
