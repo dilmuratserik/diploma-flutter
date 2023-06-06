@@ -43,7 +43,6 @@ class _AddressesPageState extends State<AddressesPage> {
               centerTitle: true,
               title: Text('Адреса',
                   style: TextStyle(color: Colors.black, fontSize: 18)),
-              brightness: Brightness.light,
               automaticallyImplyLeading: true,
               backgroundColor: Colors.white,
               shadowColor: Colors.white,

@@ -116,7 +116,6 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
               centerTitle: true,
               title: Text('Личные данные',
                   style: TextStyle(color: Colors.black, fontSize: 18)),
-              brightness: Brightness.light,
               automaticallyImplyLeading: true,
               backgroundColor: Colors.white,
               shadowColor: Colors.white,

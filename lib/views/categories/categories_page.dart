@@ -21,7 +21,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
               centerTitle: true,
               title: Text('Категории',
                   style: TextStyle(color: Colors.black, fontSize: 18)),
-              brightness: Brightness.light,
               automaticallyImplyLeading: true,
               backgroundColor: Colors.white,
               shadowColor: Colors.white,

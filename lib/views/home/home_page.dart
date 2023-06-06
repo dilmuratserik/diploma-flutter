@@ -302,6 +302,7 @@ class _HomePageState extends State<HomePage> {
       List<Product> tempList3 = [];
       List<Product> tempList4 = [];
       for (var i in response['data']) {
+        print(i);
         Product tempProduct = Product.fromJson(i);
         if (tempProduct.category == 1) {
           tempList1.add(tempProduct);

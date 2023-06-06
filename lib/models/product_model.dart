@@ -1,10 +1,12 @@
+import 'dart:ffi';
+
 class Product {
   late final int id;
   late final List<dynamic> image;
   late final String name;
   late final String description;
   late final int price;
-  late final double weight;
+  late final String weight;
   late final dynamic category;
   late final dynamic subcategory;
 
@@ -27,9 +29,9 @@ class Product {
     });
     name = json['name'];
     description = json['description'];
-    price = json['price'];
-    json['weight'] == null ? weight = 100 : weight = json['weight'];
-    json['category'] == null ? category = 0 : category = json['category'];
+    price = json['price'] == null ? 0 : json['price'];
+    json['weight'] == null ? weight = "100" : weight = json['weight'].toString();
+    json['category'] == null ? category = 0.0 : category = json['category'];
     json['subcategory'] == null
         ? subcategory = 0
         : subcategory = json['subcategory'];

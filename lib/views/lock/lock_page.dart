@@ -34,7 +34,6 @@ class _LockPageState extends State<LockPage> {
           centerTitle: true,
           title: Text( "Код быстрого доступа",
               style: TextStyle(color: Colors.black, fontSize: 18)),
-          brightness: Brightness.light,
           automaticallyImplyLeading: true,
           backgroundColor: Colors.white,
           shadowColor: Colors.white,

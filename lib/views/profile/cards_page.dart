@@ -35,7 +35,6 @@ class _CardsPageState extends State<CardsPage> {
               centerTitle: true,
               title: Text('Привязанные карты',
                   style: TextStyle(color: Colors.black, fontSize: 18)),
-              brightness: Brightness.light,
               automaticallyImplyLeading: true,
               backgroundColor: Colors.white,
               shadowColor: Colors.white,

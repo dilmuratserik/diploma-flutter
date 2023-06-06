@@ -43,7 +43,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               centerTitle: true,
               title: Text('Изменить пароль',
                   style: TextStyle(color: Colors.black, fontSize: 18)),
-              brightness: Brightness.light,
               automaticallyImplyLeading: true,
               backgroundColor: Colors.white,
               shadowColor: Colors.white,

@@ -42,7 +42,6 @@ class _SearchPageState extends State<SearchPage> {
             centerTitle: true,
             title: Text('Результаты',
                 style: TextStyle(color: Colors.black, fontSize: 18)),
-            brightness: Brightness.light,
             automaticallyImplyLeading: true,
             backgroundColor: Colors.white,
             shadowColor: Colors.white,

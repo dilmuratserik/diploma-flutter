@@ -76,7 +76,6 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
               centerTitle: true,
               title: Text('Новый адрес',
                   style: TextStyle(color: Colors.black, fontSize: 18)),
-              brightness: Brightness.light,
               automaticallyImplyLeading: true,
               backgroundColor: Colors.white,
               shadowColor: Colors.white,

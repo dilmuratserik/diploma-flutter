@@ -35,7 +35,6 @@ class _AboutProductPageState extends State<AboutProductPage> {
             centerTitle: true,
             title: Text('О товаре',
                 style: TextStyle(color: Colors.black, fontSize: 18)),
-            brightness: Brightness.light,
             automaticallyImplyLeading: true,
             backgroundColor: Colors.white,
             shadowColor: Colors.white,

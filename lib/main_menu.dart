@@ -7,8 +7,8 @@ import 'package:mobile/views/home/home_page.dart';
 import 'package:mobile/views/home/search_page.dart';
 import 'package:mobile/views/profile/profile_page.dart';
 import 'package:mobile/views/utills/const.dart';
-import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_search_bar/flutter_search_bar.dart' as mySearchBar;
 
 class MainMenuPage extends StatefulWidget {
   const MainMenuPage({Key? key}) : super(key: key);
@@ -76,7 +76,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
     });
   }
 
-  late SearchBar searchBar;
+  late mySearchBar.SearchBar searchBar;
 
   AppBar buildAppBar(BuildContext context) {
     return new AppBar(
@@ -108,7 +108,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
   }
 
   _MainMenuPageState() {
-    searchBar = new SearchBar(
+    searchBar = new mySearchBar.SearchBar(
         inBar: false,
         setState: setState,
         onSubmitted: onSubmitted,

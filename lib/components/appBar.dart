@@ -5,7 +5,6 @@ Widget buildAppBar(String title) {
       elevation: 0,
       centerTitle: true,
       title: Text(title, style: TextStyle(color: Colors.black, fontSize: 18)),
-      brightness: Brightness.light,
       automaticallyImplyLeading: true,
       backgroundColor: Colors.white,
       shadowColor: Colors.white,

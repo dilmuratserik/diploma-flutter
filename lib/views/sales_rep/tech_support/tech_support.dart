@@ -18,7 +18,6 @@ class _TechSupportPageState extends State<TechSupportPage> {
           centerTitle: true,
           title: Text('Написать техподдержку',
               style: TextStyle(color: Colors.black, fontSize: 18)),
-          brightness: Brightness.light,
           automaticallyImplyLeading: true,
           backgroundColor: Colors.white,
           shadowColor: Colors.white,

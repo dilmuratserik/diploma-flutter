@@ -22,7 +22,6 @@ class _ListOfPaymentsPageState extends State<ListOfPaymentsPage> {
               centerTitle: true,
               title: Text('Список оплат',
                   style: TextStyle(color: Colors.black, fontSize: 18)),
-              brightness: Brightness.light,
               automaticallyImplyLeading: true,
               backgroundColor: Colors.white,
               shadowColor: Colors.white,

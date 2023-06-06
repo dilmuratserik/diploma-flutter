@@ -49,7 +49,6 @@ class _VerificationPageState extends State<VerificationPage> {
             centerTitle: true,
             title: Text('СМС код',
                 style: TextStyle(color: Colors.black, fontSize: 18)),
-            brightness: Brightness.light,
             automaticallyImplyLeading: true,
             backgroundColor: Colors.white,
             shadowColor: Colors.white,

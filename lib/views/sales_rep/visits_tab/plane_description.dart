@@ -37,7 +37,6 @@ class _PlaneDescriptionPageState extends State<PlaneDescriptionPage> {
         centerTitle: true,
         title:
             Text('Визиты', style: TextStyle(color: Colors.black, fontSize: 18)),
-        brightness: Brightness.light,
         automaticallyImplyLeading: true,
         backgroundColor: Colors.white,
         shadowColor: Colors.white,

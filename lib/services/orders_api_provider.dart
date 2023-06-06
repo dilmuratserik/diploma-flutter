@@ -8,6 +8,7 @@ class OrdersProvider {
   String API_URL = AppConstants.baseUrl;
 
   Future<Map<String, dynamic>> getOrdersByCategory(String categoryId) async {
+    print("category id" + categoryId.toString());
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
 

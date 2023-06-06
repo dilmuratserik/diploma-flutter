@@ -53,7 +53,6 @@ class _MapPageState extends State<MapPage> {
           centerTitle: true,
           title: Text('Карта',
               style: TextStyle(color: Colors.black, fontSize: 18)),
-          brightness: Brightness.light,
           automaticallyImplyLeading: true,
           backgroundColor: Colors.white,
           shadowColor: Colors.white,

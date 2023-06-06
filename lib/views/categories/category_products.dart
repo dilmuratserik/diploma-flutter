@@ -39,7 +39,6 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
             centerTitle: true,
             title: Text(widget.title,
                 style: TextStyle(color: Colors.black, fontSize: 18)),
-            brightness: Brightness.light,
             automaticallyImplyLeading: true,
             backgroundColor: Colors.white,
             shadowColor: Colors.white,
@@ -120,17 +119,28 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
   }
 
   void getProducts() async {
+    print("getProducts");
+    print(widget.category);
+    print(widget.subcategory);
+    print(widget.title);
+    print("end");
     var response =
         await OrdersProvider().getOrdersByCategory(widget.category.toString());
 
     if (response['status'] != 'Error') {
+      print("getProducts not error");
+      print(widget.subcategory);
       List<Product> prods = [];
       for (var i in response['results']) {
-        prods.add(Product.fromJson(i));
+        print(i);
+        var product = Product.fromJson(i);
+        prods.add(product);
       }
       setState(() {
         products = prods;
       });
+    } else {
+      print("getProducts else");
     }
   }
 

@@ -63,7 +63,6 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                 centerTitle: true,
                 title: Text('Пароль',
                     style: TextStyle(color: Colors.black, fontSize: 18)),
-                brightness: Brightness.light,
                 automaticallyImplyLeading: true,
                 backgroundColor: Colors.white,
                 shadowColor: Colors.white,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_search_bar/flutter_search_bar.dart';
+import 'package:flutter_search_bar/flutter_search_bar.dart' as mySearchBar;
 import 'package:mobile/views/authorization/signin_page.dart';
 import 'package:mobile/views/delivery/history_tab/delivery_history_page.dart';
 import 'package:mobile/views/delivery/order_tab/delivery_sales_order_page.dart';
@@ -68,7 +68,7 @@ class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
     });
   }
 
-  late SearchBar searchBar;
+  late mySearchBar.SearchBar searchBar;
 
   AppBar buildAppBar(BuildContext context) {
     return new AppBar(
@@ -104,7 +104,7 @@ class _SalesMainMenuPageState extends State<SalesMainMenuPage> {
   }
 
   _SalesMainMenuPageState() {
-    searchBar = new SearchBar(
+    searchBar = new mySearchBar.SearchBar(
         inBar: false,
         setState: setState,
         onSubmitted: print,

@@ -41,7 +41,6 @@ class _AddNewCardPageState extends State<AddNewCardPage> {
           elevation: 0,
           centerTitle: true,
           title: Text('Добавление карты', style: TextStyle(color: Colors.black, fontSize: 18)),
-          brightness: Brightness.light,
           automaticallyImplyLeading: true,
           backgroundColor: Colors.white,
           shadowColor: Colors.white,

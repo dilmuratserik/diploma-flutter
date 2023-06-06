@@ -22,7 +22,6 @@ class _SettingsPageState extends State<SettingsPage> {
           centerTitle: true,
           title: Text("Настройки",
               style: TextStyle(color: Colors.black, fontSize: 18)),
-          brightness: Brightness.light,
           automaticallyImplyLeading: true,
           backgroundColor: Colors.white,
           shadowColor: Colors.white,
